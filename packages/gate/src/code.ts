@@ -53,7 +53,7 @@ const literal = (n: AnyNode | undefined): string | null => {
   if (!n) return null;
   if (n.type === "Literal" && typeof n.value === "string") return n.value;
   if (n.type === "TemplateLiteral" && (n.expressions as unknown[]).length === 0)
-    return ((n.quasis as AnyNode[])[0]?.value as { cooked: string }).cooked;
+    return ((n.quasis as AnyNode[])[0]?.value as { cooked: string } | undefined)?.cooked ?? null;
   return null;
 };
 

@@ -26,24 +26,24 @@ export const checkUi = (m: Manifest, ui: UiSpec): Finding[] => {
   const out: Finding[] = [];
   const handlers = new Map(m.handlers.map((h) => [h.name, h]));
   const used = new Set<string>();
-  ui.pages.forEach((page, pi) =>
-    page.blocks.forEach((b, bi) => {
+  for (const [pi, page] of ui.pages.entries())
+    for (const [bi, b] of page.blocks.entries()) {
       const at = `ui.pages[${pi}].blocks[${bi}]`;
       if (b.type === "markdown") {
         out.push(...checkMarkdown(at, b.text));
-        return;
+        continue;
       }
       const h = handlers.get(b.handler);
       if (!h) {
         out.push(block("ui.unknown-handler", `${at} calls ${b.handler}, which the manifest does not declare`, { at }));
-        return;
+        continue;
       }
       used.add(h.name);
       const input = h.input.type === "object" ? h.input : null;
       if (b.type === "form") {
         if (!input) {
           out.push(block("ui.form-input", `${b.handler} takes a ${h.input.type}; a form needs an object input`, { at }));
-          return;
+          continue;
         }
         for (const f of b.fields) {
           const p = input.properties[f.name];
@@ -58,14 +58,13 @@ export const checkUi = (m: Manifest, ui: UiSpec): Finding[] => {
       }
       if (b.type === "chat") {
         const msg = input?.properties.message;
-        if (!msg || msg.type !== "string")
+        if (msg?.type !== "string")
           out.push(block("ui.chat-input", `a chat handler takes { message: string, history?: [...] }; ${b.handler} does not`, { at }));
         if (b.intro) out.push(...checkMarkdown(`${at}.intro`, b.intro));
       }
       if (b.type === "view" && (input?.required?.length ?? 0) > 0)
         out.push(block("ui.view-input", `${b.handler} requires input, so a view cannot call it on load`, { at }));
-    }),
-  );
+    }
   for (const h of m.handlers)
     if (!used.has(h.name))
       out.push(warn("ui.unused-handler", `handler ${h.name} is not reachable from the UI (it can still be called through the API)`));

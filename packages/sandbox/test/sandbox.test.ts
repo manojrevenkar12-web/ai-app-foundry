@@ -171,7 +171,7 @@ describe("isolation between invocations", () => {
         ),
       ),
     );
-    outs.forEach((o, n) => expect(o.value).toEqual({ n, v: n * 2 }));
+    for (const [n, o] of outs.entries()) expect(o.value).toEqual({ n, v: n * 2 });
   });
 });
 
