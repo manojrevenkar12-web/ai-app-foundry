@@ -16,7 +16,8 @@
     "seed": "node dist/cli/seed-world.js",
     "seed:apps": "node dist/cli/seed-apps.js",
     "start": "node dist/main.js",
-    "openapi": "node dist/cli/openapi.js"
+    "openapi": "node dist/cli/openapi.js",
+    "load": "vitest run --config load/vitest.config.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "1.3.0",
