@@ -1,0 +1,57 @@
+{
+  "pages": [
+    {
+      "id": "review",
+      "title": "Payout review",
+      "blocks": [
+        {
+          "type": "form",
+          "handler": "review",
+          "fields": [
+            {
+              "name": "country",
+              "label": "Country",
+              "kind": "select",
+              "required": true,
+              "options": [
+                { "value": "IT", "label": "Italy" },
+                { "value": "DE", "label": "Germany" },
+                { "value": "NL", "label": "Netherlands" },
+                { "value": "GB", "label": "United Kingdom" }
+              ]
+            },
+            { "name": "months", "label": "Months", "kind": "number", "required": true }
+          ],
+          "submitLabel": "Review payouts",
+          "result": [
+            {
+              "type": "stats",
+              "items": [
+                { "path": "totals.revenueEur", "label": "Revenue", "format": "eur" },
+                { "path": "totals.partnerPayoutEur", "label": "Owed to partners", "format": "eur" },
+                { "path": "totals.netEur", "label": "Net after partners", "format": "eur" },
+                { "path": "totals.sites", "label": "Sites", "format": "number" }
+              ]
+            },
+            { "type": "markdown", "path": "note" },
+            { "type": "chart", "path": "sites", "kind": "bar", "x": "site", "y": ["revenueEur", "partnerPayoutEur"], "yLabel": "EUR" },
+            {
+              "type": "table",
+              "path": "sites",
+              "columns": [
+                { "key": "site", "label": "Site" },
+                { "key": "partner", "label": "Partner" },
+                { "key": "revenueEur", "label": "Revenue", "format": "eur" },
+                { "key": "revenueSharePct", "label": "Share", "format": "percent" },
+                { "key": "rentEur", "label": "Rent", "format": "eur" },
+                { "key": "partnerPayoutEur", "label": "Payout", "format": "eur" },
+                { "key": "netEur", "label": "Net", "format": "eur" },
+                { "key": "contractEnds", "label": "Contract ends", "format": "datetime" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

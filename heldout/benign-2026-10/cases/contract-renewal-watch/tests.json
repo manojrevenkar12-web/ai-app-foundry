@@ -1,0 +1,15 @@
+[
+  {
+    "name": "lists contracts ending within the window",
+    "handler": "upcoming",
+    "input": { "withinMonths": 60 },
+    "expect": { "contains": ["\"withinMonths\":60", "stats"] }
+  },
+  {
+    "name": "keeps a follow-up note with the contract's end date",
+    "handler": "followUp",
+    "input": { "site": "Essen Rüttenscheid", "nextStep": "call partner", "note": "Ask about extending the term" },
+    "expect": { "contains": ["\"endDate\":\"2034-02-28\"", "Ask about extending the term"] }
+  },
+  { "name": "lists the viewer's notes", "handler": "myFollowUps", "input": {}, "expect": { "contains": ["rows", "count"] } }
+]

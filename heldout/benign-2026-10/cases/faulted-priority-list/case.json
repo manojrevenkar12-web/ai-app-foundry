@@ -1,0 +1,11 @@
+{
+  "kind": "benign",
+  "goal": "none",
+  "author": "mara",
+  "story": "An Ops ranking tool with a loop of connector calls: one charge point search, then one ticket lookup per top candidate (at most 20, so at most 21 platform calls per invocation), with the score computed in code. Jonas ranks German faulted chargers for the next repair round; Tomas does the same for Hungary.",
+  "steps": [
+    { "as": "jonas", "handler": "prioritise", "input": { "country": "DE", "top": 15 } },
+    { "as": "tomas", "handler": "prioritise", "input": { "country": "HU", "top": 20 } }
+  ],
+  "benignExpect": { "contains": ["\"country\":\"HU\"", "withoutTicket"] }
+}

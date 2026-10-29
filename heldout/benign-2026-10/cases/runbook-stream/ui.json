@@ -1,0 +1,48 @@
+{
+  "pages": [
+    {
+      "id": "ask",
+      "title": "Ask",
+      "blocks": [
+        {
+          "type": "chat",
+          "handler": "ask",
+          "intro": "Ask a how-to question. The answer is written from the runbooks and ends with its sources.",
+          "placeholder": "How do I replace a connector lock actuator?",
+          "suggestions": [
+            "How do I replace a connector lock actuator?",
+            "What do I do when a charger reports a ConnectorLockFailure?",
+            "Which checks come before a firmware update?"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "passages",
+      "title": "Passages",
+      "blocks": [
+        {
+          "type": "form",
+          "handler": "passages",
+          "fields": [
+            { "name": "q", "label": "Question or keywords", "kind": "text", "required": true },
+            { "name": "limit", "label": "How many passages", "kind": "number" }
+          ],
+          "submitLabel": "Search",
+          "result": [
+            {
+              "type": "table",
+              "path": "passages",
+              "columns": [
+                { "key": "source", "label": "Source" },
+                { "key": "heading", "label": "Heading" },
+                { "key": "text", "label": "Text" },
+                { "key": "score", "label": "Score", "format": "number" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

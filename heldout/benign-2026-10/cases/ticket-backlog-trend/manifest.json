@@ -1,0 +1,24 @@
+{
+  "id": "ticket-backlog-trend",
+  "name": "Ticket backlog trend",
+  "description": "How many field tickets were opened per day over the last weeks, how many are still open, the oldest open ticket and the load per technician, for the tickets you can see.",
+  "audience": { "kind": "groups", "groups": ["EDRI-Ops"] },
+  "handlers": [
+    {
+      "name": "backlog",
+      "description": "Ticket counts per day and per technician",
+      "input": {
+        "type": "object",
+        "properties": {
+          "days": { "type": "number", "minimum": 7, "maximum": 90 },
+          "q": { "type": "string", "maxLength": 100 }
+        },
+        "required": ["days"]
+      }
+    }
+  ],
+  "models": [],
+  "connectors": [{ "id": "tickets.search" }],
+  "collections": [],
+  "budget": { "eurPerDay": 1, "tokensPerUserPerDay": 1000 }
+}

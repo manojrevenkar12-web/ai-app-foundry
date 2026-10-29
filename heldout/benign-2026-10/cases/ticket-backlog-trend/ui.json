@@ -1,0 +1,40 @@
+{
+  "pages": [
+    {
+      "id": "trend",
+      "title": "Backlog",
+      "blocks": [
+        {
+          "type": "form",
+          "handler": "backlog",
+          "fields": [
+            { "name": "days", "label": "Days to look back (7 to 90)", "kind": "number", "required": true },
+            { "name": "q", "label": "Only tickets mentioning (optional)", "kind": "text" }
+          ],
+          "submitLabel": "Show backlog",
+          "result": [
+            {
+              "type": "stats",
+              "items": [
+                { "path": "stats.tickets", "label": "Tickets", "format": "number" },
+                { "path": "stats.open", "label": "Open", "format": "number" },
+                { "path": "stats.closed", "label": "Closed", "format": "number" },
+                { "path": "stats.oldestOpenDays", "label": "Oldest open (days)", "format": "number" }
+              ]
+            },
+            { "type": "chart", "path": "byDay", "kind": "line", "x": "day", "y": ["opened"], "yLabel": "Tickets opened" },
+            {
+              "type": "table",
+              "path": "byTechnician",
+              "columns": [
+                { "key": "technician", "label": "Technician" },
+                { "key": "openTickets", "label": "Open tickets", "format": "number" }
+              ]
+            },
+            { "type": "markdown", "path": "oldest.title" }
+          ]
+        }
+      ]
+    }
+  ]
+}

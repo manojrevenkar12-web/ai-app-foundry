@@ -1,0 +1,15 @@
+[
+  {
+    "name": "puts a request on the board",
+    "handler": "request",
+    "input": { "chargePointId": "DE*EDR*E1001", "part": "RCD type B module", "quantity": 1, "urgency": "high" },
+    "expect": { "contains": ["\"key\":\"de-edr-e1001-rcd-type-b-module\"", "\"status\":\"open\""] }
+  },
+  { "name": "shows the board", "handler": "board", "input": {}, "expect": { "contains": ["rows", "stats"] } },
+  {
+    "name": "says when a key is not on the board",
+    "handler": "delivered",
+    "input": { "key": "no-such-request" },
+    "expect": { "contains": ["\"found\":false"] }
+  }
+]

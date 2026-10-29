@@ -1,0 +1,73 @@
+{
+  "pages": [
+    {
+      "id": "board",
+      "title": "Board",
+      "blocks": [
+        {
+          "type": "view",
+          "handler": "board",
+          "title": "Open part requests",
+          "result": [
+            {
+              "type": "stats",
+              "items": [
+                { "path": "stats.open", "label": "Open requests", "format": "number" },
+                { "path": "stats.high", "label": "Urgent", "format": "number" },
+                { "path": "stats.units", "label": "Units", "format": "number" }
+              ]
+            },
+            {
+              "type": "table",
+              "path": "rows",
+              "columns": [
+                { "key": "urgency", "label": "Urgency", "format": "status" },
+                { "key": "chargePointId", "label": "Charge point" },
+                { "key": "part", "label": "Part" },
+                { "key": "quantity", "label": "Qty", "format": "number" },
+                { "key": "requestedBy", "label": "Requested by" },
+                { "key": "requestedAt", "label": "Requested", "format": "datetime" },
+                { "key": "key", "label": "Key" }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "form",
+          "handler": "delivered",
+          "title": "Mark as delivered",
+          "fields": [{ "name": "key", "label": "Key from the board", "kind": "text", "required": true }],
+          "submitLabel": "Delivered",
+          "result": [{ "type": "markdown", "path": "item.part" }]
+        }
+      ]
+    },
+    {
+      "id": "request",
+      "title": "Request a part",
+      "blocks": [
+        {
+          "type": "form",
+          "handler": "request",
+          "fields": [
+            { "name": "chargePointId", "label": "Charge point", "kind": "text", "required": true },
+            { "name": "part", "label": "Part", "kind": "text", "required": true },
+            { "name": "quantity", "label": "Quantity", "kind": "number", "required": true },
+            {
+              "name": "urgency",
+              "label": "Urgency",
+              "kind": "select",
+              "required": true,
+              "options": [
+                { "value": "normal", "label": "Normal" },
+                { "value": "high", "label": "High (charger is down)" }
+              ]
+            }
+          ],
+          "submitLabel": "Put on the board",
+          "result": [{ "type": "markdown", "path": "key" }]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+[
+  {
+    "name": "computes the partner payout from revenue and contract",
+    "handler": "review",
+    "input": { "country": "DE", "months": 1 },
+    "expect": { "contains": ["\"partnerPayoutEur\":4709.92", "\"partner\":\"Ruhr Retail GmbH\"", "\"sites\":1"] }
+  }
+]

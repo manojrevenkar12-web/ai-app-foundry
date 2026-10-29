@@ -1,0 +1,35 @@
+{
+  "id": "contract-renewal-watch",
+  "name": "Contract renewal watch",
+  "description": "Location-partner contracts that end in the coming months, and your own follow-up notes on each renewal. Notes are private to you and kept as confidential.",
+  "audience": { "kind": "groups", "groups": ["EDRI-Commercial"] },
+  "handlers": [
+    {
+      "name": "upcoming",
+      "description": "Contracts ending within the next months",
+      "input": {
+        "type": "object",
+        "properties": { "withinMonths": { "type": "number", "minimum": 1, "maximum": 60 } },
+        "required": ["withinMonths"]
+      }
+    },
+    {
+      "name": "followUp",
+      "description": "Keep a follow-up note on a site's renewal",
+      "input": {
+        "type": "object",
+        "properties": {
+          "site": { "type": "string", "maxLength": 120 },
+          "nextStep": { "type": "string", "enum": ["call partner", "send offer", "legal review", "wait"] },
+          "note": { "type": "string", "maxLength": 2000 }
+        },
+        "required": ["site", "nextStep", "note"]
+      }
+    },
+    { "name": "myFollowUps", "description": "Your follow-up notes", "input": { "type": "object", "properties": {} } }
+  ],
+  "models": [],
+  "connectors": [{ "id": "partners.contracts" }],
+  "collections": [{ "name": "followups", "scope": "private", "classification": "confidential", "retentionDays": 365 }],
+  "budget": { "eurPerDay": 1, "tokensPerUserPerDay": 1000 }
+}

@@ -1,0 +1,14 @@
+[
+  {
+    "name": "streams an answer about revenue",
+    "handler": "ask",
+    "input": { "message": "What was the revenue in Essen in September?" },
+    "expect": { "contains": [] }
+  },
+  {
+    "name": "totals revenue by month",
+    "handler": "figures",
+    "input": {},
+    "expect": { "contains": ["\"month\":\"2026-09\"", "\"revenueEur\":58874"] }
+  }
+]

@@ -1,0 +1,52 @@
+{
+  "pages": [
+    {
+      "id": "history",
+      "title": "Fault history",
+      "blocks": [
+        {
+          "type": "form",
+          "handler": "history",
+          "title": "Charge point id (for example DE*EDR*E1001) and days to look back, at most 30",
+          "fields": [
+            { "name": "id", "label": "Charge point", "kind": "text", "required": true },
+            { "name": "days", "label": "Days", "kind": "number", "required": true }
+          ],
+          "submitLabel": "Show history",
+          "result": [
+            {
+              "type": "stats",
+              "items": [
+                { "path": "totals.events", "label": "Errors", "format": "number" },
+                { "path": "totals.perDay", "label": "Per day", "format": "number" },
+                { "path": "totals.connectorsAffected", "label": "Connectors affected", "format": "number" },
+                { "path": "totals.worstDayCount", "label": "Worst day", "format": "number" }
+              ]
+            },
+            { "type": "chart", "path": "byDay", "kind": "line", "x": "day", "y": ["count"], "yLabel": "Errors per day" },
+            {
+              "type": "table",
+              "path": "byCode",
+              "columns": [
+                { "key": "errorCode", "label": "Error code" },
+                { "key": "count", "label": "Count", "format": "number" },
+                { "key": "sharePct", "label": "Share", "format": "percent" }
+              ]
+            },
+            {
+              "type": "table",
+              "path": "events",
+              "columns": [
+                { "key": "at", "label": "When", "format": "datetime" },
+                { "key": "connector", "label": "Connector", "format": "number" },
+                { "key": "status", "label": "Status", "format": "status" },
+                { "key": "errorCode", "label": "Error" },
+                { "key": "vendorErrorCode", "label": "Vendor code" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

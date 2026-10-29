@@ -1,0 +1,106 @@
+{
+  "pages": [
+    {
+      "id": "plan",
+      "title": "Plan a site",
+      "blocks": [
+        {
+          "type": "form",
+          "handler": "plan",
+          "fields": [
+            { "name": "site", "label": "Site name", "kind": "text", "required": true },
+            {
+              "name": "country",
+              "label": "Country",
+              "kind": "select",
+              "required": true,
+              "options": [
+                { "value": "DE", "label": "Germany" },
+                { "value": "AT", "label": "Austria" },
+                { "value": "CZ", "label": "Czech Republic" },
+                { "value": "HU", "label": "Hungary" },
+                { "value": "PL", "label": "Poland" },
+                { "value": "RO", "label": "Romania" },
+                { "value": "IT", "label": "Italy" },
+                { "value": "NL", "label": "Netherlands" },
+                { "value": "DK", "label": "Denmark" },
+                { "value": "SE", "label": "Sweden" },
+                { "value": "GB", "label": "United Kingdom" }
+              ]
+            },
+            { "name": "chargers", "label": "Number of chargers", "kind": "number", "required": true },
+            { "name": "powerKw", "label": "Power per charger (kW)", "kind": "number", "required": true },
+            {
+              "name": "battery",
+              "label": "Battery buffer",
+              "kind": "select",
+              "required": true,
+              "options": [
+                { "value": "no", "label": "No" },
+                { "value": "yes", "label": "Yes" }
+              ]
+            }
+          ],
+          "submitLabel": "Make the plan",
+          "result": [
+            {
+              "type": "stats",
+              "items": [
+                { "path": "peakKw", "label": "Installed power (kW)", "format": "number" },
+                { "path": "gridKva", "label": "Grid connection (kVA)", "format": "number" }
+              ]
+            },
+            { "type": "markdown", "path": "checklist" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mine",
+      "title": "My plans",
+      "blocks": [
+        {
+          "type": "view",
+          "handler": "mine",
+          "title": "Saved plans",
+          "result": [
+            {
+              "type": "table",
+              "path": "rows",
+              "columns": [
+                { "key": "site", "label": "Site" },
+                { "key": "country", "label": "Country" },
+                { "key": "chargers", "label": "Chargers", "format": "number" },
+                { "key": "gridKva", "label": "kVA", "format": "number" },
+                { "key": "at", "label": "Planned", "format": "datetime" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lookup",
+      "title": "Runbooks",
+      "blocks": [
+        {
+          "type": "form",
+          "handler": "lookup",
+          "fields": [{ "name": "q", "label": "Search the runbooks", "kind": "text", "required": true }],
+          "submitLabel": "Search",
+          "result": [
+            {
+              "type": "table",
+              "path": "passages",
+              "columns": [
+                { "key": "source", "label": "Source" },
+                { "key": "heading", "label": "Heading" },
+                { "key": "text", "label": "Text" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

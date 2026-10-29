@@ -1,0 +1,48 @@
+{
+  "pages": [
+    {
+      "id": "notice",
+      "title": "Outage notice",
+      "blocks": [
+        {
+          "type": "form",
+          "handler": "preview",
+          "title": "1. Draft the notice",
+          "fields": [
+            { "name": "id", "label": "Charge point", "kind": "text", "required": true },
+            { "name": "expectedBack", "label": "Expected back (optional)", "kind": "text" }
+          ],
+          "submitLabel": "Draft notice",
+          "result": [
+            {
+              "type": "stats",
+              "items": [{ "path": "connectorsDown", "label": "Connectors down", "format": "number" }]
+            },
+            { "type": "markdown", "path": "notice" }
+          ]
+        },
+        {
+          "type": "form",
+          "handler": "post",
+          "title": "2. Post it to Teams",
+          "fields": [
+            {
+              "name": "channel",
+              "label": "Channel",
+              "kind": "select",
+              "required": true,
+              "options": [
+                { "value": "Field Ops DE", "label": "Field Ops DE" },
+                { "value": "Field Ops CEE", "label": "Field Ops CEE" },
+                { "value": "Field Ops Europe", "label": "Field Ops Europe" }
+              ]
+            },
+            { "name": "text", "label": "Message", "kind": "textarea", "required": true }
+          ],
+          "submitLabel": "Post",
+          "result": [{ "type": "markdown", "path": "summary" }]
+        }
+      ]
+    }
+  ]
+}

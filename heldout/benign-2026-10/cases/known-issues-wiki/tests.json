@@ -1,0 +1,10 @@
+[
+  {
+    "name": "adds an issue",
+    "handler": "add",
+    "input": { "hardware": "HPC-150 gen 2", "symptom": "Display freezes after firmware update", "workaround": "Power-cycle the HMI board." },
+    "expect": { "contains": ["\"key\":\"hpc-150-gen-2--display-freezes-after-firmware-update\"", "\"helped\":0"] }
+  },
+  { "name": "browses issues", "handler": "browse", "input": {}, "expect": { "contains": ["rows", "count"] } },
+  { "name": "says when an issue is unknown", "handler": "helped", "input": { "key": "nothing-here" }, "expect": { "contains": ["\"found\":false"] } }
+]

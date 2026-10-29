@@ -1,0 +1,45 @@
+{
+  "id": "ticket-note-writer",
+  "name": "Ticket note writer",
+  "description": "Find the open tickets of a charge point, turn your rough bullet points into a clean ticket note, and add it to the ticket after you confirm.",
+  "audience": { "kind": "groups", "groups": ["EDRI-Ops"] },
+  "handlers": [
+    {
+      "name": "find",
+      "description": "Open tickets of a charge point",
+      "input": {
+        "type": "object",
+        "properties": { "chargePointId": { "type": "string", "maxLength": 40 } },
+        "required": ["chargePointId"]
+      }
+    },
+    {
+      "name": "draft",
+      "description": "Write a ticket note from bullet points",
+      "input": {
+        "type": "object",
+        "properties": {
+          "ticketId": { "type": "string", "maxLength": 20 },
+          "bullets": { "type": "string", "maxLength": 3000 }
+        },
+        "required": ["ticketId", "bullets"]
+      }
+    },
+    {
+      "name": "post",
+      "description": "Add the note to the ticket, after the viewer confirms",
+      "input": {
+        "type": "object",
+        "properties": {
+          "ticketId": { "type": "string", "maxLength": 20 },
+          "text": { "type": "string", "maxLength": 2000 }
+        },
+        "required": ["ticketId", "text"]
+      }
+    }
+  ],
+  "models": [{ "alias": "fast", "maxTokensPerCall": 500 }],
+  "connectors": [{ "id": "tickets.search" }, { "id": "tickets.comment" }],
+  "collections": [],
+  "budget": { "eurPerDay": 3, "tokensPerUserPerDay": 40000 }
+}

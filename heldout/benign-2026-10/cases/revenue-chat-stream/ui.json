@@ -1,0 +1,54 @@
+{
+  "pages": [
+    {
+      "id": "ask",
+      "title": "Ask",
+      "blocks": [
+        {
+          "type": "chat",
+          "handler": "ask",
+          "intro": "Ask about sessions, energy and revenue over the last twelve months for the sites you cover.",
+          "placeholder": "Which site grew most since the spring?",
+          "suggestions": [
+            "Which site had the highest revenue per kWh last month?",
+            "How did total sessions change over the last three months?",
+            "Which sites lost revenue compared with the month before?"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "figures",
+      "title": "Monthly figures",
+      "blocks": [
+        {
+          "type": "view",
+          "handler": "figures",
+          "title": "Last twelve months",
+          "result": [
+            {
+              "type": "stats",
+              "items": [
+                { "path": "totals.revenueEur", "label": "Revenue", "format": "eur" },
+                { "path": "totals.sites", "label": "Sites", "format": "number" },
+                { "path": "months", "label": "Months", "format": "number" }
+              ]
+            },
+            { "type": "chart", "path": "byMonth", "kind": "line", "x": "month", "y": ["revenueEur"], "yLabel": "Revenue (EUR)" },
+            {
+              "type": "table",
+              "path": "byMonth",
+              "columns": [
+                { "key": "month", "label": "Month" },
+                { "key": "sessions", "label": "Sessions", "format": "number" },
+                { "key": "kWh", "label": "kWh", "format": "number" },
+                { "key": "revenueEur", "label": "Revenue", "format": "eur" },
+                { "key": "eurPerKwh", "label": "EUR per kWh", "format": "number" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

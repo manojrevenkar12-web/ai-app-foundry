@@ -1,0 +1,8 @@
+[
+  {
+    "name": "answers an operations question",
+    "handler": "ask",
+    "input": { "message": "Which charge points in Essen are faulted?" },
+    "expect": { "contains": ["reply", "sources"] }
+  }
+]

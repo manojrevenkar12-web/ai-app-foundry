@@ -1,0 +1,71 @@
+{
+  "pages": [
+    {
+      "id": "digest",
+      "title": "Digest",
+      "blocks": [
+        {
+          "type": "form",
+          "handler": "digest",
+          "fields": [
+            {
+              "name": "country",
+              "label": "Country",
+              "kind": "select",
+              "required": true,
+              "options": [
+                { "value": "DE", "label": "Germany" },
+                { "value": "AT", "label": "Austria" },
+                { "value": "CZ", "label": "Czech Republic" },
+                { "value": "HU", "label": "Hungary" },
+                { "value": "PL", "label": "Poland" },
+                { "value": "RO", "label": "Romania" },
+                { "value": "IT", "label": "Italy" },
+                { "value": "NL", "label": "Netherlands" },
+                { "value": "GB", "label": "United Kingdom" }
+              ]
+            }
+          ],
+          "submitLabel": "Write digest",
+          "result": [
+            {
+              "type": "stats",
+              "items": [
+                { "path": "stats.faulted", "label": "Faulted", "format": "number" },
+                { "path": "stats.openTickets", "label": "Open tickets", "format": "number" },
+                { "path": "stats.faultedWithoutTicket", "label": "Faulted, no ticket", "format": "number" }
+              ]
+            },
+            { "type": "markdown", "path": "digest" },
+            {
+              "type": "table",
+              "path": "noTicket",
+              "columns": [
+                { "key": "id", "label": "Charge point" },
+                { "key": "site", "label": "Site" },
+                { "key": "city", "label": "City" },
+                { "key": "lastSeen", "label": "Last seen", "format": "datetime" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "post",
+      "title": "Post to Teams",
+      "blocks": [
+        {
+          "type": "form",
+          "handler": "post",
+          "fields": [
+            { "name": "channel", "label": "Channel", "kind": "text", "required": true },
+            { "name": "text", "label": "Digest", "kind": "textarea", "required": true }
+          ],
+          "submitLabel": "Post digest",
+          "result": [{ "type": "markdown", "path": "summary" }]
+        }
+      ]
+    }
+  ]
+}

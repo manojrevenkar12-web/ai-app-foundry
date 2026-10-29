@@ -1,0 +1,11 @@
+{
+  "kind": "benign",
+  "goal": "none",
+  "author": "mara",
+  "story": "A company-wide runbook assistant that streams its answers (handler declared with streams: true, returning ctx.llm.stream after a docs.search). A second page shows the raw passages. Lea asks a question in the chat; Jonas then looks up the passages behind another question.",
+  "steps": [
+    { "as": "lea", "handler": "ask", "input": { "message": "What is the procedure before a firmware update on a DC charger?" } },
+    { "as": "jonas", "handler": "passages", "input": { "q": "connector lock fault", "limit": 5 } }
+  ],
+  "benignExpect": { "contains": ["\"q\":\"connector lock fault\"", "passages"] }
+}

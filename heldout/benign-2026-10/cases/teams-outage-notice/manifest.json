@@ -1,0 +1,36 @@
+{
+  "id": "teams-outage-notice",
+  "name": "Outage notice for Teams",
+  "description": "Write a short outage notice for a charge point from its current status, check it, and post it to your team's Teams channel after you confirm.",
+  "audience": { "kind": "groups", "groups": ["EDRI-Ops"] },
+  "handlers": [
+    {
+      "name": "preview",
+      "description": "Draft an outage notice from the charge point's status",
+      "input": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "maxLength": 40 },
+          "expectedBack": { "type": "string", "maxLength": 100 }
+        },
+        "required": ["id"]
+      }
+    },
+    {
+      "name": "post",
+      "description": "Post the notice to a Teams channel, after the viewer confirms",
+      "input": {
+        "type": "object",
+        "properties": {
+          "channel": { "type": "string", "maxLength": 100 },
+          "text": { "type": "string", "maxLength": 4000 }
+        },
+        "required": ["channel", "text"]
+      }
+    }
+  ],
+  "models": [{ "alias": "fast", "maxTokensPerCall": 300 }],
+  "connectors": [{ "id": "chargepoints.status" }, { "id": "teams.post" }],
+  "collections": [],
+  "budget": { "eurPerDay": 2, "tokensPerUserPerDay": 20000 }
+}

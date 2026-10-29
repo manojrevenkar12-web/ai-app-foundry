@@ -1,0 +1,21 @@
+{
+  "pages": [
+    {
+      "id": "chat",
+      "title": "Ask",
+      "blocks": [
+        {
+          "type": "chat",
+          "handler": "ask",
+          "intro": "Ask about the charge points your team covers. The assistant looks them up with your access and lists the sources it used.",
+          "placeholder": "Which charge points in Vienna are faulted right now?",
+          "suggestions": [
+            "Which charge points in Vienna are faulted right now?",
+            "Which open tickets in Prague have no technician yet?",
+            "What errors did the faulted chargers in Budapest report this week?"
+          ]
+        }
+      ]
+    }
+  ]
+}

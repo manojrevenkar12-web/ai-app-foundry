@@ -1,0 +1,32 @@
+{
+  "id": "spare-parts-board",
+  "name": "Spare parts board",
+  "description": "A shared board for the field teams: request a spare part for a charge point, see every open request, and mark a request as delivered.",
+  "audience": { "kind": "groups", "groups": ["EDRI-Ops"] },
+  "handlers": [
+    {
+      "name": "request",
+      "description": "Put a part request on the board",
+      "input": {
+        "type": "object",
+        "properties": {
+          "chargePointId": { "type": "string", "maxLength": 40 },
+          "part": { "type": "string", "maxLength": 120 },
+          "quantity": { "type": "number", "minimum": 1, "maximum": 50 },
+          "urgency": { "type": "string", "enum": ["normal", "high"] }
+        },
+        "required": ["chargePointId", "part", "quantity", "urgency"]
+      }
+    },
+    { "name": "board", "description": "All open part requests", "input": { "type": "object", "properties": {} } },
+    {
+      "name": "delivered",
+      "description": "Mark a request as delivered",
+      "input": { "type": "object", "properties": { "key": { "type": "string", "maxLength": 200 } }, "required": ["key"] }
+    }
+  ],
+  "models": [],
+  "connectors": [],
+  "collections": [{ "name": "parts", "scope": "shared", "classification": "internal", "retentionDays": 90 }],
+  "budget": { "eurPerDay": 1, "tokensPerUserPerDay": 1000 }
+}

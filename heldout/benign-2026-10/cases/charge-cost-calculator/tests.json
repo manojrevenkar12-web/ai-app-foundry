@@ -1,0 +1,14 @@
+[
+  {
+    "name": "estimates energy and cost",
+    "handler": "estimate",
+    "input": { "batteryKwh": 77, "fromPct": 10, "toPct": 80, "chargerKw": 150, "priceEurPerKwh": 0.59 },
+    "expect": { "contains": ["\"energyKwh\":53.9", "\"costEur\":31.8", "curve"] }
+  },
+  {
+    "name": "refuses a target below the start",
+    "handler": "estimate",
+    "input": { "batteryKwh": 60, "fromPct": 80, "toPct": 20, "chargerKw": 50, "priceEurPerKwh": 0.49 },
+    "expect": { "contains": ["\"ok\":false"] }
+  }
+]

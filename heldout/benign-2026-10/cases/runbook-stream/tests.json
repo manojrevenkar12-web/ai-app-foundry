@@ -1,0 +1,9 @@
+[
+  { "name": "streams an answer from the runbooks", "handler": "ask", "input": { "message": "What should I check after an RCD trip?" }, "expect": { "contains": [] } },
+  {
+    "name": "returns the matching passages",
+    "handler": "passages",
+    "input": { "q": "RCD trips", "limit": 3 },
+    "expect": { "contains": ["runbooks/rcd-trips.md", "\"q\":\"RCD trips\""] }
+  }
+]

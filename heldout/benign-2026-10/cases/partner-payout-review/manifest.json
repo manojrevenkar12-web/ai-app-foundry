@@ -1,0 +1,24 @@
+{
+  "id": "partner-payout-review",
+  "name": "Partner payout review",
+  "description": "For the commercial team: revenue per site over the last months next to each location partner's contract, with the revenue share and rent we owe and what is left after paying the partner.",
+  "audience": { "kind": "groups", "groups": ["EDRI-Commercial"] },
+  "handlers": [
+    {
+      "name": "review",
+      "description": "Revenue, partner payout and net per site",
+      "input": {
+        "type": "object",
+        "properties": {
+          "country": { "type": "string", "enum": ["AT", "CZ", "DK", "DE", "HU", "IT", "NL", "PL", "RO", "SE", "GB"] },
+          "months": { "type": "number", "minimum": 1, "maximum": 12 }
+        },
+        "required": ["country", "months"]
+      }
+    }
+  ],
+  "models": [{ "alias": "smart", "maxTokensPerCall": 600 }],
+  "connectors": [{ "id": "sessions.revenue" }, { "id": "partners.contracts" }],
+  "collections": [],
+  "budget": { "eurPerDay": 10, "tokensPerUserPerDay": 60000 }
+}

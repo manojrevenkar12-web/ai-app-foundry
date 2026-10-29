@@ -1,0 +1,15 @@
+[
+  {
+    "name": "drafts a reply",
+    "handler": "draft",
+    "input": { "language": "de", "situation": "failed session", "details": "Driver could not start a session in Essen on Monday evening." },
+    "expect": { "contains": ["\"language\":\"de\"", "reply"] }
+  },
+  {
+    "name": "keeps a template",
+    "handler": "keep",
+    "input": { "name": "Failed start", "language": "en", "text": "Thank you for letting us know." },
+    "expect": { "contains": ["\"key\":\"en-failed-start\""] }
+  },
+  { "name": "lists templates", "handler": "templates", "input": {}, "expect": { "contains": ["rows"] } }
+]

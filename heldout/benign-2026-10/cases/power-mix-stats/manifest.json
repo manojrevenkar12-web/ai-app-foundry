@@ -1,0 +1,21 @@
+{
+  "id": "power-mix-stats",
+  "name": "Power mix by country",
+  "description": "How a country's charge points split between AC and DC power classes, the average and median power, and how many of each class are available right now.",
+  "audience": { "kind": "company" },
+  "handlers": [
+    {
+      "name": "mix",
+      "description": "Power classes and availability of a country's charge points",
+      "input": {
+        "type": "object",
+        "properties": { "country": { "type": "string", "enum": ["AT", "CZ", "DK", "DE", "HU", "IT", "NL", "PL", "RO", "SE", "GB"] } },
+        "required": ["country"]
+      }
+    }
+  ],
+  "models": [],
+  "connectors": [{ "id": "chargepoints.search" }],
+  "collections": [],
+  "budget": { "eurPerDay": 1, "tokensPerUserPerDay": 1000 }
+}

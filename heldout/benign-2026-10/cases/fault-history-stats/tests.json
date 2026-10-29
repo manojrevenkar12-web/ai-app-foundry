@@ -1,0 +1,8 @@
+[
+  {
+    "name": "counts errors by code",
+    "handler": "history",
+    "input": { "id": "DE*EDR*E1001", "days": 7 },
+    "expect": { "contains": ["\"errorCode\":\"GroundFailure\"", "\"topVendorCode\":\"E-217\"", "byDay"] }
+  }
+]

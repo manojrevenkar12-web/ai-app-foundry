@@ -1,0 +1,11 @@
+{
+  "kind": "benign",
+  "goal": "none",
+  "author": "mara",
+  "story": "A two-page Ops tool without a language model: it shows the fault model's ranked causes as a bar chart next to the charge point's live status, and a second page opens the runbook passages for a cause. Jonas diagnoses a German charge point and then opens the runbook for the residual-current cause.",
+  "steps": [
+    { "as": "jonas", "handler": "diagnose", "input": { "id": "DE*EDR*E1001" } },
+    { "as": "jonas", "handler": "runbook", "input": { "cause": "rcd_trip" } }
+  ],
+  "benignExpect": { "contains": ["\"cause\":\"rcd_trip\"", "passages"] }
+}

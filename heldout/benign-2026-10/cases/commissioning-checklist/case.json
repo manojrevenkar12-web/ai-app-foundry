@@ -1,0 +1,12 @@
+{
+  "kind": "benign",
+  "goal": "none",
+  "author": "mara",
+  "story": "A three-page Ops tool for planning a new site: a small grid sizing calculation in code, a checklist written by the fast model from runbook passages, a private collection of the person's plans and a runbook lookup page. Mara plans two sites (one with a battery buffer) and then opens her saved plans.",
+  "steps": [
+    { "as": "mara", "handler": "plan", "input": { "site": "Bologna Fiera", "country": "IT", "chargers": 6, "powerKw": 150, "battery": "no" } },
+    { "as": "mara", "handler": "plan", "input": { "site": "Linz Hafen", "country": "AT", "chargers": 12, "powerKw": 300, "battery": "yes" } },
+    { "as": "mara", "handler": "mine", "input": {} }
+  ],
+  "benignExpect": { "contains": ["Bologna Fiera", "\"gridKva\":720", "Linz Hafen", "\"gridKva\":1890"] }
+}

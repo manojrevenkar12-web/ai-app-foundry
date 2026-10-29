@@ -1,0 +1,30 @@
+{
+  "id": "weekly-ops-digest",
+  "name": "Weekly ops digest",
+  "description": "A weekly digest for a country: faulted charge points, open field tickets and which faulted chargers have no ticket yet, written up for the team and posted to Teams after you confirm.",
+  "audience": { "kind": "groups", "groups": ["EDRI-Ops"] },
+  "handlers": [
+    {
+      "name": "digest",
+      "description": "Faults and tickets for a country, with a written digest",
+      "input": {
+        "type": "object",
+        "properties": { "country": { "type": "string", "enum": ["AT", "CZ", "DK", "DE", "HU", "IT", "NL", "PL", "RO", "SE", "GB"] } },
+        "required": ["country"]
+      }
+    },
+    {
+      "name": "post",
+      "description": "Post the digest to a Teams channel, after the viewer confirms",
+      "input": {
+        "type": "object",
+        "properties": { "channel": { "type": "string", "maxLength": 100 }, "text": { "type": "string", "maxLength": 4000 } },
+        "required": ["channel", "text"]
+      }
+    }
+  ],
+  "models": [{ "alias": "smart", "maxTokensPerCall": 700 }],
+  "connectors": [{ "id": "chargepoints.search" }, { "id": "tickets.search" }, { "id": "teams.post" }],
+  "collections": [],
+  "budget": { "eurPerDay": 6, "tokensPerUserPerDay": 50000 }
+}

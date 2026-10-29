@@ -1,0 +1,14 @@
+[
+  {
+    "name": "ranks the causes",
+    "handler": "diagnose",
+    "input": { "id": "DE*EDR*E1001" },
+    "expect": { "contains": ["\"topCause\":\"rcd_trip\"", "\"probabilityPct\":71", "\"confidence\":\"clear\""] }
+  },
+  {
+    "name": "finds the runbook for a cause",
+    "handler": "runbook",
+    "input": { "cause": "rcd_trip" },
+    "expect": { "contains": ["runbooks/rcd-trips.md"] }
+  }
+]

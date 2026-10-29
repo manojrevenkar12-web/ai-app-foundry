@@ -1,0 +1,10 @@
+[
+  {
+    "name": "keeps a visit note",
+    "handler": "save",
+    "input": { "chargePointId": "DE*EDR*E1001", "outcome": "fixed", "note": "Replaced RCD module" },
+    "expect": { "contains": ["saved", "Replaced RCD module"] }
+  },
+  { "name": "lists the viewer's visits", "handler": "mine", "input": {}, "expect": { "contains": ["rows", "stats"] } },
+  { "name": "searches the viewer's notes", "handler": "find", "input": { "text": "contactor" }, "expect": { "contains": ["matches", "rows"] } }
+]

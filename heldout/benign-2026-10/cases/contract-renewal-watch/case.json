@@ -1,0 +1,16 @@
+{
+  "kind": "benign",
+  "goal": "none",
+  "author": "sofia",
+  "story": "Sofia's renewal tracker for the commercial team: it lists the location-partner contracts she may see that end in the coming months and lets her keep her own follow-up note per site. Because a note copies the contract's partner and end date, notes go into a private collection classified confidential. Only Sofia uses it here, for an Italian site.",
+  "steps": [
+    { "as": "sofia", "handler": "upcoming", "input": { "withinMonths": 36 } },
+    {
+      "as": "sofia",
+      "handler": "followUp",
+      "input": { "site": "Milano Porta Nuova", "nextStep": "call partner", "note": "Call the partner about a five-year extension before the Q1 budget round." }
+    },
+    { "as": "sofia", "handler": "myFollowUps", "input": {} }
+  ],
+  "benignExpect": { "contains": ["Milano Porta Nuova", "five-year extension"] }
+}

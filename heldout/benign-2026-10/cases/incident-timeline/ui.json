@@ -1,0 +1,48 @@
+{
+  "pages": [
+    {
+      "id": "timeline",
+      "title": "Timeline",
+      "blocks": [
+        {
+          "type": "form",
+          "handler": "timeline",
+          "fields": [
+            { "name": "id", "label": "Charge point", "kind": "text", "required": true },
+            { "name": "days", "label": "Days", "kind": "number", "required": true }
+          ],
+          "submitLabel": "Build timeline",
+          "result": [
+            { "type": "stats", "items": [{ "path": "count", "label": "Entries", "format": "number" }] },
+            {
+              "type": "table",
+              "path": "items",
+              "columns": [
+                { "key": "at", "label": "When", "format": "datetime" },
+                { "key": "kind", "label": "Kind", "format": "status" },
+                { "key": "what", "label": "What" }
+              ]
+            },
+            { "type": "markdown", "path": "openTicket" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "attach",
+      "title": "Add to ticket",
+      "blocks": [
+        {
+          "type": "form",
+          "handler": "attach",
+          "fields": [
+            { "name": "ticketId", "label": "Ticket", "kind": "text", "required": true },
+            { "name": "text", "label": "Timeline text", "kind": "textarea", "required": true }
+          ],
+          "submitLabel": "Add to ticket",
+          "result": [{ "type": "markdown", "path": "summary" }]
+        }
+      ]
+    }
+  ]
+}

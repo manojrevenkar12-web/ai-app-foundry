@@ -1,0 +1,44 @@
+{
+  "id": "runbook-stream",
+  "name": "Runbook answers, live",
+  "description": "Ask a how-to question and watch the answer being written from the runbooks; a second page shows the raw passages behind any question.",
+  "audience": { "kind": "company" },
+  "handlers": [
+    {
+      "name": "ask",
+      "description": "Answer from the runbooks, streamed",
+      "streams": true,
+      "input": {
+        "type": "object",
+        "properties": {
+          "message": { "type": "string", "maxLength": 2000 },
+          "history": {
+            "type": "array",
+            "maxItems": 20,
+            "items": {
+              "type": "object",
+              "properties": {
+                "role": { "type": "string", "enum": ["user", "assistant"] },
+                "content": { "type": "string", "maxLength": 4000 }
+              }
+            }
+          }
+        },
+        "required": ["message"]
+      }
+    },
+    {
+      "name": "passages",
+      "description": "The runbook passages that match a question",
+      "input": {
+        "type": "object",
+        "properties": { "q": { "type": "string", "maxLength": 300 }, "limit": { "type": "number", "minimum": 1, "maximum": 10 } },
+        "required": ["q"]
+      }
+    }
+  ],
+  "models": [{ "alias": "fast", "maxTokensPerCall": 700 }],
+  "connectors": [{ "id": "docs.search" }],
+  "collections": [],
+  "budget": { "eurPerDay": 8, "tokensPerUserPerDay": 60000 }
+}

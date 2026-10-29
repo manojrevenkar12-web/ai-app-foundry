@@ -1,0 +1,53 @@
+{
+  "pages": [
+    {
+      "id": "diagnose",
+      "title": "Causes",
+      "blocks": [
+        {
+          "type": "form",
+          "handler": "diagnose",
+          "fields": [{ "name": "id", "label": "Charge point", "kind": "text", "required": true }],
+          "submitLabel": "Diagnose",
+          "result": [
+            { "type": "markdown", "path": "confidence" },
+            { "type": "chart", "path": "causes", "kind": "bar", "x": "label", "y": ["probabilityPct"], "yLabel": "Probability (%)" },
+            {
+              "type": "table",
+              "path": "connectors",
+              "columns": [
+                { "key": "id", "label": "Connector", "format": "number" },
+                { "key": "status", "label": "Status", "format": "status" },
+                { "key": "errorCode", "label": "Error" }
+              ]
+            },
+            { "type": "table", "path": "evidence", "columns": [{ "key": "evidence", "label": "Evidence" }] }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "runbook",
+      "title": "Runbook for a cause",
+      "blocks": [
+        {
+          "type": "form",
+          "handler": "runbook",
+          "fields": [{ "name": "cause", "label": "Cause (for example rcd_trip)", "kind": "text", "required": true }],
+          "submitLabel": "Open runbook",
+          "result": [
+            {
+              "type": "table",
+              "path": "passages",
+              "columns": [
+                { "key": "source", "label": "Source" },
+                { "key": "heading", "label": "Heading" },
+                { "key": "text", "label": "Text" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

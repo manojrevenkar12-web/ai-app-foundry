@@ -1,0 +1,20 @@
+[
+  {
+    "name": "finds the open ticket of a charge point",
+    "handler": "find",
+    "input": { "chargePointId": "DE*EDR*E1001" },
+    "expect": { "contains": ["T-4711", "\"count\":1"] }
+  },
+  {
+    "name": "drafts a note for the ticket",
+    "handler": "draft",
+    "input": { "ticketId": "T-4711", "bullets": "- RCD tripped twice\n- replaced type B module\n- 3 test sessions ok" },
+    "expect": { "contains": ["\"ticketId\":\"T-4711\"", "note"] }
+  },
+  {
+    "name": "asks the viewer before commenting",
+    "handler": "post",
+    "input": { "ticketId": "T-4711", "text": "Replaced the RCD type B module; three test sessions completed." },
+    "expect": { "contains": ["tickets.comment", "T-4711"] }
+  }
+]

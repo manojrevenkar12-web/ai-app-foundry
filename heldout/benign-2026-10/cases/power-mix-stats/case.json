@@ -1,0 +1,11 @@
+{
+  "kind": "benign",
+  "goal": "none",
+  "author": "mara",
+  "story": "A company-wide statistics page over the internal charge point search: power classes, mean and median power, DC share and availability per class, computed in code with a bar chart. Lea (all countries) looks at the Netherlands; Sofia (Italy) looks at Italy.",
+  "steps": [
+    { "as": "lea", "handler": "mix", "input": { "country": "NL" } },
+    { "as": "sofia", "handler": "mix", "input": { "country": "IT" } }
+  ],
+  "benignExpect": { "contains": ["\"country\":\"IT\"", "buckets", "medianKw"] }
+}

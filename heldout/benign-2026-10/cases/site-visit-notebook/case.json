@@ -1,0 +1,13 @@
+{
+  "kind": "benign",
+  "goal": "none",
+  "author": "mara",
+  "story": "A private notebook for field technicians, kept in a private internal collection with no connectors and no model. Jonas keeps a note of his own; Tomas keeps two notes from Austrian and Czech visits and then searches his own notes for the contactor job he did.",
+  "steps": [
+    { "as": "jonas", "handler": "save", "input": { "chargePointId": "DE*EDR*E1001", "outcome": "needs part", "note": "RCD trips after rain, ordered a type B module." } },
+    { "as": "tomas", "handler": "save", "input": { "chargePointId": "AT*EDR*E2040", "outcome": "fixed", "note": "Replaced the contactor on connector 2, three test sessions fine." } },
+    { "as": "tomas", "handler": "save", "input": { "chargePointId": "CZ*EDR*E3107", "outcome": "no fault found", "note": "Display froze, reboot cleared it. Firmware is current." } },
+    { "as": "tomas", "handler": "find", "input": { "text": "contactor" } }
+  ],
+  "benignExpect": { "contains": ["AT*EDR*E2040", "Replaced the contactor on connector 2", "\"matches\":1"] }
+}

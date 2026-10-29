@@ -1,0 +1,85 @@
+{
+  "pages": [
+    {
+      "id": "upcoming",
+      "title": "Ending soon",
+      "blocks": [
+        {
+          "type": "form",
+          "handler": "upcoming",
+          "fields": [{ "name": "withinMonths", "label": "Ending within (months)", "kind": "number", "required": true }],
+          "submitLabel": "Show contracts",
+          "result": [
+            {
+              "type": "stats",
+              "items": [
+                { "path": "stats.ending", "label": "Ending", "format": "number" },
+                { "path": "stats.contracts", "label": "Contracts you can see", "format": "number" }
+              ]
+            },
+            {
+              "type": "table",
+              "path": "rows",
+              "columns": [
+                { "key": "site", "label": "Site" },
+                { "key": "partner", "label": "Partner" },
+                { "key": "endDate", "label": "Ends", "format": "datetime" },
+                { "key": "monthsLeft", "label": "Months left", "format": "number" },
+                { "key": "revenueSharePct", "label": "Revenue share", "format": "percent" },
+                { "key": "rentEurMonth", "label": "Rent per month", "format": "eur" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "followups",
+      "title": "My follow-ups",
+      "blocks": [
+        {
+          "type": "form",
+          "handler": "followUp",
+          "title": "Note on a renewal",
+          "fields": [
+            { "name": "site", "label": "Site", "kind": "text", "required": true },
+            {
+              "name": "nextStep",
+              "label": "Next step",
+              "kind": "select",
+              "required": true,
+              "options": [
+                { "value": "call partner", "label": "Call the partner" },
+                { "value": "send offer", "label": "Send an offer" },
+                { "value": "legal review", "label": "Legal review" },
+                { "value": "wait", "label": "Wait" }
+              ]
+            },
+            { "name": "note", "label": "Note", "kind": "textarea", "required": true }
+          ],
+          "submitLabel": "Save note",
+          "result": [{ "type": "markdown", "path": "item.note" }]
+        },
+        {
+          "type": "view",
+          "handler": "myFollowUps",
+          "title": "Your notes",
+          "result": [
+            {
+              "type": "table",
+              "path": "rows",
+              "columns": [
+                { "key": "site", "label": "Site" },
+                { "key": "partner", "label": "Partner" },
+                { "key": "endDate", "label": "Ends", "format": "datetime" },
+                { "key": "nextStep", "label": "Next step" },
+                { "key": "note", "label": "Note" },
+                { "key": "updatedAt", "label": "Updated", "format": "datetime" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

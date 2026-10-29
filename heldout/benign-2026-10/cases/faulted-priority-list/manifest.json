@@ -1,0 +1,24 @@
+{
+  "id": "faulted-priority-list",
+  "name": "Repair priority list",
+  "description": "Ranks a country's faulted charge points for the next repair round: high-power chargers, long outages and chargers without a ticket come first.",
+  "audience": { "kind": "groups", "groups": ["EDRI-Ops"] },
+  "handlers": [
+    {
+      "name": "prioritise",
+      "description": "Faulted charge points ranked for repair",
+      "input": {
+        "type": "object",
+        "properties": {
+          "country": { "type": "string", "enum": ["AT", "CZ", "DK", "DE", "HU", "IT", "NL", "PL", "RO", "SE", "GB"] },
+          "top": { "type": "number", "minimum": 1, "maximum": 20 }
+        },
+        "required": ["country", "top"]
+      }
+    }
+  ],
+  "models": [],
+  "connectors": [{ "id": "chargepoints.search" }, { "id": "tickets.search" }],
+  "collections": [],
+  "budget": { "eurPerDay": 1, "tokensPerUserPerDay": 1000 }
+}

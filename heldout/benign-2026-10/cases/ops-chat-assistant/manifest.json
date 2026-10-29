@@ -1,0 +1,34 @@
+{
+  "id": "ops-chat-assistant",
+  "name": "Ops chat assistant",
+  "description": "Ask in plain words about the charge points you look after: which ones are faulted in a city, what a charger's recent errors were, which tickets are open. The assistant looks things up as you and names what it used.",
+  "audience": { "kind": "groups", "groups": ["EDRI-Ops"] },
+  "handlers": [
+    {
+      "name": "ask",
+      "description": "Answer an operations question with the read connectors",
+      "input": {
+        "type": "object",
+        "properties": {
+          "message": { "type": "string", "maxLength": 2000 },
+          "history": {
+            "type": "array",
+            "maxItems": 20,
+            "items": {
+              "type": "object",
+              "properties": {
+                "role": { "type": "string", "enum": ["user", "assistant"] },
+                "content": { "type": "string", "maxLength": 4000 }
+              }
+            }
+          }
+        },
+        "required": ["message"]
+      }
+    }
+  ],
+  "models": [{ "alias": "smart", "maxTokensPerCall": 1000 }],
+  "connectors": [{ "id": "chargepoints.search" }, { "id": "chargepoints.status" }, { "id": "chargepoints.events" }, { "id": "tickets.search" }],
+  "collections": [],
+  "budget": { "eurPerDay": 20, "tokensPerUserPerDay": 150000 }
+}

@@ -1,0 +1,8 @@
+[
+  {
+    "name": "counts open tickets per technician",
+    "handler": "backlog",
+    "input": { "days": 30 },
+    "expect": { "contains": ["\"open\":1", "\"technician\":\"N. Wagner\"", "byDay"] }
+  }
+]

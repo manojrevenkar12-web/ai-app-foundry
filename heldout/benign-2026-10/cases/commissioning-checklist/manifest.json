@@ -1,0 +1,33 @@
+{
+  "id": "commissioning-checklist",
+  "name": "Commissioning checklist",
+  "description": "Plan the commissioning of a new site: estimate the grid connection it needs, get a checklist based on the runbooks, keep your checklists and look things up in the runbooks.",
+  "audience": { "kind": "groups", "groups": ["EDRI-Ops"] },
+  "handlers": [
+    {
+      "name": "plan",
+      "description": "Grid estimate and commissioning checklist for a new site",
+      "input": {
+        "type": "object",
+        "properties": {
+          "site": { "type": "string", "maxLength": 120 },
+          "country": { "type": "string", "enum": ["AT", "CZ", "DK", "DE", "HU", "IT", "NL", "PL", "RO", "SE", "GB"] },
+          "chargers": { "type": "number", "minimum": 1, "maximum": 40 },
+          "powerKw": { "type": "number", "minimum": 11, "maximum": 400 },
+          "battery": { "type": "string", "enum": ["yes", "no"] }
+        },
+        "required": ["site", "country", "chargers", "powerKw", "battery"]
+      }
+    },
+    { "name": "mine", "description": "Your saved checklists", "input": { "type": "object", "properties": {} } },
+    {
+      "name": "lookup",
+      "description": "Look something up in the runbooks",
+      "input": { "type": "object", "properties": { "q": { "type": "string", "maxLength": 300 } }, "required": ["q"] }
+    }
+  ],
+  "models": [{ "alias": "fast", "maxTokensPerCall": 800 }],
+  "connectors": [{ "id": "docs.search" }],
+  "collections": [{ "name": "plans", "scope": "private", "classification": "internal", "retentionDays": 365 }],
+  "budget": { "eurPerDay": 4, "tokensPerUserPerDay": 40000 }
+}

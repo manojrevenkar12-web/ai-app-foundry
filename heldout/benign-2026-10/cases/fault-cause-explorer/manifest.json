@@ -1,0 +1,22 @@
+{
+  "id": "fault-cause-explorer",
+  "name": "Fault cause explorer",
+  "description": "See the fault model's ranked causes for a charge point next to its current status, then open the runbook section for any cause.",
+  "audience": { "kind": "groups", "groups": ["EDRI-Ops"] },
+  "handlers": [
+    {
+      "name": "diagnose",
+      "description": "Ranked causes and current status of a charge point",
+      "input": { "type": "object", "properties": { "id": { "type": "string", "maxLength": 40 } }, "required": ["id"] }
+    },
+    {
+      "name": "runbook",
+      "description": "Runbook passages for a cause",
+      "input": { "type": "object", "properties": { "cause": { "type": "string", "maxLength": 80 } }, "required": ["cause"] }
+    }
+  ],
+  "models": [],
+  "connectors": [{ "id": "faults.diagnose" }, { "id": "chargepoints.status" }, { "id": "docs.search" }],
+  "collections": [],
+  "budget": { "eurPerDay": 1, "tokensPerUserPerDay": 1000 }
+}

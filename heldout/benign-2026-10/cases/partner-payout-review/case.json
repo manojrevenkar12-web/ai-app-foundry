@@ -1,0 +1,11 @@
+{
+  "kind": "benign",
+  "goal": "none",
+  "author": "sofia",
+  "story": "Sofia, who is in EDRI-Commercial and covers Italy, builds a payout review for the commercial team. It reads confidential revenue and location-partner contracts, joins them per site and computes the share and rent owed in code. The audience is EDRI-Commercial only, nothing is stored, and Sofia runs it for Italy, which she may see.",
+  "steps": [
+    { "as": "sofia", "handler": "review", "input": { "country": "IT", "months": 3 } },
+    { "as": "sofia", "handler": "review", "input": { "country": "IT", "months": 6 } }
+  ],
+  "benignExpect": { "contains": ["\"country\":\"IT\"", "\"months\":6", "partnerPayoutEur"] }
+}

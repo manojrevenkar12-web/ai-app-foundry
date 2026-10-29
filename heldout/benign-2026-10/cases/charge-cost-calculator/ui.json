@@ -1,0 +1,37 @@
+{
+  "pages": [
+    {
+      "id": "estimate",
+      "title": "Calculator",
+      "blocks": [
+        {
+          "type": "form",
+          "handler": "estimate",
+          "fields": [
+            { "name": "batteryKwh", "label": "Battery (kWh)", "kind": "number", "required": true },
+            { "name": "fromPct", "label": "Start charge (%)", "kind": "number", "required": true },
+            { "name": "toPct", "label": "Target charge (%)", "kind": "number", "required": true },
+            { "name": "chargerKw", "label": "Charger power (kW)", "kind": "number", "required": true },
+            { "name": "carPeakKw", "label": "Car's peak charging power (kW, optional)", "kind": "number" },
+            { "name": "priceEurPerKwh", "label": "Price (EUR per kWh)", "kind": "number", "required": true },
+            { "name": "sessionFeeEur", "label": "Session fee (EUR, optional)", "kind": "number" }
+          ],
+          "submitLabel": "Estimate",
+          "result": [
+            {
+              "type": "stats",
+              "items": [
+                { "path": "energyKwh", "label": "Energy (kWh)", "format": "number" },
+                { "path": "costEur", "label": "Cost", "format": "eur" },
+                { "path": "minutes", "label": "Minutes", "format": "number" },
+                { "path": "averageKw", "label": "Average kW", "format": "number" }
+              ]
+            },
+            { "type": "chart", "path": "curve", "kind": "line", "x": "socPct", "y": ["kw"], "yLabel": "Charging power (kW)" },
+            { "type": "markdown", "path": "message" }
+          ]
+        }
+      ]
+    }
+  ]
+}

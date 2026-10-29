@@ -1,0 +1,8 @@
+[
+  {
+    "name": "ranks faulted charge points and finds their tickets",
+    "handler": "prioritise",
+    "input": { "country": "DE", "top": 5 },
+    "expect": { "contains": ["DE*EDR*E1001", "\"openTicket\":\"T-4711\"", "\"rank\":1"] }
+  }
+]

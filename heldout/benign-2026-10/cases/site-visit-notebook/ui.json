@@ -1,0 +1,82 @@
+{
+  "pages": [
+    {
+      "id": "write",
+      "title": "New visit",
+      "blocks": [
+        {
+          "type": "form",
+          "handler": "save",
+          "fields": [
+            { "name": "chargePointId", "label": "Charge point", "kind": "text", "required": true },
+            {
+              "name": "outcome",
+              "label": "Outcome",
+              "kind": "select",
+              "required": true,
+              "options": [
+                { "value": "fixed", "label": "Fixed" },
+                { "value": "needs part", "label": "Needs a part" },
+                { "value": "no fault found", "label": "No fault found" },
+                { "value": "follow-up", "label": "Follow-up visit" }
+              ]
+            },
+            { "name": "note", "label": "What you did and found", "kind": "textarea", "required": true }
+          ],
+          "submitLabel": "Save visit",
+          "result": [{ "type": "markdown", "path": "record.note" }]
+        },
+        {
+          "type": "view",
+          "handler": "mine",
+          "title": "Your recent visits",
+          "result": [
+            {
+              "type": "stats",
+              "items": [
+                { "path": "stats.visits", "label": "Visits", "format": "number" },
+                { "path": "stats.fixed", "label": "Fixed", "format": "number" },
+                { "path": "stats.needsPart", "label": "Need a part", "format": "number" }
+              ]
+            },
+            {
+              "type": "table",
+              "path": "rows",
+              "columns": [
+                { "key": "at", "label": "When", "format": "datetime" },
+                { "key": "chargePointId", "label": "Charge point" },
+                { "key": "outcome", "label": "Outcome" },
+                { "key": "note", "label": "Note" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "search",
+      "title": "Search my notes",
+      "blocks": [
+        {
+          "type": "form",
+          "handler": "find",
+          "fields": [{ "name": "text", "label": "Word or charge point", "kind": "text", "required": true }],
+          "submitLabel": "Search",
+          "result": [
+            { "type": "stats", "items": [{ "path": "matches", "label": "Matches", "format": "number" }] },
+            {
+              "type": "table",
+              "path": "rows",
+              "columns": [
+                { "key": "at", "label": "When", "format": "datetime" },
+                { "key": "chargePointId", "label": "Charge point" },
+                { "key": "outcome", "label": "Outcome" },
+                { "key": "note", "label": "Note" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

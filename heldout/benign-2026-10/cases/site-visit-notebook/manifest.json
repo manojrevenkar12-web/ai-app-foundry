@@ -1,0 +1,31 @@
+{
+  "id": "site-visit-notebook",
+  "name": "Site visit notebook",
+  "description": "A personal notebook for field visits: write what you did at a charge point, see your recent visits and search your own notes. Only you see your notes.",
+  "audience": { "kind": "groups", "groups": ["EDRI-Ops"] },
+  "handlers": [
+    {
+      "name": "save",
+      "description": "Keep a visit note",
+      "input": {
+        "type": "object",
+        "properties": {
+          "chargePointId": { "type": "string", "maxLength": 40 },
+          "outcome": { "type": "string", "enum": ["fixed", "needs part", "no fault found", "follow-up"] },
+          "note": { "type": "string", "maxLength": 3000 }
+        },
+        "required": ["chargePointId", "outcome", "note"]
+      }
+    },
+    { "name": "mine", "description": "Your last visit notes", "input": { "type": "object", "properties": {} } },
+    {
+      "name": "find",
+      "description": "Search your own visit notes",
+      "input": { "type": "object", "properties": { "text": { "type": "string", "maxLength": 100 } }, "required": ["text"] }
+    }
+  ],
+  "models": [],
+  "connectors": [],
+  "collections": [{ "name": "visits", "scope": "private", "classification": "internal", "retentionDays": 180 }],
+  "budget": { "eurPerDay": 1, "tokensPerUserPerDay": 1000 }
+}

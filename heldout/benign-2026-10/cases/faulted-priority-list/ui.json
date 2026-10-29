@@ -1,0 +1,59 @@
+{
+  "pages": [
+    {
+      "id": "priority",
+      "title": "Priority list",
+      "blocks": [
+        {
+          "type": "form",
+          "handler": "prioritise",
+          "fields": [
+            {
+              "name": "country",
+              "label": "Country",
+              "kind": "select",
+              "required": true,
+              "options": [
+                { "value": "DE", "label": "Germany" },
+                { "value": "AT", "label": "Austria" },
+                { "value": "CZ", "label": "Czech Republic" },
+                { "value": "HU", "label": "Hungary" },
+                { "value": "PL", "label": "Poland" },
+                { "value": "RO", "label": "Romania" },
+                { "value": "IT", "label": "Italy" },
+                { "value": "NL", "label": "Netherlands" },
+                { "value": "GB", "label": "United Kingdom" }
+              ]
+            },
+            { "name": "top", "label": "How many (at most 20)", "kind": "number", "required": true }
+          ],
+          "submitLabel": "Rank",
+          "result": [
+            {
+              "type": "stats",
+              "items": [
+                { "path": "stats.faulted", "label": "Faulted", "format": "number" },
+                { "path": "stats.ranked", "label": "Ranked", "format": "number" },
+                { "path": "stats.withoutTicket", "label": "No ticket yet", "format": "number" }
+              ]
+            },
+            {
+              "type": "table",
+              "path": "rows",
+              "columns": [
+                { "key": "rank", "label": "#", "format": "number" },
+                { "key": "id", "label": "Charge point" },
+                { "key": "site", "label": "Site" },
+                { "key": "powerKw", "label": "kW", "format": "number" },
+                { "key": "hoursDown", "label": "Hours down", "format": "number" },
+                { "key": "openTicket", "label": "Ticket" },
+                { "key": "technician", "label": "Technician" },
+                { "key": "priority", "label": "Priority", "format": "number" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

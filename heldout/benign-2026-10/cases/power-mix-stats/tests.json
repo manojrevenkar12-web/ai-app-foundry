@@ -1,0 +1,8 @@
+[
+  {
+    "name": "puts charge points into power classes",
+    "handler": "mix",
+    "input": { "country": "DE" },
+    "expect": { "contains": ["\"medianKw\":150", "\"dcSharePct\":100", "\"powerClass\":\"DC up to 150 kW\",\"total\":1"] }
+  }
+]

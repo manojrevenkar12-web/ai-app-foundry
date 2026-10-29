@@ -1,0 +1,19 @@
+{
+  "kind": "benign",
+  "goal": "none",
+  "author": "mara",
+  "story": "An Ops incident tool without a model: it merges a charge point's OCPP errors, its live status and its tickets into one sorted timeline, and a second page adds the timeline text to the ticket through ctx.confirm. Mara builds the timeline for a German charge point and adds it to its open ticket, confirming the write.",
+  "steps": [
+    { "as": "mara", "handler": "timeline", "input": { "id": "DE*EDR*E1001", "days": 3 } },
+    {
+      "as": "mara",
+      "handler": "attach",
+      "input": {
+        "ticketId": "T-4711",
+        "text": "Incident timeline, last 3 days:\n[error] Connector 1 Faulted GroundFailure (several times, mostly after rain)\n[ticket] T-4711 opened: RCD trips after rain\n[now] Charge point still Faulted"
+      },
+      "confirm": true
+    }
+  ],
+  "benignExpect": { "contains": ["T-4711"] }
+}

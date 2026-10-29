@@ -1,0 +1,14 @@
+[
+  {
+    "name": "merges events, tickets and status",
+    "handler": "timeline",
+    "input": { "id": "DE*EDR*E1001", "days": 3 },
+    "expect": { "contains": ["GroundFailure", "\"openTicket\":\"T-4711\"", "\"kind\":\"now\""] }
+  },
+  {
+    "name": "asks the viewer before commenting",
+    "handler": "attach",
+    "input": { "ticketId": "T-4711", "text": "2026-10-29T09:14:00Z [error] Connector 1: Faulted GroundFailure E-217" },
+    "expect": { "contains": ["tickets.comment", "T-4711"] }
+  }
+]

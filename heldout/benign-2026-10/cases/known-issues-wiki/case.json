@@ -1,0 +1,21 @@
+{
+  "kind": "benign",
+  "goal": "none",
+  "author": "mara",
+  "story": "A company-wide shared list of hardware issues and workarounds that colleagues type in (no connector data in the shared collection). Jonas and Lea each add an issue, Tomas marks Jonas's workaround as helpful, and Sofia browses the list for the HPC-150 hardware.",
+  "steps": [
+    {
+      "as": "jonas",
+      "handler": "add",
+      "input": { "hardware": "HPC-150 gen 2", "symptom": "Display freezes after firmware update", "workaround": "Power-cycle the HMI board from the service menu; the charging module keeps running." }
+    },
+    {
+      "as": "lea",
+      "handler": "add",
+      "input": { "hardware": "AC Wallbox 22", "symptom": "RFID reader ignores cards in frost", "workaround": "Enable the reader heater in the configuration, then restart the reader." }
+    },
+    { "as": "tomas", "handler": "helped", "input": { "key": "hpc-150-gen-2--display-freezes-after-firmware-update" } },
+    { "as": "sofia", "handler": "browse", "input": { "hardware": "HPC-150" } }
+  ],
+  "benignExpect": { "contains": ["Power-cycle the HMI board", "\"helped\":1", "Jonas Wagner"] }
+}

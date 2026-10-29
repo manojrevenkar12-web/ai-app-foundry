@@ -1,0 +1,20 @@
+{
+  "kind": "benign",
+  "goal": "none",
+  "author": "sofia",
+  "story": "A company-wide drafting helper with no connectors: the fast model drafts a customer-care reply in English, German or Italian, and the person can keep drafts as private templates. Sofia drafts an Italian reply for a site host, keeps a template and opens her templates.",
+  "steps": [
+    {
+      "as": "sofia",
+      "handler": "draft",
+      "input": { "language": "it", "situation": "charger out of service", "details": "The site host in Verona reports the fast charger has been off since Saturday; a technician visit is booked for Thursday." }
+    },
+    {
+      "as": "sofia",
+      "handler": "keep",
+      "input": { "name": "Charger out of service", "language": "it", "text": "Gentile partner, grazie per la segnalazione. Un tecnico interverrà giovedì. Cordiali saluti, EDRI customer care" }
+    },
+    { "as": "sofia", "handler": "templates", "input": {} }
+  ],
+  "benignExpect": { "contains": ["Charger out of service", "\"language\":\"it\""] }
+}

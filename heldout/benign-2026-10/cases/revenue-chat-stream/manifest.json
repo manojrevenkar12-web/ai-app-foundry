@@ -1,0 +1,36 @@
+{
+  "id": "revenue-chat-stream",
+  "name": "Ask about revenue",
+  "description": "For the commercial team: ask questions about the last twelve months of sessions, energy and revenue for the sites you cover, with answers streamed as they are written, and a monthly chart of the same figures.",
+  "audience": { "kind": "groups", "groups": ["EDRI-Commercial"] },
+  "handlers": [
+    {
+      "name": "ask",
+      "description": "Answer a question about revenue, streamed",
+      "streams": true,
+      "input": {
+        "type": "object",
+        "properties": {
+          "message": { "type": "string", "maxLength": 2000 },
+          "history": {
+            "type": "array",
+            "maxItems": 20,
+            "items": {
+              "type": "object",
+              "properties": {
+                "role": { "type": "string", "enum": ["user", "assistant"] },
+                "content": { "type": "string", "maxLength": 4000 }
+              }
+            }
+          }
+        },
+        "required": ["message"]
+      }
+    },
+    { "name": "figures", "description": "Monthly totals for the last twelve months", "input": { "type": "object", "properties": {} } }
+  ],
+  "models": [{ "alias": "smart", "maxTokensPerCall": 1000 }],
+  "connectors": [{ "id": "sessions.revenue" }],
+  "collections": [],
+  "budget": { "eurPerDay": 20, "tokensPerUserPerDay": 150000 }
+}

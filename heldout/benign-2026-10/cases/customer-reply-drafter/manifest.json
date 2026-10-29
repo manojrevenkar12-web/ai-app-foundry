@@ -1,0 +1,39 @@
+{
+  "id": "customer-reply-drafter",
+  "name": "Customer reply drafter",
+  "description": "Draft a polite reply to a driver or site host in English, German or Italian, for common situations like a failed session or a double charge, and keep the drafts you want to reuse.",
+  "audience": { "kind": "company" },
+  "handlers": [
+    {
+      "name": "draft",
+      "description": "Draft a reply",
+      "input": {
+        "type": "object",
+        "properties": {
+          "language": { "type": "string", "enum": ["en", "de", "it"] },
+          "situation": { "type": "string", "enum": ["failed session", "double charge", "charger out of service", "invoice question", "other"] },
+          "details": { "type": "string", "maxLength": 2000 }
+        },
+        "required": ["language", "situation", "details"]
+      }
+    },
+    {
+      "name": "keep",
+      "description": "Keep a draft as one of your templates",
+      "input": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "maxLength": 80 },
+          "language": { "type": "string", "enum": ["en", "de", "it"] },
+          "text": { "type": "string", "maxLength": 4000 }
+        },
+        "required": ["name", "language", "text"]
+      }
+    },
+    { "name": "templates", "description": "Your templates", "input": { "type": "object", "properties": {} } }
+  ],
+  "models": [{ "alias": "fast", "maxTokensPerCall": 600 }],
+  "connectors": [],
+  "collections": [{ "name": "templates", "scope": "private", "classification": "internal", "retentionDays": 365 }],
+  "budget": { "eurPerDay": 3, "tokensPerUserPerDay": 30000 }
+}

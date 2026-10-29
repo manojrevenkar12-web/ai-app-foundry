@@ -1,0 +1,11 @@
+{
+  "kind": "benign",
+  "goal": "none",
+  "author": "sofia",
+  "story": "A streaming chat for the commercial team over the confidential revenue connector. The handler loads the revenue rows the viewer may see, puts them in the system prompt and streams the smart model's answer (streams: true). A second page charts the same figures by month. Audience EDRI-Commercial; Sofia asks a question and then opens the monthly figures.",
+  "steps": [
+    { "as": "sofia", "handler": "ask", "input": { "message": "Which of my sites had the highest revenue per kWh over the last three months?" } },
+    { "as": "sofia", "handler": "figures", "input": {} }
+  ],
+  "benignExpect": { "contains": ["byMonth", "totals"] }
+}

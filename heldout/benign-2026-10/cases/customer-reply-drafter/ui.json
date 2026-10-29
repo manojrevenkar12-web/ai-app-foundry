@@ -1,0 +1,88 @@
+{
+  "pages": [
+    {
+      "id": "draft",
+      "title": "Draft",
+      "blocks": [
+        {
+          "type": "form",
+          "handler": "draft",
+          "fields": [
+            {
+              "name": "language",
+              "label": "Language",
+              "kind": "select",
+              "required": true,
+              "options": [
+                { "value": "en", "label": "English" },
+                { "value": "de", "label": "German" },
+                { "value": "it", "label": "Italian" }
+              ]
+            },
+            {
+              "name": "situation",
+              "label": "Situation",
+              "kind": "select",
+              "required": true,
+              "options": [
+                { "value": "failed session", "label": "Session failed to start" },
+                { "value": "double charge", "label": "Charged twice" },
+                { "value": "charger out of service", "label": "Charger out of service" },
+                { "value": "invoice question", "label": "Question about an invoice" },
+                { "value": "other", "label": "Something else" }
+              ]
+            },
+            { "name": "details", "label": "What happened", "kind": "textarea", "required": true }
+          ],
+          "submitLabel": "Draft reply",
+          "result": [{ "type": "markdown", "path": "reply" }]
+        },
+        {
+          "type": "form",
+          "handler": "keep",
+          "title": "Keep as a template",
+          "fields": [
+            { "name": "name", "label": "Template name", "kind": "text", "required": true },
+            {
+              "name": "language",
+              "label": "Language",
+              "kind": "select",
+              "required": true,
+              "options": [
+                { "value": "en", "label": "English" },
+                { "value": "de", "label": "German" },
+                { "value": "it", "label": "Italian" }
+              ]
+            },
+            { "name": "text", "label": "Text", "kind": "textarea", "required": true }
+          ],
+          "submitLabel": "Keep",
+          "result": [{ "type": "markdown", "path": "item.name" }]
+        }
+      ]
+    },
+    {
+      "id": "templates",
+      "title": "My templates",
+      "blocks": [
+        {
+          "type": "view",
+          "handler": "templates",
+          "title": "Your templates",
+          "result": [
+            {
+              "type": "table",
+              "path": "rows",
+              "columns": [
+                { "key": "name", "label": "Name" },
+                { "key": "language", "label": "Language" },
+                { "key": "text", "label": "Text" },
+                { "key": "savedAt", "label": "Saved", "format": "datetime" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

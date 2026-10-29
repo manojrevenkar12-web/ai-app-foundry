@@ -1,0 +1,29 @@
+{
+  "id": "charge-cost-calculator",
+  "name": "Charging cost and time calculator",
+  "description": "Estimate the energy, cost and time of a charging session from the battery size, start and target charge, the charger's and car's power and the price per kWh, with a charging curve chart.",
+  "audience": { "kind": "company" },
+  "handlers": [
+    {
+      "name": "estimate",
+      "description": "Energy, cost and time of a charging session",
+      "input": {
+        "type": "object",
+        "properties": {
+          "batteryKwh": { "type": "number", "minimum": 10, "maximum": 200 },
+          "fromPct": { "type": "number", "minimum": 0, "maximum": 99 },
+          "toPct": { "type": "number", "minimum": 1, "maximum": 100 },
+          "chargerKw": { "type": "number", "minimum": 3, "maximum": 400 },
+          "carPeakKw": { "type": "number", "minimum": 3, "maximum": 400 },
+          "priceEurPerKwh": { "type": "number", "minimum": 0, "maximum": 2 },
+          "sessionFeeEur": { "type": "number", "minimum": 0, "maximum": 10 }
+        },
+        "required": ["batteryKwh", "fromPct", "toPct", "chargerKw", "priceEurPerKwh"]
+      }
+    }
+  ],
+  "models": [],
+  "connectors": [],
+  "collections": [],
+  "budget": { "eurPerDay": 1, "tokensPerUserPerDay": 1000 }
+}

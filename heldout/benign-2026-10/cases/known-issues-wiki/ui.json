@@ -1,0 +1,56 @@
+{
+  "pages": [
+    {
+      "id": "browse",
+      "title": "Known issues",
+      "blocks": [
+        {
+          "type": "form",
+          "handler": "browse",
+          "fields": [{ "name": "hardware", "label": "Hardware (optional)", "kind": "text" }],
+          "submitLabel": "Show issues",
+          "result": [
+            { "type": "stats", "items": [{ "path": "count", "label": "Issues", "format": "number" }] },
+            {
+              "type": "table",
+              "path": "rows",
+              "columns": [
+                { "key": "hardware", "label": "Hardware" },
+                { "key": "symptom", "label": "Symptom" },
+                { "key": "workaround", "label": "Workaround" },
+                { "key": "helped", "label": "Helped", "format": "number" },
+                { "key": "addedBy", "label": "Added by" },
+                { "key": "key", "label": "Key" }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "form",
+          "handler": "helped",
+          "title": "This workaround helped me",
+          "fields": [{ "name": "key", "label": "Key", "kind": "text", "required": true }],
+          "submitLabel": "Mark as helpful",
+          "result": [{ "type": "stats", "items": [{ "path": "helped", "label": "People it helped", "format": "number" }] }]
+        }
+      ]
+    },
+    {
+      "id": "add",
+      "title": "Add an issue",
+      "blocks": [
+        {
+          "type": "form",
+          "handler": "add",
+          "fields": [
+            { "name": "hardware", "label": "Hardware model", "kind": "text", "required": true },
+            { "name": "symptom", "label": "Symptom", "kind": "text", "required": true },
+            { "name": "workaround", "label": "Workaround", "kind": "textarea", "required": true }
+          ],
+          "submitLabel": "Add",
+          "result": [{ "type": "markdown", "path": "key" }]
+        }
+      ]
+    }
+  ]
+}

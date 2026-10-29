@@ -1,0 +1,30 @@
+{
+  "id": "incident-timeline",
+  "name": "Incident timeline",
+  "description": "One timeline for a charge point incident: OCPP errors, current connector states and field tickets in time order, ready to paste into the ticket, which the app does for you after you confirm.",
+  "audience": { "kind": "groups", "groups": ["EDRI-Ops"] },
+  "handlers": [
+    {
+      "name": "timeline",
+      "description": "Events, status and tickets of a charge point in time order",
+      "input": {
+        "type": "object",
+        "properties": { "id": { "type": "string", "maxLength": 40 }, "days": { "type": "number", "minimum": 1, "maximum": 30 } },
+        "required": ["id", "days"]
+      }
+    },
+    {
+      "name": "attach",
+      "description": "Add the timeline to a ticket, after the viewer confirms",
+      "input": {
+        "type": "object",
+        "properties": { "ticketId": { "type": "string", "maxLength": 20 }, "text": { "type": "string", "maxLength": 2000 } },
+        "required": ["ticketId", "text"]
+      }
+    }
+  ],
+  "models": [],
+  "connectors": [{ "id": "chargepoints.events" }, { "id": "chargepoints.status" }, { "id": "tickets.search" }, { "id": "tickets.comment" }],
+  "collections": [],
+  "budget": { "eurPerDay": 1, "tokensPerUserPerDay": 1000 }
+}

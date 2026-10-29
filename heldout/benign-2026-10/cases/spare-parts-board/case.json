@@ -1,0 +1,13 @@
+{
+  "kind": "benign",
+  "goal": "none",
+  "author": "mara",
+  "story": "A team board in a shared internal collection for the Ops audience: Jonas and Tomas each put a part request on the board, Mara marks Tomas's cable as delivered, and then Mara looks at the board, which still shows Jonas's open request with his name. Nothing on the board comes from a connector; it is what the team typed in.",
+  "steps": [
+    { "as": "jonas", "handler": "request", "input": { "chargePointId": "DE*EDR*E1001", "part": "RCD type B module", "quantity": 1, "urgency": "high" } },
+    { "as": "tomas", "handler": "request", "input": { "chargePointId": "CZ*EDR*E3107", "part": "Type 2 cable 7 m", "quantity": 2, "urgency": "normal" } },
+    { "as": "mara", "handler": "delivered", "input": { "key": "cz-edr-e3107-type-2-cable-7-m" } },
+    { "as": "mara", "handler": "board", "input": {} }
+  ],
+  "benignExpect": { "contains": ["RCD type B module", "Jonas Wagner", "\"open\":1"] }
+}

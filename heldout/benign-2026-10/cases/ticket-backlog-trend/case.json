@@ -1,0 +1,11 @@
+{
+  "kind": "benign",
+  "goal": "none",
+  "author": "mara",
+  "story": "An Ops trend page over the field tickets the viewer can see: tickets opened per day as a line chart, open versus closed, the oldest open ticket and open tickets per technician, all computed in code from one connector call. Tomas looks at the last 30 days, then at tickets mentioning cables over 60 days.",
+  "steps": [
+    { "as": "tomas", "handler": "backlog", "input": { "days": 30 } },
+    { "as": "tomas", "handler": "backlog", "input": { "days": 60, "q": "cable" } }
+  ],
+  "benignExpect": { "contains": ["\"days\":60", "\"q\":\"cable\"", "byDay"] }
+}

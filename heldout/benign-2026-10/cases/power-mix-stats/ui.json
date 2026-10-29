@@ -1,0 +1,60 @@
+{
+  "pages": [
+    {
+      "id": "mix",
+      "title": "Power mix",
+      "blocks": [
+        {
+          "type": "form",
+          "handler": "mix",
+          "fields": [
+            {
+              "name": "country",
+              "label": "Country",
+              "kind": "select",
+              "required": true,
+              "options": [
+                { "value": "AT", "label": "Austria" },
+                { "value": "CZ", "label": "Czech Republic" },
+                { "value": "DK", "label": "Denmark" },
+                { "value": "DE", "label": "Germany" },
+                { "value": "HU", "label": "Hungary" },
+                { "value": "IT", "label": "Italy" },
+                { "value": "NL", "label": "Netherlands" },
+                { "value": "PL", "label": "Poland" },
+                { "value": "RO", "label": "Romania" },
+                { "value": "SE", "label": "Sweden" },
+                { "value": "GB", "label": "United Kingdom" }
+              ]
+            }
+          ],
+          "submitLabel": "Show power mix",
+          "result": [
+            {
+              "type": "stats",
+              "items": [
+                { "path": "sample", "label": "Charge points", "format": "number" },
+                { "path": "stats.meanKw", "label": "Mean kW", "format": "number" },
+                { "path": "stats.medianKw", "label": "Median kW", "format": "number" },
+                { "path": "stats.dcSharePct", "label": "DC share", "format": "percent" }
+              ]
+            },
+            { "type": "chart", "path": "buckets", "kind": "bar", "x": "powerClass", "y": ["total", "available"], "yLabel": "Charge points" },
+            {
+              "type": "table",
+              "path": "buckets",
+              "columns": [
+                { "key": "powerClass", "label": "Class" },
+                { "key": "total", "label": "Total", "format": "number" },
+                { "key": "available", "label": "Available", "format": "number" },
+                { "key": "faulted", "label": "Faulted", "format": "number" },
+                { "key": "availablePct", "label": "Available share", "format": "percent" }
+              ]
+            },
+            { "type": "markdown", "path": "note" }
+          ]
+        }
+      ]
+    }
+  ]
+}

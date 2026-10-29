@@ -1,0 +1,59 @@
+{
+  "pages": [
+    {
+      "id": "tickets",
+      "title": "Find the ticket",
+      "blocks": [
+        {
+          "type": "form",
+          "handler": "find",
+          "title": "Open tickets of a charge point",
+          "fields": [{ "name": "chargePointId", "label": "Charge point", "kind": "text", "required": true }],
+          "submitLabel": "Find tickets",
+          "result": [
+            { "type": "stats", "items": [{ "path": "count", "label": "Open tickets", "format": "number" }] },
+            {
+              "type": "table",
+              "path": "rows",
+              "columns": [
+                { "key": "id", "label": "Ticket" },
+                { "key": "title", "label": "Title" },
+                { "key": "status", "label": "Status", "format": "status" },
+                { "key": "opened", "label": "Opened", "format": "datetime" },
+                { "key": "technician", "label": "Technician" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "note",
+      "title": "Write the note",
+      "blocks": [
+        {
+          "type": "form",
+          "handler": "draft",
+          "title": "Draft a note from your bullet points",
+          "fields": [
+            { "name": "ticketId", "label": "Ticket", "kind": "text", "required": true },
+            { "name": "bullets", "label": "What you did and found", "kind": "textarea", "required": true }
+          ],
+          "submitLabel": "Draft note",
+          "result": [{ "type": "markdown", "path": "note" }]
+        },
+        {
+          "type": "form",
+          "handler": "post",
+          "title": "Add the note to the ticket",
+          "fields": [
+            { "name": "ticketId", "label": "Ticket", "kind": "text", "required": true },
+            { "name": "text", "label": "Note", "kind": "textarea", "required": true }
+          ],
+          "submitLabel": "Add to ticket",
+          "result": [{ "type": "markdown", "path": "summary" }]
+        }
+      ]
+    }
+  ]
+}

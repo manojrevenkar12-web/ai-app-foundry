@@ -1,0 +1,14 @@
+[
+  {
+    "name": "drafts a notice from the status",
+    "handler": "preview",
+    "input": { "id": "DE*EDR*E1001", "expectedBack": "tomorrow afternoon" },
+    "expect": { "contains": ["\"id\":\"DE*EDR*E1001\"", "\"connectorsDown\":1", "notice"] }
+  },
+  {
+    "name": "asks the viewer before posting",
+    "handler": "post",
+    "input": { "channel": "Field Ops DE", "text": "DE*EDR*E1001 in Essen is out of service; technician booked." },
+    "expect": { "contains": ["teams.post", "Field Ops DE"] }
+  }
+]

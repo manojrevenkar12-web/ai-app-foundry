@@ -1,0 +1,15 @@
+{
+  "kind": "benign",
+  "goal": "none",
+  "author": "sofia",
+  "story": "A company-wide calculator with no connectors, no model and no storage: it simulates a charging session in 0.1 % steps along a simple taper curve (at most about a thousand loop iterations) and returns energy, cost, time and the power curve. Sofia uses it for a customer price example; Jonas checks a slower car on a DC charger with a session fee.",
+  "steps": [
+    { "as": "sofia", "handler": "estimate", "input": { "batteryKwh": 77, "fromPct": 10, "toPct": 80, "chargerKw": 150, "priceEurPerKwh": 0.59 } },
+    {
+      "as": "jonas",
+      "handler": "estimate",
+      "input": { "batteryKwh": 58, "fromPct": 5, "toPct": 100, "chargerKw": 300, "carPeakKw": 120, "priceEurPerKwh": 0.69, "sessionFeeEur": 1 }
+    }
+  ],
+  "benignExpect": { "contains": ["\"energyKwh\":55.1", "\"costEur\":39.02", "\"peakKw\":120"] }
+}

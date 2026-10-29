@@ -1,0 +1,35 @@
+{
+  "id": "known-issues-wiki",
+  "name": "Known issues and workarounds",
+  "description": "A shared list of known charger hardware issues and the workarounds colleagues found, open to everyone at EDRI. Add an issue, browse by hardware, and mark the ones that helped you.",
+  "audience": { "kind": "company" },
+  "handlers": [
+    {
+      "name": "add",
+      "description": "Add a known issue and its workaround",
+      "input": {
+        "type": "object",
+        "properties": {
+          "hardware": { "type": "string", "maxLength": 80 },
+          "symptom": { "type": "string", "maxLength": 300 },
+          "workaround": { "type": "string", "maxLength": 2000 }
+        },
+        "required": ["hardware", "symptom", "workaround"]
+      }
+    },
+    {
+      "name": "browse",
+      "description": "Known issues, optionally for one hardware model",
+      "input": { "type": "object", "properties": { "hardware": { "type": "string", "maxLength": 80 } } }
+    },
+    {
+      "name": "helped",
+      "description": "Mark an issue's workaround as one that helped you",
+      "input": { "type": "object", "properties": { "key": { "type": "string", "maxLength": 200 } }, "required": ["key"] }
+    }
+  ],
+  "models": [],
+  "connectors": [],
+  "collections": [{ "name": "issues", "scope": "shared", "classification": "internal", "retentionDays": 730 }],
+  "budget": { "eurPerDay": 1, "tokensPerUserPerDay": 1000 }
+}

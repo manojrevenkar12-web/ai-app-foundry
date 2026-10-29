@@ -1,0 +1,10 @@
+[
+  {
+    "name": "sizes the grid connection and keeps the plan",
+    "handler": "plan",
+    "input": { "site": "Bologna Fiera", "country": "IT", "chargers": 6, "powerKw": 150, "battery": "no" },
+    "expect": { "contains": ["\"peakKw\":900", "\"gridKva\":720", "checklist"] }
+  },
+  { "name": "lists the viewer's plans", "handler": "mine", "input": {}, "expect": { "contains": ["rows", "count"] } },
+  { "name": "searches the runbooks", "handler": "lookup", "input": { "q": "RCD" }, "expect": { "contains": ["runbooks/rcd-trips.md"] } }
+]
