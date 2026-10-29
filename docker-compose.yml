@@ -23,7 +23,8 @@ services:
       CONSOLE_URL: http://localhost:8081
       FAULT_MODEL_URL: http://fault-model:8090
       TRUTH_FILE: /tmp/truth.json
-    entrypoint: ["/nodejs/bin/node", "--input-type=module", "-e", "await import('./dist/cli/seed-world.js'); await import('./dist/cli/seed-apps.js')"]
+    entrypoint:
+      ["/nodejs/bin/node", "--input-type=module", "-e", "await import('./dist/cli/seed-world.js'); await import('./dist/cli/seed-apps.js')"]
   api:
     build: { context: ., dockerfile: deploy/docker/api.Dockerfile }
     depends_on: { setup: { condition: service_completed_successfully }, redis: { condition: service_started } }

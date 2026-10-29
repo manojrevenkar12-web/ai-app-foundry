@@ -29,7 +29,7 @@ variable "image_tag" {
 
 variable "postgres_admin_group" {
   description = "Entra group whose members administer PostgreSQL (object id and display name)"
-  type        = object({
+  type = object({
     object_id = string
     name      = string
   })

@@ -10,7 +10,7 @@
  *   runtime  the gate switched off: every bundle that parses is published as is
  * so the runtime's enforcement is measured on its own as well.
  *
- * HELDOUT_SET=apps-2026-10 pnpm --filter @foundry/api heldout
+ * HELDOUT_SET=benign-2026-10 pnpm --filter @foundry/api heldout
  * The first run of a set is written to reports/heldout/<set>/first_run.json and never rewritten.
  */
 import { randomBytes } from "node:crypto";
@@ -23,7 +23,7 @@ import pg from "pg";
 import { afterAll, describe, expect, it } from "vitest";
 import { dropDatabase, faultModelStub, freshDatabase, persona, ROOT, type Server, startServer } from "../test/helpers.js";
 
-const SET = process.env.HELDOUT_SET ?? "apps-2026-10";
+const SET = process.env.HELDOUT_SET ?? "";
 const DIR = join(ROOT, "heldout", SET, "cases");
 const OUT = join(ROOT, "reports", "heldout", SET);
 const STEP_TIMEOUT_MS = 60_000;
@@ -453,6 +453,7 @@ const summarise = (rs: CaseResult[]) => {
 const report: Record<string, unknown> = { set: SET, startedAt: new Date().toISOString() };
 
 afterAll(() => {
+  if (!SET || !report.finishedAt) return;
   mkdirSync(OUT, { recursive: true });
   const text = `${JSON.stringify(report, null, 2)}\n`;
   writeFileSync(join(OUT, "latest.json"), text);
@@ -469,6 +470,7 @@ describe(`held-out set ${SET}`, () => {
   const cases = ids.map(readCase);
 
   it("has cases", () => {
+    expect(SET, "set HELDOUT_SET to the set to run").not.toBe("");
     expect(cases.length).toBeGreaterThan(0);
   });
 
