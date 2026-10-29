@@ -1,0 +1,16 @@
+{
+  "name": "@foundry/sdk",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Type definitions of ctx for app handlers, for editors and AI coding tools",
+  "types": "./ctx.d.ts",
+  "files": [
+    "ctx.d.ts",
+    "BUILDING_APPS.md"
+  ],
+  "scripts": {
+    "build": "true",
+    "typecheck": "true",
+    "test": "true"
+  }
+}

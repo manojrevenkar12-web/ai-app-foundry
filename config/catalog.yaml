@@ -4,7 +4,7 @@
 
 models:
   - alias: fast
-    provider: sim # anthropic / azure-openai in production, chosen per environment
+    provider: sim # anthropic in production (the Anthropic API, or Claude in Microsoft Foundry)
     model: claude-haiku-5-5
     eurPerMillionIn: 0.9
     eurPerMillionOut: 4.5

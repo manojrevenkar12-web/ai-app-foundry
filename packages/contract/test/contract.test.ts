@@ -53,3 +53,30 @@ describe("bundle hash", () => {
     expect(bundleHash({ ...bundle, code: `${bundle.code} ` })).not.toBe(bundleHash(bundle));
   });
 });
+
+import { toZod } from "../src/index.js";
+
+describe("handler input validation", () => {
+  const v = toZod({
+    type: "object",
+    properties: {
+      country: { type: "string", enum: ["DE", "NL"] },
+      months: { type: "number", minimum: 1, maximum: 12 },
+      note: { type: "string", maxLength: 5 },
+    },
+    required: ["country"],
+  });
+  it("accepts what the handler declares", () => {
+    expect(v.safeParse({ country: "DE", months: 3 }).success).toBe(true);
+  });
+  it("refuses everything else, including extra fields", () => {
+    for (const bad of [
+      {},
+      { country: "FR" },
+      { country: "DE", months: 13 },
+      { country: "DE", note: "too long" },
+      { country: "DE", admin: true },
+    ])
+      expect(v.safeParse(bad).success).toBe(false);
+  });
+});

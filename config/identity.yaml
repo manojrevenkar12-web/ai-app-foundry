@@ -1,0 +1,32 @@
+# How Entra ID identities become permissions on the platform.
+#
+# App roles (assigned to users or groups on the Foundry enterprise application) decide what a
+# person may do on the platform. Group memberships decide which data connectors return to them.
+# Groups are matched by object id, never by display name; names here are for people reading.
+
+tenantId: 6f1c4f6e-3b0a-4d8e-9a5c-0e2d7f1b8c11
+# the API's application (client) id: the audience of tokens issued for it
+audience: a3d9b2c4-7e1f-4b6a-8c2d-5f9e0a1b3c4d
+
+roles:
+  Foundry.User: use apps published to you
+  Foundry.Builder: build apps; publish tier 0 apps; approve tier 1 apps of others
+  Foundry.Reviewer: approve tier 2 apps; see every app's review
+  Foundry.Admin: disable apps, read the audit log, manage the catalog
+
+groups:
+  - { id: 0b8f3c1e-1111-4a2b-9c3d-000000000001, name: EDRI-All }
+  - { id: 0b8f3c1e-1111-4a2b-9c3d-000000000002, name: EDRI-Ops }
+  - { id: 0b8f3c1e-1111-4a2b-9c3d-000000000003, name: EDRI-Commercial }
+  - { id: 0b8f3c1e-1111-4a2b-9c3d-000000000004, name: EDRI-Legal }
+  - { id: 0b8f3c1e-1111-4a2b-9c3d-000000000010, name: EDRI-Region-Europe, countries: ["*"] }
+  - { id: 0b8f3c1e-1111-4a2b-9c3d-000000000011, name: EDRI-Country-DE, countries: [DE] }
+  - { id: 0b8f3c1e-1111-4a2b-9c3d-000000000012, name: EDRI-Country-NL, countries: [NL] }
+  - { id: 0b8f3c1e-1111-4a2b-9c3d-000000000013, name: EDRI-Country-IT, countries: [IT] }
+  - { id: 0b8f3c1e-1111-4a2b-9c3d-000000000014, name: EDRI-Country-GB, countries: [GB] }
+  - { id: 0b8f3c1e-1111-4a2b-9c3d-000000000015, name: EDRI-Country-Nordics, countries: [DK, SE] }
+  - { id: 0b8f3c1e-1111-4a2b-9c3d-000000000016, name: EDRI-Country-CEE, countries: [AT, CZ, HU, PL, RO] }
+
+# Privileged actions fail closed: if group membership cannot be determined (Graph unreachable
+# after an overage), only actions that need no group are allowed.
+failClosed: true

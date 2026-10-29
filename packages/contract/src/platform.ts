@@ -28,7 +28,7 @@ export type ConnectorDef = z.infer<typeof ConnectorDef>;
 export const ModelAliasDef = z
   .object({
     alias: z.enum(["fast", "smart", "embed"]),
-    provider: z.enum(["sim", "anthropic", "azure-openai"]),
+    provider: z.enum(["sim", "anthropic"]),
     model: z.string(),
     eurPerMillionIn: z.number().nonnegative(),
     eurPerMillionOut: z.number().nonnegative(),
