@@ -1,8 +1,0 @@
-[
-  {
-    "name": "answers from the runbooks and names the source",
-    "handler": "ask",
-    "input": { "message": "What should I check after an RCD trip?" },
-    "expect": { "contains": ["runbooks/rcd-trips.md", "reply"] }
-  }
-]

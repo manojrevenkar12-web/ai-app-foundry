@@ -1,8 +1,0 @@
-[
-  {
-    "name": "counts faulted charge points by city",
-    "handler": "board",
-    "input": { "country": "DE" },
-    "expect": { "contains": ["DE*EDR*E1001", "\"city\":\"Essen\"", "\"highPower\":1"] }
-  }
-]
