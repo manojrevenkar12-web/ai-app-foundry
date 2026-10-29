@@ -20,9 +20,9 @@ jobs:
     name: lint and types
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with: { node-version: 22, cache: pnpm }
       - run: pnpm install --frozen-lockfile
       - run: scripts/ci-run.sh "build" pnpm -r build
@@ -33,9 +33,9 @@ jobs:
     name: contract, sandbox, gate
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with: { node-version: 22, cache: pnpm }
       - run: pnpm install --frozen-lockfile
       - run: pnpm -r --filter "./packages/*" build
@@ -54,9 +54,9 @@ jobs:
         image: redis:7
         ports: ["6379:6379"]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with: { node-version: 22, cache: pnpm }
       - run: pnpm install --frozen-lockfile
       - run: pnpm -r build
@@ -88,9 +88,9 @@ jobs:
         ports: ["5432:5432"]
         options: --health-cmd "pg_isready -U postgres" --health-interval 5s --health-timeout 5s --health-retries 20
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with: { node-version: 22, cache: pnpm }
       - uses: astral-sh/setup-uv@v6
       - run: pnpm install --frozen-lockfile && pnpm -r --filter @foundry/api... build
@@ -126,9 +126,9 @@ jobs:
       CONSOLE_URL: http://127.0.0.1:4173
       ML_DATABASE_URL: postgres://foundry_ml:foundry_ml@127.0.0.1:5432/foundry
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with: { node-version: 22, cache: pnpm }
       - uses: astral-sh/setup-uv@v6
       - run: pnpm install --frozen-lockfile && pnpm -r build
@@ -159,7 +159,7 @@ jobs:
     name: container images
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: docker/setup-buildx-action@v3
       - run: scripts/ci-run.sh "api image" docker build -f deploy/docker/api.Dockerfile -t foundry-api .
       - run: scripts/ci-run.sh "console image" docker build -f deploy/docker/console.Dockerfile -t foundry-console .
@@ -173,11 +173,11 @@ jobs:
     name: terraform
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: hashicorp/setup-terraform@v3
         with: { terraform_version: "~1.13.0" }
       - working-directory: deploy/terraform
         run: |
-          terraform fmt -check -recursive
+          ../../scripts/ci-run.sh "terraform fmt" terraform fmt -check -recursive -diff
           terraform init -backend=false
           ../../scripts/ci-run.sh "terraform validate" terraform validate
