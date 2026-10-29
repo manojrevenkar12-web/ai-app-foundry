@@ -14,7 +14,7 @@ import { secureHeaders } from "hono/secure-headers";
 import { streamSSE } from "hono/streaming";
 import { z } from "zod";
 import type { Audit } from "../audit/audit.js";
-import type { Builder } from "../builder/builder.js";
+import { type Builder, SDK_FILES } from "../builder/builder.js";
 import type { Config } from "../config.js";
 import type { Pool } from "../db/pool.js";
 import { PERSONAS } from "../identity/dev-idp.js";
@@ -230,6 +230,12 @@ export const createHttp = (d: HttpDeps) => {
       builder: d.builder.generator,
     }),
   );
+
+  app.get("/v1/sdk/:file", (c) => {
+    const f = SDK_FILES[c.req.param("file")];
+    if (!f?.text) throw notFound("document");
+    return c.body(f.text, 200, { "content-type": f.type });
+  });
 
   // ---- catalog, apps, versions, review ------------------------------------------------
   app.get("/v1/catalog", async (c) => {

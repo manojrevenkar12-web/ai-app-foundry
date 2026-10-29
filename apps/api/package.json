@@ -35,6 +35,8 @@
     "zod": "4.6.7"
   },
   "devDependencies": {
+    "@foundry/mcp": "workspace:*",
+    "@modelcontextprotocol/sdk": "1.32.2",
     "@types/node": "22.20.5",
     "@types/pg": "8.23.1",
     "vitest": "5.0.5"

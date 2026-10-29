@@ -16,7 +16,7 @@ const mcpConfig = (token: string) =>
   JSON.stringify(
     {
       mcpServers: {
-        foundry: { command: "npx", args: ["-y", "@foundry/mcp"], env: { FOUNDRY_URL: window.location.origin, FOUNDRY_TOKEN: token } },
+        foundry: { command: "foundry-mcp", env: { FOUNDRY_URL: window.location.origin, FOUNDRY_TOKEN: token } },
       },
     },
     null,

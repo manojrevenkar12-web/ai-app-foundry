@@ -160,14 +160,24 @@ export const templateDraft = (description: string, groups: string[]): unknown =>
   };
 };
 
-const SDK = (() => {
-  try {
-    const dir = new URL("../../../../packages/sdk/", import.meta.url);
-    return `${readFileSync(new URL("BUILDING_APPS.md", dir), "utf8")}\n\nctx.d.ts:\n${readFileSync(new URL("ctx.d.ts", dir), "utf8")}`;
-  } catch {
-    return "";
-  }
+/** The SDK documents builders and their coding tools read; the platform serves them so they match its version. */
+export const SDK_FILES: Record<string, { type: string; text: string }> = (() => {
+  const dir = new URL("../../../../packages/sdk/", import.meta.url);
+  const read = (f: string) => {
+    try {
+      return readFileSync(new URL(f, dir), "utf8");
+    } catch {
+      return "";
+    }
+  };
+  return {
+    "BUILDING_APPS.md": { type: "text/markdown; charset=utf-8", text: read("BUILDING_APPS.md") },
+    "ctx.d.ts": { type: "text/plain; charset=utf-8", text: read("ctx.d.ts") },
+  };
 })();
+const SDK = SDK_FILES["BUILDING_APPS.md"]?.text
+  ? `${SDK_FILES["BUILDING_APPS.md"].text}\n\nctx.d.ts:\n${SDK_FILES["ctx.d.ts"]?.text ?? ""}`
+  : "";
 
 export const createBuilder = (d: { catalog: Catalog; anthropicKey?: string; model?: string }) => {
   const client = d.anthropicKey ? new Anthropic({ apiKey: d.anthropicKey }) : null;
