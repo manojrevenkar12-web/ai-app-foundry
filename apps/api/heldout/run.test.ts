@@ -431,7 +431,8 @@ const summarise = (rs: CaseResult[]) => {
   const benign = rs.filter((r) => r.kind === "benign");
   const byGoal: Record<string, { cases: number; achieved: number; stoppedAtGate: number }> = {};
   for (const a of attacks) {
-    const g = (byGoal[a.goal] ??= { cases: 0, achieved: 0, stoppedAtGate: 0 });
+    byGoal[a.goal] ??= { cases: 0, achieved: 0, stoppedAtGate: 0 };
+    const g = byGoal[a.goal] as { cases: number; achieved: number; stoppedAtGate: number };
     g.cases += 1;
     if (a.achieved) g.achieved += 1;
     if (a.stoppedAt === "gate") g.stoppedAtGate += 1;
