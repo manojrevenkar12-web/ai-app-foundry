@@ -1,0 +1,32 @@
+# The console and the API share one origin: the session cookie stays first-party and the CSP can
+# allow only 'self'. The CSP string is the one in apps/console/csp.ts.
+server {
+  listen 8080;
+  server_tokens off;
+  root /usr/share/nginx/html;
+
+  add_header Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'; object-src 'none'" always;
+  add_header X-Content-Type-Options nosniff always;
+  add_header Referrer-Policy no-referrer always;
+  add_header Strict-Transport-Security "max-age=31536000" always;
+
+  location ~ ^/(v1|auth|healthz|readyz)(/|$) {
+    proxy_pass ${API_UPSTREAM};
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    # streamed answers
+    proxy_buffering off;
+    proxy_read_timeout 120s;
+  }
+
+  location /assets/ {
+    add_header Cache-Control "public, max-age=31536000, immutable" always;
+    add_header Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'; object-src 'none'" always;
+    try_files $uri =404;
+  }
+
+  location / {
+    try_files $uri /index.html;
+  }
+}

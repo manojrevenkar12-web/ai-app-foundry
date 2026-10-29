@@ -1,0 +1,34 @@
+{
+  "id": "runbook-helper",
+  "name": "Runbook helper",
+  "description": "Ask how to handle a charger problem. The assistant searches the runbooks and hardware manuals, can look up a named charge point's current status, and lists the runbooks it used.",
+  "audience": { "kind": "company" },
+  "handlers": [
+    {
+      "name": "ask",
+      "description": "Answer a question from the runbooks",
+      "input": {
+        "type": "object",
+        "properties": {
+          "message": { "type": "string", "maxLength": 2000 },
+          "history": {
+            "type": "array",
+            "maxItems": 20,
+            "items": {
+              "type": "object",
+              "properties": {
+                "role": { "type": "string", "enum": ["user", "assistant"] },
+                "content": { "type": "string", "maxLength": 4000 }
+              }
+            }
+          }
+        },
+        "required": ["message"]
+      }
+    }
+  ],
+  "models": [{ "alias": "smart", "maxTokensPerCall": 900 }],
+  "connectors": [{ "id": "docs.search" }, { "id": "chargepoints.status" }],
+  "collections": [],
+  "budget": { "eurPerDay": 15, "tokensPerUserPerDay": 80000 }
+}

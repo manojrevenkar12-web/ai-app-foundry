@@ -1,0 +1,52 @@
+# Everything on one machine, with the development identity provider and the simulated network.
+#   docker compose up --build    then open http://localhost:8081 and sign in as a test person
+services:
+  postgres:
+    image: postgres:16
+    environment: { POSTGRES_PASSWORD: postgres }
+    volumes: ["./scripts/bootstrap-db.sql:/docker-entrypoint-initdb.d/00-roles.sql:ro"]
+    healthcheck: { test: ["CMD", "pg_isready", "-U", "postgres"], interval: 5s, retries: 20 }
+  redis:
+    image: redis:7
+  setup:
+    # migrations, the simulated network and the example apps, then exits
+    build: { context: ., dockerfile: deploy/docker/api.Dockerfile }
+    depends_on: { postgres: { condition: service_healthy } }
+    environment: &api
+      DATABASE_URL: postgres://foundry_app:foundry_app@postgres:5432/foundry
+      MIGRATION_DATABASE_URL: postgres://foundry:foundry@postgres:5432/foundry
+      REDIS_URL: redis://redis:6379
+      DEV_IDP: "on"
+      NODE_ENV: development
+      SESSION_SECRET: compose-session-secret-change-me-0000000
+      PUBLIC_URL: http://localhost:8081
+      CONSOLE_URL: http://localhost:8081
+      FAULT_MODEL_URL: http://fault-model:8090
+      TRUTH_FILE: /tmp/truth.json
+    entrypoint: ["/nodejs/bin/node", "--input-type=module", "-e", "await import('./dist/cli/seed-world.js'); await import('./dist/cli/seed-apps.js')"]
+  api:
+    build: { context: ., dockerfile: deploy/docker/api.Dockerfile }
+    depends_on: { setup: { condition: service_completed_successfully }, redis: { condition: service_started } }
+    environment: *api
+  fault-model-train:
+    build: { context: ., dockerfile: deploy/docker/fault-model.Dockerfile }
+    depends_on: { setup: { condition: service_completed_successfully } }
+    environment:
+      ML_DATABASE_URL: postgres://foundry_ml:foundry_ml@postgres:5432/foundry
+      REPORT_FILE: /model/latest.json
+      TRUTH_FILE: /model/no-truth.json
+    volumes: ["model:/model"]
+    user: "0"
+    command: ["python", "-m", "fault_model.train"]
+  fault-model:
+    build: { context: ., dockerfile: deploy/docker/fault-model.Dockerfile }
+    depends_on: { fault-model-train: { condition: service_completed_successfully } }
+    environment: { ML_DATABASE_URL: "postgres://foundry_ml:foundry_ml@postgres:5432/foundry" }
+    volumes: ["model:/model:ro"]
+  console:
+    build: { context: ., dockerfile: deploy/docker/console.Dockerfile }
+    depends_on: [api]
+    environment: { API_UPSTREAM: "http://api:8080" }
+    ports: ["8081:8080"]
+volumes:
+  model: {}

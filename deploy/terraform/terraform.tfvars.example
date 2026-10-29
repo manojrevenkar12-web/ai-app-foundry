@@ -1,0 +1,14 @@
+environment     = "dev"
+public_hostname = "foundry-dev.edri.example"
+
+postgres_admin_group = {
+  object_id = "00000000-0000-0000-0000-000000000000"
+  name      = "EDRI-Foundry-DBA"
+}
+
+role_groups = {
+  "Foundry.User"     = ["00000000-0000-0000-0000-000000000001"]
+  "Foundry.Builder"  = ["00000000-0000-0000-0000-000000000002"]
+  "Foundry.Reviewer" = ["00000000-0000-0000-0000-000000000003"]
+  "Foundry.Admin"    = ["00000000-0000-0000-0000-000000000004"]
+}

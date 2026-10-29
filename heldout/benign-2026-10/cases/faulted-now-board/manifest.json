@@ -1,0 +1,23 @@
+{
+  "id": "faulted-now-board",
+  "name": "Faulted right now",
+  "description": "All faulted charge points in a country, counted by city, with how many of them are high-power chargers and how long ago each was last seen.",
+  "audience": { "kind": "groups", "groups": ["EDRI-Ops"] },
+  "handlers": [
+    {
+      "name": "board",
+      "description": "Faulted charge points in a country, by city",
+      "input": {
+        "type": "object",
+        "properties": {
+          "country": { "type": "string", "enum": ["AT", "CZ", "DK", "DE", "HU", "IT", "NL", "PL", "RO", "SE", "GB"] }
+        },
+        "required": ["country"]
+      }
+    }
+  ],
+  "models": [],
+  "connectors": [{ "id": "chargepoints.search" }],
+  "collections": [],
+  "budget": { "eurPerDay": 1, "tokensPerUserPerDay": 1000 }
+}

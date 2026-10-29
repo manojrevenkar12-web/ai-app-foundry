@@ -1,0 +1,183 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  TEST_ADMIN_URL: postgres://postgres:postgres@127.0.0.1:5432/postgres
+  PGPASSWORD: postgres
+
+jobs:
+  checks:
+    name: lint and types
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - run: scripts/ci-run.sh "build" pnpm -r build
+      - run: scripts/ci-run.sh "biome" pnpm lint
+      - run: scripts/ci-run.sh "typecheck" pnpm -r typecheck
+
+  packages:
+    name: contract, sandbox, gate
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm -r --filter "./packages/*" build
+      - run: scripts/ci-run.sh "package tests" pnpm -r --filter "./packages/*" test
+
+  api:
+    name: api, MCP server, load and held-out runs
+    runs-on: ubuntu-24.04
+    services:
+      postgres:
+        image: postgres:16
+        env: { POSTGRES_PASSWORD: postgres }
+        ports: ["5432:5432"]
+        options: --health-cmd "pg_isready -U postgres" --health-interval 5s --health-timeout 5s --health-retries 20
+      redis:
+        image: redis:7
+        ports: ["6379:6379"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm -r build
+      - run: psql -h 127.0.0.1 -U postgres -f scripts/bootstrap-db.sql
+      - run: scripts/ci-run.sh "api tests" pnpm --filter @foundry/api test
+      - run: scripts/ci-run.sh "load test" pnpm --filter @foundry/api load
+      - name: held-out runs (results are recorded, first runs must not change)
+        run: |
+          for set in $(ls heldout); do
+            [ -d "heldout/$set/cases" ] || continue
+            HELDOUT_SET=$set scripts/ci-run.sh "held-out $set" pnpm --filter @foundry/api heldout
+          done
+          scripts/ci-run.sh "first runs unchanged" git diff --exit-code -- 'reports/heldout/*/first_run.json'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reports
+          path: |
+            reports/load/latest.json
+            reports/heldout/*/latest.json
+
+  fault-model:
+    name: fault model
+    runs-on: ubuntu-24.04
+    services:
+      postgres:
+        image: postgres:16
+        env: { POSTGRES_PASSWORD: postgres }
+        ports: ["5432:5432"]
+        options: --health-cmd "pg_isready -U postgres" --health-interval 5s --health-timeout 5s --health-retries 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm }
+      - uses: astral-sh/setup-uv@v6
+      - run: pnpm install --frozen-lockfile && pnpm -r --filter @foundry/api... build
+      - run: psql -h 127.0.0.1 -U postgres -f scripts/bootstrap-db.sql && psql -h 127.0.0.1 -U postgres -c "create database foundry owner foundry"
+      - run: scripts/ci-run.sh "seed world" pnpm --filter @foundry/api seed
+      - working-directory: services/fault-model
+        run: |
+          uv sync --frozen
+          ../../scripts/ci-run.sh "ruff" uv run ruff check .
+          ../../scripts/ci-run.sh "ruff format" uv run ruff format --check .
+          ../../scripts/ci-run.sh "train" uv run python -m fault_model.train
+          ../../scripts/ci-run.sh "pytest" uv run pytest -q
+        env:
+          FAULT_MODEL_AUTOSTART: "0"
+          ML_DATABASE_URL: postgres://foundry_ml:foundry_ml@127.0.0.1:5432/foundry
+
+  console:
+    name: console (unit and end-to-end with the production CSP)
+    runs-on: ubuntu-24.04
+    services:
+      postgres:
+        image: postgres:16
+        env: { POSTGRES_PASSWORD: postgres }
+        ports: ["5432:5432"]
+        options: --health-cmd "pg_isready -U postgres" --health-interval 5s --health-timeout 5s --health-retries 20
+      redis:
+        image: redis:7
+        ports: ["6379:6379"]
+    env:
+      DEV_IDP: "on"
+      SESSION_SECRET: ci-session-secret-ci-session-secret-0000
+      PUBLIC_URL: http://127.0.0.1:4173
+      CONSOLE_URL: http://127.0.0.1:4173
+      ML_DATABASE_URL: postgres://foundry_ml:foundry_ml@127.0.0.1:5432/foundry
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm }
+      - uses: astral-sh/setup-uv@v6
+      - run: pnpm install --frozen-lockfile && pnpm -r build
+      - run: scripts/ci-run.sh "console unit tests" pnpm --filter @foundry/console test
+      - run: psql -h 127.0.0.1 -U postgres -f scripts/bootstrap-db.sql && psql -h 127.0.0.1 -U postgres -c "create database foundry owner foundry"
+      - run: pnpm --filter @foundry/api seed && pnpm --filter @foundry/api seed:apps
+      - name: fault model service
+        working-directory: services/fault-model
+        run: |
+          uv sync --frozen
+          FAULT_MODEL_AUTOSTART=0 uv run python -m fault_model.train
+          nohup uv run uvicorn fault_model.service:app --host 127.0.0.1 --port 8090 > /tmp/fault-model.log 2>&1 &
+      - name: api
+        working-directory: apps/api
+        run: nohup node dist/main.js > /tmp/api.log 2>&1 &
+      - run: |
+          for i in $(seq 1 60); do curl -sf 127.0.0.1:8080/readyz && curl -sf 127.0.0.1:8090/healthz && exit 0; sleep 1; done
+          tail -n 30 /tmp/api.log /tmp/fault-model.log; exit 1
+      - run: pnpm --filter @foundry/console exec playwright install --with-deps chromium
+      - run: scripts/ci-run.sh "end-to-end" pnpm --filter @foundry/console e2e
+      - if: failure()
+        run: tail -n 40 /tmp/api.log
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with: { name: playwright, path: apps/console/test-results }
+
+  images:
+    name: container images
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - run: scripts/ci-run.sh "api image" docker build -f deploy/docker/api.Dockerfile -t foundry-api .
+      - run: scripts/ci-run.sh "console image" docker build -f deploy/docker/console.Dockerfile -t foundry-console .
+      - run: scripts/ci-run.sh "fault model image" docker build -f deploy/docker/fault-model.Dockerfile -t foundry-fault-model .
+      - name: the API image starts and refuses to run without a session secret
+        run: |
+          out=$(docker run --rm foundry-api 2>&1 || true)
+          echo "$out" | grep -q SESSION_SECRET
+
+  terraform:
+    name: terraform
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with: { terraform_version: "~1.13.0" }
+      - working-directory: deploy/terraform
+        run: |
+          terraform fmt -check -recursive
+          terraform init -backend=false
+          ../../scripts/ci-run.sh "terraform validate" terraform validate
