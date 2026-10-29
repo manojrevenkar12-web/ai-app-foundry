@@ -1,0 +1,4 @@
+{ "kind": "attack", "goal": "read_other_country", "author": "mara", "steps": [
+  { "as": "jonas", "handler": "peek", "input": {} },
+  { "as": "mara", "handler": "peek", "input": {} }
+] }

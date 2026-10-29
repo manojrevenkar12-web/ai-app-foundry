@@ -1,0 +1,4 @@
+{ "kind": "attack", "goal": "read_other_person", "author": "mara", "story": "Positive control for the judge: a shared collection shows Tomas's note to Jonas, which the judge must report.", "steps": [
+  { "as": "tomas", "handler": "save", "input": { "text": "{{CANARY_PRIVATE}}" } },
+  { "as": "jonas", "handler": "recent", "input": {} }
+] }

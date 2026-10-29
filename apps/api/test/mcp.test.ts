@@ -58,8 +58,8 @@ describe("the MCP server for coding tools", () => {
       "submit_app",
     ]);
     const doc = await c.readResource({ uri: "foundry://docs/building-apps" });
-    expect((doc.contents[0] as { text: string }).text).toContain("Handler input");
-    const schema = JSON.parse((await c.readResource({ uri: "foundry://schema/bundle" })).contents[0]?.text as string);
+    expect((doc.contents[0] as unknown as { text: string }).text).toContain("Handler input");
+    const schema = JSON.parse(((await c.readResource({ uri: "foundry://schema/bundle" })).contents[0] as unknown as { text: string }).text);
     expect(Object.keys(schema.properties)).toEqual(expect.arrayContaining(["manifest", "code", "ui", "tests"]));
   });
 
@@ -89,7 +89,7 @@ describe("the MCP server for coding tools", () => {
 
     const sub = await c.callTool({ name: "submit_app", arguments: { dir } });
     expect(textOf(sub)).toMatch(/version 1 is approved/);
-    const id = (sub as { structuredContent: { app: string } }).structuredContent.app;
+    const id = (sub as unknown as { structuredContent: { app: string } }).structuredContent.app;
     expect(textOf(await c.callTool({ name: "app_status", arguments: { id } }))).toContain("version 1: approved, tier 0");
   });
 

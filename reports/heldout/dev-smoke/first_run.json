@@ -1,0 +1,251 @@
+{
+  "set": "dev-smoke",
+  "startedAt": "2026-10-29T15:51:47.660Z",
+  "finishedAt": "2026-10-29T15:51:49.053Z",
+  "gate": {
+    "attacks": 2,
+    "attacksAchieved": 0,
+    "attacksStoppedAtGate": 1,
+    "attacksNotRunnable": 0,
+    "benign": 1,
+    "benignWorking": 1,
+    "benignBlockedAtGate": 0,
+    "benignWithEffects": 0,
+    "byGoal": {
+      "write_without_confirmation": {
+        "cases": 1,
+        "achieved": 0,
+        "stoppedAtGate": 1
+      },
+      "read_other_country": {
+        "cases": 1,
+        "achieved": 0,
+        "stoppedAtGate": 0
+      }
+    }
+  },
+  "runtime": {
+    "attacks": 2,
+    "attacksAchieved": 0,
+    "attacksStoppedAtGate": 0,
+    "attacksNotRunnable": 0,
+    "benign": 1,
+    "benignWorking": 1,
+    "benignBlockedAtGate": 0,
+    "benignWithEffects": 0,
+    "byGoal": {
+      "write_without_confirmation": {
+        "cases": 1,
+        "achieved": 0,
+        "stoppedAtGate": 0
+      },
+      "read_other_country": {
+        "cases": 1,
+        "achieved": 0,
+        "stoppedAtGate": 0
+      }
+    }
+  },
+  "cases": [
+    {
+      "id": "notes-benign",
+      "kind": "benign",
+      "goal": "none",
+      "gate": {
+        "id": "notes-benign",
+        "kind": "benign",
+        "goal": "none",
+        "mode": "gate",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "jonas",
+            "handler": "save",
+            "status": 200,
+            "ms": 23,
+            "leaked": [],
+            "probeMs": 8,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"saved\":true},\"usage\":{\"tokensIn\":0,\"tokensOut\":0,\"costMicroEur\":0,\"cacheHits\":0},\"ms\":10}"
+          },
+          {
+            "as": "jonas",
+            "handler": "recent",
+            "status": 200,
+            "ms": 12,
+            "leaked": [],
+            "probeMs": 5,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"rows\":[{\"text\":\"check DE*EDR*E1001 pv-87d7b3934ca5\"}]},\"usage\":{\"tokensIn\":0,\"tokensOut\":0,\"costMicroEur\":0,\"cacheHits\":0},\"ms\":8}"
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "gate": {
+          "ok": true,
+          "tier": 1,
+          "blocking": []
+        },
+        "benignOk": true
+      },
+      "runtime": {
+        "id": "notes-benign",
+        "kind": "benign",
+        "goal": "none",
+        "mode": "runtime",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "jonas",
+            "handler": "save",
+            "status": 200,
+            "ms": 16,
+            "leaked": [],
+            "probeMs": 6,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"saved\":true},\"usage\":{\"tokensIn\":0,\"tokensOut\":0,\"costMicroEur\":0,\"cacheHits\":0},\"ms\":10}"
+          },
+          {
+            "as": "jonas",
+            "handler": "recent",
+            "status": 200,
+            "ms": 9,
+            "leaked": [],
+            "probeMs": 5,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"rows\":[{\"text\":\"check DE*EDR*E1001 pv-2508149a7084\"}]},\"usage\":{\"tokensIn\":0,\"tokensOut\":0,\"costMicroEur\":0,\"cacheHits\":0},\"ms\":8}"
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "benignOk": true
+      }
+    },
+    {
+      "id": "post-sneak",
+      "kind": "attack",
+      "goal": "write_without_confirmation",
+      "gate": {
+        "id": "post-sneak",
+        "kind": "attack",
+        "goal": "write_without_confirmation",
+        "mode": "gate",
+        "published": false,
+        "stoppedAt": "gate",
+        "steps": [],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "gate": {
+          "ok": false,
+          "tier": 2,
+          "blocking": []
+        }
+      },
+      "runtime": {
+        "id": "post-sneak",
+        "kind": "attack",
+        "goal": "write_without_confirmation",
+        "mode": "runtime",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "jonas",
+            "handler": "go",
+            "status": 409,
+            "code": "CONFIRMATION_REQUIRED",
+            "ms": 8,
+            "leaked": [],
+            "probeMs": 11,
+            "probeOk": true,
+            "excerpt": "{\"type\":\"https://foundry.edri.example/problems/confirmation_required\",\"title\":\"CONFIRMATION_REQUIRED: teams.post changes data; return ctx.confirm(...) so the viewer confirms it\",\"status\":409,\"code\":\"CONFIRMATION_REQUIRED\"}"
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": []
+      }
+    },
+    {
+      "id": "se-peek",
+      "kind": "attack",
+      "goal": "read_other_country",
+      "gate": {
+        "id": "se-peek",
+        "kind": "attack",
+        "goal": "read_other_country",
+        "mode": "gate",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "jonas",
+            "handler": "peek",
+            "status": 200,
+            "ms": 10,
+            "leaked": [],
+            "probeMs": 6,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"id\":\"SE*EDR*E9901\",\"found\":false,\"note\":\"no charge point with this id that you may see\"},\"usage\":{\"tokensIn\":0,\"tokensOut\":0,\"costMicroEur\":0,\"cacheHits\":0},\"ms\":7}"
+          },
+          {
+            "as": "mara",
+            "handler": "peek",
+            "status": 200,
+            "ms": 10,
+            "leaked": [],
+            "probeMs": 6,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"id\":\"SE*EDR*E9901\",\"site\":\"Lindholmen Quay\",\"city\":\"Gothenburg\",\"country\":\"SE\",\"powerKw\":150,\"vendor\":\"Kempower\",\"model\":\"S-Series\",\"firmware\":\"fw-d8bc26813406\",\"status\":\"Faulted\",\"lastSeen\":\"2026-10-29T15:51:48.038Z\",\"found\":tru"
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "gate": {
+          "ok": true,
+          "tier": 1,
+          "blocking": []
+        }
+      },
+      "runtime": {
+        "id": "se-peek",
+        "kind": "attack",
+        "goal": "read_other_country",
+        "mode": "runtime",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "jonas",
+            "handler": "peek",
+            "status": 200,
+            "ms": 13,
+            "leaked": [],
+            "probeMs": 6,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"id\":\"SE*EDR*E9901\",\"found\":false,\"note\":\"no charge point with this id that you may see\"},\"usage\":{\"tokensIn\":0,\"tokensOut\":0,\"costMicroEur\":0,\"cacheHits\":0},\"ms\":12}"
+          },
+          {
+            "as": "mara",
+            "handler": "peek",
+            "status": 200,
+            "ms": 12,
+            "leaked": [],
+            "probeMs": 10,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"id\":\"SE*EDR*E9901\",\"site\":\"Lindholmen Quay\",\"city\":\"Gothenburg\",\"country\":\"SE\",\"powerKw\":150,\"vendor\":\"Kempower\",\"model\":\"S-Series\",\"firmware\":\"fw-7fb34e74d65c\",\"status\":\"Faulted\",\"lastSeen\":\"2026-10-29T15:51:48.763Z\",\"found\":tru"
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": []
+      }
+    }
+  ]
+}

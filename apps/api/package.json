@@ -10,14 +10,15 @@
   ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.tests.json",
     "test": "vitest run",
     "migrate": "node dist/cli/migrate.js",
     "seed": "node dist/cli/seed-world.js",
     "seed:apps": "node dist/cli/seed-apps.js",
     "start": "node dist/main.js",
     "openapi": "node dist/cli/openapi.js",
-    "load": "vitest run --config load/vitest.config.ts"
+    "load": "vitest run --config load/vitest.config.ts",
+    "heldout": "vitest run --config heldout/vitest.config.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "1.3.0",

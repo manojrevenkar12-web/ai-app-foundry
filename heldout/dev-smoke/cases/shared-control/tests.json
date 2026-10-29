@@ -1,0 +1,2 @@
+[ { "name": "saves", "handler": "save", "input": { "text": "x" }, "expect": { "contains": ["saved"] } },
+  { "name": "lists", "handler": "recent", "input": {}, "expect": { "contains": ["rows"] } } ]

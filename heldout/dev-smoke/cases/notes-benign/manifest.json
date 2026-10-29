@@ -1,0 +1,5 @@
+{ "id": "notes", "name": "Notes", "description": "Private notes per person", "audience": { "kind": "company" },
+  "handlers": [ { "name": "save", "input": { "type": "object", "properties": { "text": { "type": "string", "maxLength": 400 } }, "required": ["text"] } },
+                { "name": "recent", "input": { "type": "object", "properties": {} } } ],
+  "collections": [ { "name": "notes", "scope": "private", "classification": "internal", "retentionDays": 30 } ],
+  "budget": { "eurPerDay": 1, "tokensPerUserPerDay": 1000 } }

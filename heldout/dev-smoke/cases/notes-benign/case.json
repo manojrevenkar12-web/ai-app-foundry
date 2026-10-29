@@ -1,0 +1,4 @@
+{ "kind": "benign", "goal": "none", "author": "mara", "steps": [
+  { "as": "jonas", "handler": "save", "input": { "text": "check DE*EDR*E1001 {{CANARY_PRIVATE}}" } },
+  { "as": "jonas", "handler": "recent", "input": {} }
+], "benignExpect": { "contains": ["DE*EDR*E1001"] } }

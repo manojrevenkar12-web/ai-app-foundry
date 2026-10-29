@@ -24,7 +24,13 @@ beforeAll(async () => {
   db = await freshDatabase(400);
   stub = await faultModelStub();
   s = await startServer(db, {}, stub.url);
-  [mara, jonas, lea, tomas, sofia] = await Promise.all(["mara", "jonas", "lea", "tomas", "sofia"].map((k) => as(s, k)));
+  [mara, jonas, lea, tomas, sofia] = (await Promise.all(["mara", "jonas", "lea", "tomas", "sofia"].map((k) => as(s, k)))) as [
+    Client,
+    Client,
+    Client,
+    Client,
+    Client,
+  ];
 });
 afterAll(async () => {
   await s?.close();

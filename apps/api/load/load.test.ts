@@ -55,7 +55,15 @@ const drive = async (total: number, concurrency: number, make: (i: number) => { 
   };
   await Promise.all(Array.from({ length: concurrency }, worker));
   const seconds = (performance.now() - t0) / 1000;
-  return { requests: total, concurrency, rps: Math.round(total / seconds), p50Ms: pct(lat, 50), p95Ms: pct(lat, 95), p99Ms: pct(lat, 99), outcomes: codes };
+  return {
+    requests: total,
+    concurrency,
+    rps: Math.round(total / seconds),
+    p50Ms: pct(lat, 50),
+    p95Ms: pct(lat, 95),
+    p99Ms: pct(lat, 99),
+    outcomes: codes,
+  };
 };
 
 const metric = async (name: string) => {
@@ -112,15 +120,30 @@ beforeAll(async () => {
     'export async function add(input, ctx) { await ctx.store.put("notes", ctx.now() + Math.random(), { text: input.text }); const l = await ctx.store.list("notes", { limit: 20 }); return { n: l.length }; }\n',
     { handler: "add", input: { text: "x" }, contains: "n" },
   );
-  const ask = 'export async function ask(input, ctx) { const r = await ctx.llm.chat({ model: "fast", messages: [{ role: "user", content: input.q }], maxTokens: 200 }); return { reply: r.text }; }\n';
+  const ask =
+    'export async function ask(input, ctx) { const r = await ctx.llm.chat({ model: "fast", messages: [{ role: "user", content: input.q }], maxTokens: 200 }); return { reply: r.text }; }\n';
   const askHandler = [{ name: "ask", input: { type: "object", properties: { q: { type: "string", maxLength: 500 } }, required: ["q"] } }];
   await publishApp(
-    { id: "ask", name: "Ask", description: "One model call per question", handlers: askHandler, models: [{ alias: "fast", maxTokensPerCall: 200 }], budget: { eurPerDay: 50, tokensPerUserPerDay: 2_000_000 } },
+    {
+      id: "ask",
+      name: "Ask",
+      description: "One model call per question",
+      handlers: askHandler,
+      models: [{ alias: "fast", maxTokensPerCall: 200 }],
+      budget: { eurPerDay: 50, tokensPerUserPerDay: 2_000_000 },
+    },
     ask,
     { handler: "ask", input: { q: "hello" }, contains: "reply" },
   );
   await publishApp(
-    { id: "ask-tight", name: "Ask on a tight budget", description: "One model call per question, one euro cent a day", handlers: askHandler, models: [{ alias: "fast", maxTokensPerCall: 200 }], budget: { eurPerDay: 0.01, tokensPerUserPerDay: 2_000_000 } },
+    {
+      id: "ask-tight",
+      name: "Ask on a tight budget",
+      description: "One model call per question, one euro cent a day",
+      handlers: askHandler,
+      models: [{ alias: "fast", maxTokensPerCall: 200 }],
+      budget: { eurPerDay: 0.01, tokensPerUserPerDay: 2_000_000 },
+    },
     ask,
     { handler: "ask", input: { q: "hello" }, contains: "reply" },
   );
@@ -150,9 +173,15 @@ describe("load", () => {
 
   it("answers repeated questions from the cache and new ones from the provider", async () => {
     const calls0 = await metric("foundry_provider_calls_total");
-    const miss = await drive(200, 20, (i) => ({ path: "/v1/apps/ask/invoke", body: { handler: "ask", input: { q: `What is the status of site ${i}?` } } }));
+    const miss = await drive(200, 20, (i) => ({
+      path: "/v1/apps/ask/invoke",
+      body: { handler: "ask", input: { q: `What is the status of site ${i}?` } },
+    }));
     const calls1 = await metric("foundry_provider_calls_total");
-    const hit = await drive(1000, 20, (i) => ({ path: "/v1/apps/ask/invoke", body: { handler: "ask", input: { q: `What is the status of site ${i % 200}?` } } }));
+    const hit = await drive(1000, 20, (i) => ({
+      path: "/v1/apps/ask/invoke",
+      body: { handler: "ask", input: { q: `What is the status of site ${i % 200}?` } },
+    }));
     const calls2 = await metric("foundry_provider_calls_total");
     report.gatewayMiss = { ...miss, providerCalls: calls1 - calls0 };
     report.gatewayHit = { ...hit, providerCalls: calls2 - calls1 };
@@ -163,7 +192,10 @@ describe("load", () => {
 
   it("makes one provider call for a stampede of identical new questions", async () => {
     const before = await metric("foundry_provider_calls_total");
-    const r = await drive(100, 100, () => ({ path: "/v1/apps/ask/invoke", body: { handler: "ask", input: { q: "Which sites in Essen need a technician today?" } } }));
+    const r = await drive(100, 100, () => ({
+      path: "/v1/apps/ask/invoke",
+      body: { handler: "ask", input: { q: "Which sites in Essen need a technician today?" } },
+    }));
     const calls = (await metric("foundry_provider_calls_total")) - before;
     report.stampede = { ...r, providerCalls: calls };
     expect(r.outcomes["200"]).toBe(100);
@@ -171,9 +203,15 @@ describe("load", () => {
   });
 
   it("never spends more than the daily budget when calls race for it", async () => {
-    const r = await drive(200, 50, (i) => ({ path: "/v1/apps/ask-tight/invoke", body: { handler: "ask", input: { q: `Distinct question number ${i} about charge point health` } } }));
+    const r = await drive(200, 50, (i) => ({
+      path: "/v1/apps/ask-tight/invoke",
+      body: { handler: "ask", input: { q: `Distinct question number ${i} about charge point health` } },
+    }));
     const pool = new pg.Pool({ connectionString: db.ownerUrl });
-    const spent = Number((await pool.query("select coalesce(sum(cost_micro_eur), 0)::bigint as s from foundry.invocations where app_id = 'ask-tight'")).rows[0]?.s);
+    const spent = Number(
+      (await pool.query("select coalesce(sum(cost_micro_eur), 0)::bigint as s from foundry.invocations where app_id = 'ask-tight'")).rows[0]
+        ?.s,
+    );
     await pool.end();
     report.budgetRace = { ...r, budgetMicroEur: 10_000, spentMicroEur: spent };
     expect(spent).toBeLessThanOrEqual(10_000);

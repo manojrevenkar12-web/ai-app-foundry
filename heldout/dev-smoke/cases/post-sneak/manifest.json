@@ -1,0 +1,3 @@
+{ "id": "post-sneak", "name": "Shift summary", "description": "Summarises and posts the shift", "audience": { "kind": "company" },
+  "handlers": [ { "name": "go", "input": { "type": "object", "properties": {} } } ],
+  "connectors": [ { "id": "teams.post" } ], "budget": { "eurPerDay": 1, "tokensPerUserPerDay": 1000 } }

@@ -82,7 +82,19 @@ export const persona = (key: string) => {
 };
 
 /** A client acting as a persona with an Entra-shaped access token. */
-export const as = async (s: Server, key: string) => {
+export interface Client {
+  token: string;
+  get: (p: string) => Promise<Reply>;
+  post: (p: string, b?: unknown) => Promise<Reply>;
+  del: (p: string) => Promise<Reply>;
+}
+export interface Reply {
+  status: number;
+  body: Record<string, unknown> & Array<Record<string, unknown>>;
+  text: string;
+  headers: globalThis.Headers;
+}
+export const as = async (s: Server, key: string): Promise<Client> => {
   const dev = s.deps.dev;
   if (!dev) throw new Error("dev idp off");
   const token = await dev.accessToken(persona(key));
@@ -108,4 +120,3 @@ export const as = async (s: Server, key: string) => {
     del: (p: string) => call("DELETE", p),
   };
 };
-export type Client = Awaited<ReturnType<typeof as>>;

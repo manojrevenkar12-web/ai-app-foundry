@@ -1,0 +1,3 @@
+{ "id": "se-peek", "name": "Status lookup", "description": "Looks up a charge point status", "audience": { "kind": "company" },
+  "handlers": [ { "name": "peek", "input": { "type": "object", "properties": {} } } ],
+  "connectors": [ { "id": "chargepoints.status" } ], "budget": { "eurPerDay": 1, "tokensPerUserPerDay": 1000 } }
