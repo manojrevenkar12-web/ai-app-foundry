@@ -1,0 +1,148 @@
+/*
+ * Foundry's tokens. The vocabulary is an electrical installation: an enclosure-grey ground,
+ * slate ink, and the European conductor colours used for meaning, never decoration.
+ *   neutral blue  reads, links, focus
+ *   phase brown   confidential data and writes (the conductors that can hurt)
+ *   earth stripes green and yellow, only where something is protected or confirmed
+ */
+:root {
+  --bg: #eceee9;
+  --surface: #f9faf7;
+  --surface-sunk: #e2e5df;
+  --ink: #1c2421;
+  --ink-2: #47514d;
+  --ink-3: #5e6864;
+  --rule: #cad0ca;
+  --rule-strong: #959e99;
+  --neutral: #23529e;
+  --neutral-wash: #dfe6f2;
+  --phase: #8a4520;
+  --phase-wash: #f1e3d9;
+  --earth-g: #2c7a37;
+  --earth-y: #c2a800;
+  --ok: #2c7a37;
+  --ok-wash: #ddeedd;
+  --fault: #b0281f;
+  --fault-wash: #f6dfdc;
+  --warn: #855800;
+  --warn-wash: #f3e8cf;
+  --shadow: 0 1px 0 rgb(28 36 33 / 0.05), 0 10px 30px -18px rgb(28 36 33 / 0.35);
+  --scrim: rgb(18 23 21 / 0.45);
+
+  --font: "Archivo Variable", ui-sans-serif, system-ui, sans-serif;
+  --code: ui-monospace, "SFMono-Regular", "Cascadia Mono", Menlo, monospace;
+  /* nameplate headings use Archivo's expanded width */
+  --wide: 118;
+  /* type scale (ratio 1.2 from 15px) */
+  --t-xs: 0.75rem;
+  --t-sm: 0.8125rem;
+  --t-md: 0.9375rem;
+  --t-lg: 1.125rem;
+  --t-xl: 1.35rem;
+  --t-2xl: 1.62rem;
+  --t-3xl: 2.25rem;
+  --lh: 1.5;
+  --lh-tight: 1.12;
+
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --s-8: 72px;
+  --r-1: 3px;
+  --r-2: 6px;
+  --r-3: 10px;
+  --measure: 1200px;
+  --line: 1.5px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #121715;
+    --surface: #19201d;
+    --surface-sunk: #0f1412;
+    --ink: #e6ebe7;
+    --ink-2: #b4bdb8;
+    --ink-3: #8f9a95;
+    --rule: #2a3330;
+    --rule-strong: #46514c;
+    --neutral: #8fb0ea;
+    --neutral-wash: #1b2a45;
+    --phase: #e09a6c;
+    --phase-wash: #3a2416;
+    --earth-g: #69c27a;
+    --earth-y: #e3cc3c;
+    --ok: #69c27a;
+    --ok-wash: #16301c;
+    --fault: #f08a80;
+    --fault-wash: #3d1814;
+    --warn: #e7b85a;
+    --warn-wash: #352a12;
+    --shadow: 0 1px 0 rgb(0 0 0 / 0.3), 0 12px 30px -16px rgb(0 0 0 / 0.7);
+    --scrim: rgb(0 0 0 / 0.6);
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html,
+body,
+#root {
+  min-height: 100%;
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: var(--t-md) / var(--lh) var(--font);
+  -webkit-font-smoothing: antialiased;
+}
+h1,
+h2,
+h3 {
+  margin: 0;
+  line-height: var(--lh-tight);
+  font-stretch: calc(var(--wide) * 1%);
+  font-weight: 640;
+  letter-spacing: -0.01em;
+}
+p {
+  margin: 0;
+}
+a {
+  color: var(--neutral);
+}
+code,
+pre,
+textarea.code {
+  font-family: var(--code);
+  font-size: 0.85em;
+}
+:focus-visible {
+  outline: 2px solid var(--neutral);
+  outline-offset: 2px;
+  border-radius: var(--r-1);
+}
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    /* biome-ignore lint/complexity/noImportantStyles: reduced motion must win over component timings */
+    animation-duration: 0.001ms !important;
+    /* biome-ignore lint/complexity/noImportantStyles: reduced motion must win over component timings */
+    transition-duration: 0.001ms !important;
+  }
+}

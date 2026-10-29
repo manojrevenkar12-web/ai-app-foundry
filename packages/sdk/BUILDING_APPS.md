@@ -49,7 +49,9 @@ An approval is for the exact bundle the reviewer read. Any change is a new versi
 
 Handlers declare their input as a small JSON Schema (`string`, `number`, `boolean`, `array`,
 `object`). The platform validates every input before the handler runs. A chat block's handler
-takes `{ message: string, history?: [{ role, content }] }`.
+takes `{ message: string, history?: [{ role, content }] }` and returns either a stream
+(`ctx.llm.stream`, handler declared with `streams: true`), a string, or `{ reply, sources? }`;
+the console shows `sources` under the answer.
 
 ## Results in the UI
 

@@ -13,7 +13,8 @@
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run",
     "migrate": "node dist/cli/migrate.js",
-    "seed": "node dist/cli/seed.js",
+    "seed": "node dist/cli/seed-world.js",
+    "seed:apps": "node dist/cli/seed-apps.js",
     "start": "node dist/main.js",
     "openapi": "node dist/cli/openapi.js"
   },

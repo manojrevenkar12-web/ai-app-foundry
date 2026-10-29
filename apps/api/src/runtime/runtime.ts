@@ -244,7 +244,7 @@ export const createRuntime = (d: RuntimeDeps) => {
         if (row.used_at) throw conflict("ALREADY_USED", "this confirmation was already used");
         if (row.expires_at.getTime() < Date.now()) throw conflict("EXPIRED", "this confirmation has expired; run the action again");
         const a = await d.registry.app(row.app_id);
-        if (!a || a.status !== "live") throw conflict("NOT_LIVE", "the app is no longer live");
+        if (a?.status !== "live") throw conflict("NOT_LIVE", "the app is no longer live");
         if (decision === "cancel") {
           await c.query("update foundry.confirmations set used_at = now(), outcome = $2 where id = $1", [
             id,

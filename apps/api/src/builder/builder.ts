@@ -32,13 +32,12 @@ const has = (s: string, re: RegExp) => re.test(s.toLowerCase());
 /** Deterministic drafts for the shapes most requests take: an assistant over connectors, a lookup form, a notebook. */
 export const templateDraft = (description: string, groups: string[]): unknown => {
   const d = description.trim();
-  const id =
-    slug(d.split(/[.!?\n]/)[0] ?? d)
-      .split("-")
-      .slice(0, 4)
-      .join("-") || "my-app";
+  // the name is the description's first clause, at most five words: "An assistant for field technicians"
+  const clause = (d.split(/[.!?:;,\n]/)[0] ?? d).trim();
+  const words = clause.split(/\s+/).slice(0, 5).join(" ");
+  const id = slug(words) || "my-app";
   const audience = groups.includes("EDRI-Ops") ? { kind: "groups", groups: ["EDRI-Ops"] } : { kind: "owner" };
-  const name = (d.split(/[.!?\n]/)[0] ?? d).slice(0, 58) || "My app";
+  const name = (words.charAt(0).toUpperCase() + words.slice(1)).slice(0, 58) || "My app";
   const desc = d.length >= 10 ? d.slice(0, 480) : `${d} (a draft made from a short description)`;
 
   if (has(d, /\b(note|notes|handover|journal|remember|log)\b/))

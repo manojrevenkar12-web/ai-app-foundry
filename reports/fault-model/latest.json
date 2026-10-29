@@ -1,0 +1,63 @@
+{
+  "trained_on": 2491,
+  "tested_on": 738,
+  "split": "tickets opened in the last 14 days are the test set",
+  "features": [
+    "n_ConnectorLockFailure",
+    "n_EVCommunicationError",
+    "n_GroundFailure",
+    "n_HighTemperature",
+    "n_InternalError",
+    "n_OtherError",
+    "n_OverCurrentFailure",
+    "n_PowerSwitchFailure",
+    "n_ReaderFailure",
+    "n_ResetFailure",
+    "n_WeakSignal",
+    "n_faulted",
+    "n_unavailable",
+    "n_events",
+    "connectors_affected",
+    "span_hours",
+    "power_kw",
+    "high_power",
+    "vendor_ABB",
+    "vendor_Alpitronic",
+    "vendor_Compleo",
+    "vendor_Kempower",
+    "vendor_Mennekes",
+    "firmware_minor"
+  ],
+  "against_recorded_causes": {
+    "model": {
+      "accuracy": 0.8604,
+      "macro_f1": 0.8533,
+      "top2_accuracy": 0.9187
+    },
+    "baseline_rule": {
+      "accuracy": 0.794,
+      "macro_f1": 0.787
+    }
+  },
+  "against_true_causes": {
+    "model": {
+      "accuracy": 0.9472,
+      "macro_f1": 0.9408,
+      "top2_accuracy": 0.9837
+    },
+    "baseline_rule": {
+      "accuracy": 0.874,
+      "macro_f1": 0.8714
+    }
+  },
+  "recorded_label_error_rate_in_test": 0.0908,
+  "per_class_f1_true": {
+    "cable_damage": 0.953,
+    "comms_loss": 0.961,
+    "firmware_crash": 0.896,
+    "overheating": 0.952,
+    "payment_terminal": 0.925,
+    "rcd_trip": 0.958
+  },
+  "model_version": "fault-hgb-2026.10.29"
+}

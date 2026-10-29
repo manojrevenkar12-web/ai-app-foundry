@@ -44,7 +44,7 @@ describe("a tier 0 app", () => {
     expect((await publish(mara, "shift-handover", 1)).body).toEqual({ live: 1 });
     const used = await invoke(jonas, "shift-handover", "tidy", { notes: "DE*EDR*E1001 tripped twice" });
     expect(used.status).toBe(200);
-    expect(used.body.value).toMatchObject({ checklist: expect.stringContaining("DE*EDR*E1001") });
+    expect(used.body.value).toMatchObject({ checklist: expect.stringContaining("DE\\*EDR\\*E1001") });
   });
 
   it("is not open to people outside its audience", async () => {
@@ -59,7 +59,7 @@ describe("a tier 0 app", () => {
     const t = await invoke(tomas, "shift-handover", "recent", {});
     expect((j.body.value as { rows: unknown[] }).rows).toHaveLength(1);
     expect((t.body.value as { rows: Array<{ checklist: string }> }).rows.map((x) => x.checklist).join()).toContain("PL charger");
-    expect(JSON.stringify(t.body.value)).not.toContain("DE*EDR*E1001");
+    expect(JSON.stringify(t.body.value)).not.toContain("E1001");
   });
 
   it("validates input before the app sees it", async () => {
@@ -101,11 +101,11 @@ describe("a tier 2 app", () => {
     expect(de.status).toBe(200);
     const reply = (de.body.value as { reply: string; sources: string[] }).reply;
     expect(reply).toContain("chargepoints.status");
-    expect(reply).toMatch(/chargepoints\.status: \{"id":"DE\*EDR\*E1001","site":/);
+    expect(reply).toMatch(/\*\*chargepoints\.status\*\*: DE\\\*EDR\\\*E1001 is \w+ at /);
     expect(reply).toContain("rcd_trip");
     // Tomáš sees Central Europe only: the same question finds nothing, and the model gets no data
     const cee = await invoke(tomas, "fault-triage", "ask", { message: "Why is DE*EDR*E1001 faulted?" });
-    expect((cee.body.value as { reply: string }).reply).toContain('"found":false');
+    expect((cee.body.value as { reply: string }).reply).toContain("that you may see");
     expect((cee.body.value as { reply: string }).reply).not.toContain("rcd_trip");
   });
 
@@ -128,6 +128,17 @@ describe("a tier 2 app", () => {
     expect(after.rows).toEqual([{ author_name: "Jonas Wagner", via_app: "fault-triage" }]);
     expect((await jonas.post(`/v1/confirmations/${confirmation.id}`, { decision: "confirm" })).body.code).toBe("ALREADY_USED");
     await pool.end();
+  });
+
+  it("refuses a confirmed write to a ticket the viewer may not see, and leaves the confirmation usable", async () => {
+    const r = await invoke(jonas, "fault-triage", "addTicketNote", { ticketId: "T-9999999", note: "no such ticket" });
+    expect(r.status).toBe(202);
+    const id = (r.body.confirmation as { id: string }).id;
+    const refused = await jonas.post(`/v1/confirmations/${id}`, { decision: "confirm" });
+    expect(refused.status).toBe(403);
+    expect(refused.body.code).toBe("FORBIDDEN_FOR_VIEWER");
+    // nothing was used up: the person can still cancel it
+    expect((await jonas.post(`/v1/confirmations/${id}`, { decision: "cancel" })).body).toEqual({ cancelled: true });
   });
 
   it("needs a new review when the bundle changes, and can be rolled back", async () => {

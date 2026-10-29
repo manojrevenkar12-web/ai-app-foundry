@@ -59,6 +59,61 @@ const sleep = (ms: number, signal: AbortSignal) =>
 const CP = /\b[A-Z]{2}\*[A-Z]{3}\*E\d{3,6}\b/;
 
 /** A deterministic model: plans tools from the question, then summarises what they returned. */
+
+/** Escapes the characters Markdown would read as emphasis (charge point ids contain asterisks). */
+const md = (s: string) => s.replace(/([*_`[\]])/g, "\\$1");
+
+/**
+ * A readable line for a tool result, so the simulated model's answers look like answers: the
+ * fault model's ranked causes, a charge point's status, how many errors, which runbooks.
+ */
+export const digest = (content: string): string => {
+  let v: unknown;
+  try {
+    v = JSON.parse(content);
+  } catch {
+    return md(content.replace(/\s+/g, " ").slice(0, 160));
+  }
+  const o = (v ?? {}) as Record<string, unknown>;
+  if (o.found === false) return md(String(o.note ?? "not found"));
+  if (Array.isArray(o.causes)) {
+    const causes = (o.causes as Array<{ cause: string; probability: number }>)
+      .map((c) => `\`${c.cause}\` ${Math.round(c.probability * 100)}%`)
+      .join(", ");
+    return `fault model ranks ${causes}`;
+  }
+  if (typeof o.status === "string" && typeof o.site === "string")
+    return md(
+      `${o.id} is ${o.status} at ${o.site}, ${o.city} (${o.powerKw} kW ${o.vendor ?? ""} ${o.model ?? ""}, firmware ${o.firmware ?? "?"})`,
+    );
+  if (Array.isArray(o.events)) {
+    const ev = o.events as Array<{ errorCode: string; at: string }>;
+    if (!ev.length) return "no error notifications in the period";
+    const codes = [...new Set(ev.map((e) => e.errorCode))].slice(0, 4).join(", ");
+    return md(`${ev.length} error notifications (${codes}); the latest at ${ev[0]?.at}`);
+  }
+  if (Array.isArray(o.passages)) {
+    const ps = o.passages as Array<{ heading: string; source: string }>;
+    return ps.length
+      ? md(
+          ps
+            .slice(0, 3)
+            .map((p) => `${p.heading} (${p.source})`)
+            .join("; "),
+        )
+      : "no runbook passage matched";
+  }
+  if (Array.isArray(o.rows)) {
+    const rows = o.rows as Array<Record<string, unknown>>;
+    const first = rows
+      .slice(0, 3)
+      .map((x) => String(x.id ?? x.site ?? x.month ?? ""))
+      .filter(Boolean);
+    return md(`${rows.length} rows${first.length ? `, starting ${first.join(", ")}` : ""}`);
+  }
+  return md(JSON.stringify(v).slice(0, 160));
+};
+
 export const simulatedProvider = (o: { latencyMs?: number; msPerToken?: number } = {}): Provider => {
   const plan = (r: ChatRequest): ToolCall[] => {
     const lastUser = [...r.turns].reverse().find((t) => t.role === "user")?.content ?? "";
@@ -78,9 +133,11 @@ export const simulatedProvider = (o: { latencyMs?: number; msPerToken?: number }
   const summarise = (r: ChatRequest) => {
     const lastUser = [...r.turns].reverse().find((t) => t.role === "user")?.content ?? "";
     const tools = r.turns.filter((t): t is Extract<Turn, { role: "tool" }> => t.role === "tool");
-    if (!tools.length) return `[${r.model}] ${lastUser.slice(0, 160)}`;
-    const parts = tools.map((t) => `${t.name}${t.isError ? " (failed)" : ""}: ${t.content.replace(/\s+/g, " ").slice(0, 160)}`);
-    return `[${r.model}] ${lastUser.slice(0, 80)}\n\n${parts.map((p) => `- ${p}`).join("\n")}`;
+    if (!tools.length) return `Simulated answer (${r.model}) to: ${md(lastUser.slice(0, 160))}`;
+    const parts = tools.map(
+      (t) => `- **${t.name}**${t.isError ? " failed" : ""}: ${t.isError ? md(t.content.slice(0, 160)) : digest(t.content)}`,
+    );
+    return `Simulated answer (${r.model}) from the evidence the tools returned:\n\n${parts.join("\n")}`;
   };
   return {
     name: "sim",

@@ -1,0 +1,23 @@
+[project]
+name = "fault-model"
+version = "1.0.0"
+description = "Ranks likely root causes of a faulted charge point from its OCPP status notifications"
+requires-python = ">=3.12"
+dependencies = [
+  "fastapi==0.120.4",
+  "uvicorn==0.38.0",
+  "scikit-learn==1.7.2",
+  "numpy==2.3.4",
+  "psycopg[binary]==3.2.12",
+  "joblib==1.5.2",
+]
+
+[dependency-groups]
+dev = ["pytest==8.4.2", "httpx==0.28.1", "ruff==0.14.3"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "BLE", "RUF"]

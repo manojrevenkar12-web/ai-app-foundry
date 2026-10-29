@@ -5,8 +5,9 @@
  * cross-site form cannot send.
  */
 import { randomUUID } from "node:crypto";
-import { Bundle } from "@foundry/contract";
+import { Bundle, type ErrorCode } from "@foundry/contract";
 import type { Catalog } from "@foundry/gate";
+import { HostError } from "@foundry/sandbox";
 import { type Context, Hono } from "hono";
 import { deleteCookie, getCookie, setCookie } from "hono/cookie";
 import { secureHeaders } from "hono/secure-headers";
@@ -25,7 +26,7 @@ import { appUsage, overview } from "../ops/usage.js";
 import type { RedisClient } from "../redis.js";
 import type { Registry } from "../registry/registry.js";
 import type { Runtime } from "../runtime/runtime.js";
-import { forbidden, invalid, notFound, Problem } from "./problem.js";
+import { forbidden, invalid, notFound, Problem, STATUS_OF } from "./problem.js";
 
 export interface HttpDeps {
   config: Config;
@@ -76,6 +77,8 @@ export const createHttp = (d: HttpDeps) => {
   );
 
   app.onError((e, c) => {
+    // a platform error raised outside a sandbox (a confirmed write, for example) keeps its code
+    if (e instanceof HostError) e = new Problem(STATUS_OF[e.code as ErrorCode] ?? 422, e.code, e.message);
     if (e instanceof Problem)
       return c.json(
         {
@@ -251,7 +254,19 @@ export const createHttp = (d: HttpDeps) => {
         description: a.description,
         owner: a.owner_name,
         status: a.status,
-        live: { number: live.number, ui: live.bundle.ui, handlers: live.bundle.manifest.handlers },
+        live: {
+          number: live.number,
+          ui: live.bundle.ui,
+          handlers: live.bundle.manifest.handlers,
+          tier: live.tier,
+          // what the app can reach, so people can see it before they use it
+          reach: {
+            audience: live.bundle.manifest.audience,
+            connectors: live.bundle.manifest.connectors,
+            models: live.bundle.manifest.models,
+            collections: live.bundle.manifest.collections,
+          },
+        },
       });
     }
     return c.json({
