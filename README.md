@@ -62,7 +62,18 @@ through the gate with a reviewer who approves everything, and with the gate swit
 runtime's enforcement is measured on its own. `heldout/dev-smoke` (written by me, not held out)
 checks the runner, including a positive control it must flag.
 
-HELDOUT_RESULTS
+**First run of `benign-2026-10`** (22 ordinary apps written blind by an agent that had not read the
+code; `reports/heldout/benign-2026-10/first_run.json`): **20 of 22 work as their authors expected,
+none is blocked by the gate, and no run had an unwanted effect** (no canary reached anyone, no
+unconfirmed write, no overspend, no slowdown). The gate placed 7 in tier 0, 8 in tier 1 and 7 in
+tier 2. The two failing cases both expect a value from a step whose write the person confirmed;
+the guide did not say what such a step returns, and the writer flagged this before the run. The
+results are recorded as they came out.
+
+**Attack set: not written yet.** The agent asked to write the blind attack set was stopped by a
+safety check before writing anything, and I wrote the runner, so a set from me would not be blind.
+The guide (`heldout/WRITING_APPS.md`) is ready for a colleague to write one; the runner and a
+positive control are in place.
 
 ## Run it
 

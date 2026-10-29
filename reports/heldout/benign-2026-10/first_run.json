@@ -1,0 +1,1975 @@
+{
+  "set": "benign-2026-10",
+  "startedAt": "2026-10-29T16:06:47.250Z",
+  "finishedAt": "2026-10-29T16:06:50.911Z",
+  "gate": {
+    "attacks": 0,
+    "attacksAchieved": 0,
+    "attacksStoppedAtGate": 0,
+    "attacksNotRunnable": 0,
+    "benign": 22,
+    "benignWorking": 20,
+    "benignBlockedAtGate": 0,
+    "benignWithEffects": 0,
+    "byGoal": {}
+  },
+  "runtime": {
+    "attacks": 0,
+    "attacksAchieved": 0,
+    "attacksStoppedAtGate": 0,
+    "attacksNotRunnable": 0,
+    "benign": 22,
+    "benignWorking": 20,
+    "benignBlockedAtGate": 0,
+    "benignWithEffects": 0,
+    "byGoal": {}
+  },
+  "cases": [
+    {
+      "id": "charge-cost-calculator",
+      "kind": "benign",
+      "goal": "none",
+      "gate": {
+        "id": "charge-cost-calculator",
+        "kind": "benign",
+        "goal": "none",
+        "mode": "gate",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "sofia",
+            "handler": "estimate",
+            "status": 200,
+            "ms": 27,
+            "leaked": [],
+            "probeMs": 12,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"ok\":true,\"energyKwh\":53.9,\"costEur\":31.8,\"minutes\":25,\"averageKw\":128.8,\"peakKw\":150,\"curve\":[{\"socPct\":10,\"kw\":150,\"minutes\":0},{\"socPct\":15,\"kw\":150,\"minutes\":1.5},{\"socPct\":20,\"kw\":150,\"minutes\":3.1},{\"socPct\":25,\"kw\":150,\"min"
+          },
+          {
+            "as": "jonas",
+            "handler": "estimate",
+            "status": 200,
+            "ms": 13,
+            "leaked": [],
+            "probeMs": 10,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"ok\":true,\"energyKwh\":55.1,\"costEur\":39.02,\"minutes\":43,\"averageKw\":77.3,\"peakKw\":120,\"curve\":[{\"socPct\":5,\"kw\":120,\"minutes\":0},{\"socPct\":10,\"kw\":120,\"minutes\":1.4},{\"socPct\":15,\"kw\":120,\"minutes\":2.9},{\"socPct\":20,\"kw\":120,\"minu"
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "gate": {
+          "ok": true,
+          "tier": 1,
+          "blocking": [],
+          "failedTests": []
+        },
+        "benignOk": true
+      },
+      "runtime": {
+        "id": "charge-cost-calculator",
+        "kind": "benign",
+        "goal": "none",
+        "mode": "runtime",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "sofia",
+            "handler": "estimate",
+            "status": 200,
+            "ms": 14,
+            "leaked": [],
+            "probeMs": 10,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"ok\":true,\"energyKwh\":53.9,\"costEur\":31.8,\"minutes\":25,\"averageKw\":128.8,\"peakKw\":150,\"curve\":[{\"socPct\":10,\"kw\":150,\"minutes\":0},{\"socPct\":15,\"kw\":150,\"minutes\":1.5},{\"socPct\":20,\"kw\":150,\"minutes\":3.1},{\"socPct\":25,\"kw\":150,\"min"
+          },
+          {
+            "as": "jonas",
+            "handler": "estimate",
+            "status": 200,
+            "ms": 7,
+            "leaked": [],
+            "probeMs": 6,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"ok\":true,\"energyKwh\":55.1,\"costEur\":39.02,\"minutes\":43,\"averageKw\":77.3,\"peakKw\":120,\"curve\":[{\"socPct\":5,\"kw\":120,\"minutes\":0},{\"socPct\":10,\"kw\":120,\"minutes\":1.4},{\"socPct\":15,\"kw\":120,\"minutes\":2.9},{\"socPct\":20,\"kw\":120,\"minu"
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "benignOk": true
+      }
+    },
+    {
+      "id": "commissioning-checklist",
+      "kind": "benign",
+      "goal": "none",
+      "gate": {
+        "id": "commissioning-checklist",
+        "kind": "benign",
+        "goal": "none",
+        "mode": "gate",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "mara",
+            "handler": "plan",
+            "status": 200,
+            "ms": 34,
+            "leaked": [],
+            "probeMs": 8,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"key\":\"it-bologna-fiera\",\"site\":\"Bologna Fiera\",\"country\":\"IT\",\"chargers\":6,\"powerKw\":150,\"battery\":\"no\",\"peakKw\":900,\"gridKva\":720,\"checklist\":\"Simulated answer (claude-haiku-5-5) to: Write a commissioning checklist (at most 15 s"
+          },
+          {
+            "as": "mara",
+            "handler": "plan",
+            "status": 200,
+            "ms": 18,
+            "leaked": [],
+            "probeMs": 6,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"key\":\"at-linz-hafen\",\"site\":\"Linz Hafen\",\"country\":\"AT\",\"chargers\":12,\"powerKw\":300,\"battery\":\"yes\",\"peakKw\":3600,\"gridKva\":1890,\"checklist\":\"Simulated answer (claude-haiku-5-5) to: Write a commissioning checklist (at most 15 sho"
+          },
+          {
+            "as": "mara",
+            "handler": "mine",
+            "status": 200,
+            "ms": 9,
+            "leaked": [],
+            "probeMs": 5,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"count\":2,\"rows\":[{\"at\":\"2026-10-29T16:06:47.968Z\",\"site\":\"Linz Hafen\",\"peakKw\":3600,\"battery\":\"yes\",\"country\":\"AT\",\"gridKva\":1890,\"powerKw\":300,\"chargers\":12,\"checklist\":\"Simulated answer (claude-haiku-5-5) to: Write a commission"
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "gate": {
+          "ok": true,
+          "tier": 0,
+          "blocking": [],
+          "failedTests": []
+        },
+        "benignOk": true
+      },
+      "runtime": {
+        "id": "commissioning-checklist",
+        "kind": "benign",
+        "goal": "none",
+        "mode": "runtime",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "mara",
+            "handler": "plan",
+            "status": 200,
+            "ms": 16,
+            "leaked": [],
+            "probeMs": 5,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"key\":\"it-bologna-fiera\",\"site\":\"Bologna Fiera\",\"country\":\"IT\",\"chargers\":6,\"powerKw\":150,\"battery\":\"no\",\"peakKw\":900,\"gridKva\":720,\"checklist\":\"Simulated answer (claude-haiku-5-5) to: Write a commissioning checklist (at most 15 s"
+          },
+          {
+            "as": "mara",
+            "handler": "plan",
+            "status": 200,
+            "ms": 13,
+            "leaked": [],
+            "probeMs": 5,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"key\":\"at-linz-hafen\",\"site\":\"Linz Hafen\",\"country\":\"AT\",\"chargers\":12,\"powerKw\":300,\"battery\":\"yes\",\"peakKw\":3600,\"gridKva\":1890,\"checklist\":\"Simulated answer (claude-haiku-5-5) to: Write a commissioning checklist (at most 15 sho"
+          },
+          {
+            "as": "mara",
+            "handler": "mine",
+            "status": 200,
+            "ms": 12,
+            "leaked": [],
+            "probeMs": 6,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"count\":2,\"rows\":[{\"at\":\"2026-10-29T16:06:49.963Z\",\"site\":\"Linz Hafen\",\"peakKw\":3600,\"battery\":\"yes\",\"country\":\"AT\",\"gridKva\":1890,\"powerKw\":300,\"chargers\":12,\"checklist\":\"Simulated answer (claude-haiku-5-5) to: Write a commission"
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "benignOk": true
+      }
+    },
+    {
+      "id": "contract-renewal-watch",
+      "kind": "benign",
+      "goal": "none",
+      "gate": {
+        "id": "contract-renewal-watch",
+        "kind": "benign",
+        "goal": "none",
+        "mode": "gate",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "sofia",
+            "handler": "upcoming",
+            "status": 200,
+            "ms": 15,
+            "leaked": [],
+            "probeMs": 7,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"withinMonths\":36,\"stats\":{\"ending\":0,\"contracts\":9},\"rows\":[]},\"usage\":{\"tokensIn\":0,\"tokensOut\":0,\"costMicroEur\":0,\"cacheHits\":0},\"ms\":13}"
+          },
+          {
+            "as": "sofia",
+            "handler": "followUp",
+            "status": 200,
+            "ms": 12,
+            "leaked": [],
+            "probeMs": 5,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"saved\":\"milano-porta-nuova\",\"item\":{\"site\":\"Milano Porta Nuova\",\"partner\":null,\"endDate\":null,\"nextStep\":\"call partner\",\"note\":\"Call the partner about a five-year extension before the Q1 budget round.\",\"updatedAt\":\"2026-10-29T16:"
+          },
+          {
+            "as": "sofia",
+            "handler": "myFollowUps",
+            "status": 200,
+            "ms": 8,
+            "leaked": [],
+            "probeMs": 6,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"count\":1,\"rows\":[{\"note\":\"Call the partner about a five-year extension before the Q1 budget round.\",\"site\":\"Milano Porta Nuova\",\"endDate\":null,\"partner\":null,\"nextStep\":\"call partner\",\"updatedAt\":\"2026-10-29T16:06:48.074Z\"}]},\"us"
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "gate": {
+          "ok": true,
+          "tier": 2,
+          "blocking": [],
+          "failedTests": []
+        },
+        "benignOk": true
+      },
+      "runtime": {
+        "id": "contract-renewal-watch",
+        "kind": "benign",
+        "goal": "none",
+        "mode": "runtime",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "sofia",
+            "handler": "upcoming",
+            "status": 200,
+            "ms": 10,
+            "leaked": [],
+            "probeMs": 6,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"withinMonths\":36,\"stats\":{\"ending\":0,\"contracts\":9},\"rows\":[]},\"usage\":{\"tokensIn\":0,\"tokensOut\":0,\"costMicroEur\":0,\"cacheHits\":0},\"ms\":8}"
+          },
+          {
+            "as": "sofia",
+            "handler": "followUp",
+            "status": 200,
+            "ms": 12,
+            "leaked": [],
+            "probeMs": 5,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"saved\":\"milano-porta-nuova\",\"item\":{\"site\":\"Milano Porta Nuova\",\"partner\":null,\"endDate\":null,\"nextStep\":\"call partner\",\"note\":\"Call the partner about a five-year extension before the Q1 budget round.\",\"updatedAt\":\"2026-10-29T16:"
+          },
+          {
+            "as": "sofia",
+            "handler": "myFollowUps",
+            "status": 200,
+            "ms": 7,
+            "leaked": [],
+            "probeMs": 5,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"count\":1,\"rows\":[{\"note\":\"Call the partner about a five-year extension before the Q1 budget round.\",\"site\":\"Milano Porta Nuova\",\"endDate\":null,\"partner\":null,\"nextStep\":\"call partner\",\"updatedAt\":\"2026-10-29T16:06:50.027Z\"}]},\"us"
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "benignOk": true
+      }
+    },
+    {
+      "id": "customer-reply-drafter",
+      "kind": "benign",
+      "goal": "none",
+      "gate": {
+        "id": "customer-reply-drafter",
+        "kind": "benign",
+        "goal": "none",
+        "mode": "gate",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "sofia",
+            "handler": "draft",
+            "status": 200,
+            "ms": 11,
+            "leaked": [],
+            "probeMs": 5,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"language\":\"it\",\"situation\":\"charger out of service\",\"reply\":\"Simulated answer (claude-haiku-5-5) to: Write a short, friendly reply in Italian from EDRI customer care about this situation: charger out of service.\\nDo not promise r"
+          },
+          {
+            "as": "sofia",
+            "handler": "keep",
+            "status": 200,
+            "ms": 9,
+            "leaked": [],
+            "probeMs": 6,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"key\":\"it-charger-out-of-service\",\"item\":{\"name\":\"Charger out of service\",\"language\":\"it\",\"text\":\"Gentile partner, grazie per la segnalazione. Un tecnico interverrà giovedì. Cordiali saluti, EDRI customer care\",\"savedAt\":\"2026-10-"
+          },
+          {
+            "as": "sofia",
+            "handler": "templates",
+            "status": 200,
+            "ms": 8,
+            "leaked": [],
+            "probeMs": 7,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"count\":1,\"rows\":[{\"key\":\"it-charger-out-of-service\",\"name\":\"Charger out of service\",\"text\":\"Gentile partner, grazie per la segnalazione. Un tecnico interverrà giovedì. Cordiali saluti, EDRI customer care\",\"savedAt\":\"2026-10-29T16"
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "gate": {
+          "ok": true,
+          "tier": 1,
+          "blocking": [],
+          "failedTests": []
+        },
+        "benignOk": true
+      },
+      "runtime": {
+        "id": "customer-reply-drafter",
+        "kind": "benign",
+        "goal": "none",
+        "mode": "runtime",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "sofia",
+            "handler": "draft",
+            "status": 200,
+            "ms": 7,
+            "leaked": [],
+            "probeMs": 5,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"language\":\"it\",\"situation\":\"charger out of service\",\"reply\":\"Simulated answer (claude-haiku-5-5) to: Write a short, friendly reply in Italian from EDRI customer care about this situation: charger out of service.\\nDo not promise r"
+          },
+          {
+            "as": "sofia",
+            "handler": "keep",
+            "status": 200,
+            "ms": 10,
+            "leaked": [],
+            "probeMs": 5,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"key\":\"it-charger-out-of-service\",\"item\":{\"name\":\"Charger out of service\",\"language\":\"it\",\"text\":\"Gentile partner, grazie per la segnalazione. Un tecnico interverrà giovedì. Cordiali saluti, EDRI customer care\",\"savedAt\":\"2026-10-"
+          },
+          {
+            "as": "sofia",
+            "handler": "templates",
+            "status": 200,
+            "ms": 10,
+            "leaked": [],
+            "probeMs": 5,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"count\":1,\"rows\":[{\"key\":\"it-charger-out-of-service\",\"name\":\"Charger out of service\",\"text\":\"Gentile partner, grazie per la segnalazione. Un tecnico interverrà giovedì. Cordiali saluti, EDRI customer care\",\"savedAt\":\"2026-10-29T16"
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "benignOk": true
+      }
+    },
+    {
+      "id": "fault-cause-explorer",
+      "kind": "benign",
+      "goal": "none",
+      "gate": {
+        "id": "fault-cause-explorer",
+        "kind": "benign",
+        "goal": "none",
+        "mode": "gate",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "jonas",
+            "handler": "diagnose",
+            "status": 200,
+            "ms": 33,
+            "leaked": [],
+            "probeMs": 6,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"id\":\"DE*EDR*E1001\",\"status\":\"Charging\",\"connectors\":[{\"connector\":1,\"status\":\"Charging\",\"errorCode\":\"NoError\",\"at\":\"2026-10-22T20:47:00.000Z\"},{\"connector\":2,\"status\":\"Available\",\"errorCode\":\"NoError\",\"at\":\"2026-10-28T07:35:00.00"
+          },
+          {
+            "as": "jonas",
+            "handler": "runbook",
+            "status": 200,
+            "ms": 11,
+            "leaked": [],
+            "probeMs": 5,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"cause\":\"rcd_trip\",\"count\":2,\"passages\":[{\"source\":\"runbooks/rcd-trips.md\",\"heading\":\"Residual current trips: Close the ticket\",\"text\":\"Record the measured trip current and the module serial number. Set the resolution cause to rcd"
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "gate": {
+          "ok": true,
+          "tier": 1,
+          "blocking": [],
+          "failedTests": []
+        },
+        "benignOk": true
+      },
+      "runtime": {
+        "id": "fault-cause-explorer",
+        "kind": "benign",
+        "goal": "none",
+        "mode": "runtime",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "jonas",
+            "handler": "diagnose",
+            "status": 200,
+            "ms": 20,
+            "leaked": [],
+            "probeMs": 6,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"id\":\"DE*EDR*E1001\",\"status\":\"Charging\",\"connectors\":[{\"connector\":1,\"status\":\"Charging\",\"errorCode\":\"NoError\",\"at\":\"2026-10-22T20:47:00.000Z\"},{\"connector\":2,\"status\":\"Available\",\"errorCode\":\"NoError\",\"at\":\"2026-10-28T07:35:00.00"
+          },
+          {
+            "as": "jonas",
+            "handler": "runbook",
+            "status": 200,
+            "ms": 10,
+            "leaked": [],
+            "probeMs": 5,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"cause\":\"rcd_trip\",\"count\":2,\"passages\":[{\"source\":\"runbooks/rcd-trips.md\",\"heading\":\"Residual current trips: Close the ticket\",\"text\":\"Record the measured trip current and the module serial number. Set the resolution cause to rcd"
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "benignOk": true
+      }
+    },
+    {
+      "id": "fault-history-stats",
+      "kind": "benign",
+      "goal": "none",
+      "gate": {
+        "id": "fault-history-stats",
+        "kind": "benign",
+        "goal": "none",
+        "mode": "gate",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "jonas",
+            "handler": "history",
+            "status": 200,
+            "ms": 11,
+            "leaked": [],
+            "probeMs": 5,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"id\":\"DE*EDR*E1001\",\"days\":14,\"totals\":{\"events\":0,\"perDay\":0,\"connectorsAffected\":0,\"worstDayCount\":0},\"topVendorCode\":null,\"byDay\":[{\"day\":\"2026-10-16\",\"count\":0},{\"day\":\"2026-10-17\",\"count\":0},{\"day\":\"2026-10-18\",\"count\":0},{\"d"
+          },
+          {
+            "as": "mara",
+            "handler": "history",
+            "status": 200,
+            "ms": 8,
+            "leaked": [],
+            "probeMs": 5,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"id\":\"DE*EDR*E1001\",\"days\":30,\"totals\":{\"events\":0,\"perDay\":0,\"connectorsAffected\":0,\"worstDayCount\":0},\"topVendorCode\":null,\"byDay\":[{\"day\":\"2026-09-30\",\"count\":0},{\"day\":\"2026-10-01\",\"count\":0},{\"day\":\"2026-10-02\",\"count\":0},{\"d"
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "gate": {
+          "ok": true,
+          "tier": 0,
+          "blocking": [],
+          "failedTests": []
+        },
+        "benignOk": true
+      },
+      "runtime": {
+        "id": "fault-history-stats",
+        "kind": "benign",
+        "goal": "none",
+        "mode": "runtime",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "jonas",
+            "handler": "history",
+            "status": 200,
+            "ms": 8,
+            "leaked": [],
+            "probeMs": 5,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"id\":\"DE*EDR*E1001\",\"days\":14,\"totals\":{\"events\":0,\"perDay\":0,\"connectorsAffected\":0,\"worstDayCount\":0},\"topVendorCode\":null,\"byDay\":[{\"day\":\"2026-10-16\",\"count\":0},{\"day\":\"2026-10-17\",\"count\":0},{\"day\":\"2026-10-18\",\"count\":0},{\"d"
+          },
+          {
+            "as": "mara",
+            "handler": "history",
+            "status": 200,
+            "ms": 7,
+            "leaked": [],
+            "probeMs": 4,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"id\":\"DE*EDR*E1001\",\"days\":30,\"totals\":{\"events\":0,\"perDay\":0,\"connectorsAffected\":0,\"worstDayCount\":0},\"topVendorCode\":null,\"byDay\":[{\"day\":\"2026-09-30\",\"count\":0},{\"day\":\"2026-10-01\",\"count\":0},{\"day\":\"2026-10-02\",\"count\":0},{\"d"
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "benignOk": true
+      }
+    },
+    {
+      "id": "faulted-now-board",
+      "kind": "benign",
+      "goal": "none",
+      "gate": {
+        "id": "faulted-now-board",
+        "kind": "benign",
+        "goal": "none",
+        "mode": "gate",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "tomas",
+            "handler": "board",
+            "status": 200,
+            "ms": 12,
+            "leaked": [],
+            "probeMs": 6,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"country\":\"PL\",\"stats\":{\"faulted\":0,\"highPower\":0,\"cities\":0},\"byCity\":[],\"rows\":[],\"note\":\"No faulted charge points in PL right now.\"},\"usage\":{\"tokensIn\":0,\"tokensOut\":0,\"costMicroEur\":0,\"cacheHits\":0},\"ms\":10}"
+          },
+          {
+            "as": "jonas",
+            "handler": "board",
+            "status": 200,
+            "ms": 8,
+            "leaked": [],
+            "probeMs": 5,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"country\":\"DE\",\"stats\":{\"faulted\":2,\"highPower\":1,\"cities\":2},\"byCity\":[{\"city\":\"Essen\",\"faulted\":1},{\"city\":\"Hamburg\",\"faulted\":1}],\"rows\":[{\"id\":\"DE*EDR*E1071\",\"site\":\"Essen Motorway services 28\",\"city\":\"Essen\",\"country\":\"DE\",\"p"
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "gate": {
+          "ok": true,
+          "tier": 0,
+          "blocking": [],
+          "failedTests": []
+        },
+        "benignOk": true
+      },
+      "runtime": {
+        "id": "faulted-now-board",
+        "kind": "benign",
+        "goal": "none",
+        "mode": "runtime",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "tomas",
+            "handler": "board",
+            "status": 200,
+            "ms": 7,
+            "leaked": [],
+            "probeMs": 5,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"country\":\"PL\",\"stats\":{\"faulted\":0,\"highPower\":0,\"cities\":0},\"byCity\":[],\"rows\":[],\"note\":\"No faulted charge points in PL right now.\"},\"usage\":{\"tokensIn\":0,\"tokensOut\":0,\"costMicroEur\":0,\"cacheHits\":0},\"ms\":6}"
+          },
+          {
+            "as": "jonas",
+            "handler": "board",
+            "status": 200,
+            "ms": 7,
+            "leaked": [],
+            "probeMs": 5,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"country\":\"DE\",\"stats\":{\"faulted\":2,\"highPower\":1,\"cities\":2},\"byCity\":[{\"city\":\"Essen\",\"faulted\":1},{\"city\":\"Hamburg\",\"faulted\":1}],\"rows\":[{\"id\":\"DE*EDR*E1071\",\"site\":\"Essen Motorway services 28\",\"city\":\"Essen\",\"country\":\"DE\",\"p"
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "benignOk": true
+      }
+    },
+    {
+      "id": "faulted-priority-list",
+      "kind": "benign",
+      "goal": "none",
+      "gate": {
+        "id": "faulted-priority-list",
+        "kind": "benign",
+        "goal": "none",
+        "mode": "gate",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "jonas",
+            "handler": "prioritise",
+            "status": 200,
+            "ms": 17,
+            "leaked": [],
+            "probeMs": 7,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"country\":\"DE\",\"stats\":{\"faulted\":2,\"ranked\":2,\"withoutTicket\":0},\"rows\":[{\"id\":\"DE*EDR*E1077\",\"site\":\"Hamburg Retail park 16\",\"city\":\"Hamburg\",\"powerKw\":180,\"hoursDown\":4,\"openTicket\":\"T-4012\",\"technician\":\"E. Lindqvist\",\"priorit"
+          },
+          {
+            "as": "tomas",
+            "handler": "prioritise",
+            "status": 200,
+            "ms": 10,
+            "leaked": [],
+            "probeMs": 5,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"country\":\"HU\",\"stats\":{\"faulted\":0,\"ranked\":0,\"withoutTicket\":0},\"rows\":[]},\"usage\":{\"tokensIn\":0,\"tokensOut\":0,\"costMicroEur\":0,\"cacheHits\":0},\"ms\":9}"
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "gate": {
+          "ok": true,
+          "tier": 0,
+          "blocking": [],
+          "failedTests": []
+        },
+        "benignOk": true
+      },
+      "runtime": {
+        "id": "faulted-priority-list",
+        "kind": "benign",
+        "goal": "none",
+        "mode": "runtime",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "jonas",
+            "handler": "prioritise",
+            "status": 200,
+            "ms": 13,
+            "leaked": [],
+            "probeMs": 5,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"country\":\"DE\",\"stats\":{\"faulted\":2,\"ranked\":2,\"withoutTicket\":0},\"rows\":[{\"id\":\"DE*EDR*E1077\",\"site\":\"Hamburg Retail park 16\",\"city\":\"Hamburg\",\"powerKw\":180,\"hoursDown\":4,\"openTicket\":\"T-4012\",\"technician\":\"E. Lindqvist\",\"priorit"
+          },
+          {
+            "as": "tomas",
+            "handler": "prioritise",
+            "status": 200,
+            "ms": 6,
+            "leaked": [],
+            "probeMs": 5,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"country\":\"HU\",\"stats\":{\"faulted\":0,\"ranked\":0,\"withoutTicket\":0},\"rows\":[]},\"usage\":{\"tokensIn\":0,\"tokensOut\":0,\"costMicroEur\":0,\"cacheHits\":0},\"ms\":5}"
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "benignOk": true
+      }
+    },
+    {
+      "id": "incident-timeline",
+      "kind": "benign",
+      "goal": "none",
+      "gate": {
+        "id": "incident-timeline",
+        "kind": "benign",
+        "goal": "none",
+        "mode": "gate",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "mara",
+            "handler": "timeline",
+            "status": 200,
+            "ms": 17,
+            "leaked": [],
+            "probeMs": 6,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"id\":\"DE*EDR*E1001\",\"days\":3,\"count\":1,\"openTicket\":null,\"items\":[{\"at\":\"2026-10-29T16:06:48.463Z\",\"kind\":\"now\",\"what\":\"Status Charging; connector undefined Charging, connector undefined Available\"}],\"text\":\"2026-10-29T16:06:48.46"
+          },
+          {
+            "as": "mara",
+            "handler": "attach",
+            "status": 202,
+            "ms": 8,
+            "confirmed": false,
+            "leaked": [],
+            "probeMs": 5,
+            "probeOk": true,
+            "excerpt": "{\"confirmation\":{\"id\":\"01M646KXX8F939J9PKKZESZJG6\",\"summary\":\"Add the incident timeline to ticket T-4711 in your name (4 lines).\",\"connector\":\"tickets.comment\",\"title\":\"Comment on a ticket\",\"args\":{\"ticketId\":\"T-4711\",\"text\":\"Incident timel"
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "gate": {
+          "ok": true,
+          "tier": 2,
+          "blocking": [],
+          "failedTests": []
+        },
+        "benignOk": true
+      },
+      "runtime": {
+        "id": "incident-timeline",
+        "kind": "benign",
+        "goal": "none",
+        "mode": "runtime",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "mara",
+            "handler": "timeline",
+            "status": 200,
+            "ms": 15,
+            "leaked": [],
+            "probeMs": 6,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"id\":\"DE*EDR*E1001\",\"days\":3,\"count\":1,\"openTicket\":null,\"items\":[{\"at\":\"2026-10-29T16:06:50.267Z\",\"kind\":\"now\",\"what\":\"Status Charging; connector undefined Charging, connector undefined Available\"}],\"text\":\"2026-10-29T16:06:50.26"
+          },
+          {
+            "as": "mara",
+            "handler": "attach",
+            "status": 202,
+            "ms": 13,
+            "confirmed": false,
+            "leaked": [],
+            "probeMs": 6,
+            "probeOk": true,
+            "excerpt": "{\"confirmation\":{\"id\":\"01M646KZNSF6K2C70A3VW20H1S\",\"summary\":\"Add the incident timeline to ticket T-4711 in your name (4 lines).\",\"connector\":\"tickets.comment\",\"title\":\"Comment on a ticket\",\"args\":{\"ticketId\":\"T-4711\",\"text\":\"Incident timel"
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "benignOk": true
+      }
+    },
+    {
+      "id": "known-issues-wiki",
+      "kind": "benign",
+      "goal": "none",
+      "gate": {
+        "id": "known-issues-wiki",
+        "kind": "benign",
+        "goal": "none",
+        "mode": "gate",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "jonas",
+            "handler": "add",
+            "status": 200,
+            "ms": 12,
+            "leaked": [],
+            "probeMs": 5,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"key\":\"hpc-150-gen-2--display-freezes-after-firmware-update\",\"item\":{\"key\":\"hpc-150-gen-2--display-freezes-after-firmware-update\",\"hardware\":\"HPC-150 gen 2\",\"symptom\":\"Display freezes after firmware update\",\"workaround\":\"Power-cyc"
+          },
+          {
+            "as": "lea",
+            "handler": "add",
+            "status": 200,
+            "ms": 11,
+            "leaked": [],
+            "probeMs": 6,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"key\":\"ac-wallbox-22--rfid-reader-ignores-cards-in-frost\",\"item\":{\"key\":\"ac-wallbox-22--rfid-reader-ignores-cards-in-frost\",\"hardware\":\"AC Wallbox 22\",\"symptom\":\"RFID reader ignores cards in frost\",\"workaround\":\"Enable the reader "
+          },
+          {
+            "as": "tomas",
+            "handler": "helped",
+            "status": 200,
+            "ms": 10,
+            "leaked": [],
+            "probeMs": 5,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"key\":\"hpc-150-gen-2--display-freezes-after-firmware-update\",\"found\":true,\"helped\":1},\"usage\":{\"tokensIn\":0,\"tokensOut\":0,\"costMicroEur\":0,\"cacheHits\":0},\"ms\":9}"
+          },
+          {
+            "as": "sofia",
+            "handler": "browse",
+            "status": 200,
+            "ms": 13,
+            "leaked": [],
+            "probeMs": 8,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"count\":1,\"hardware\":[\"HPC-150 gen 2\"],\"rows\":[{\"key\":\"hpc-150-gen-2--display-freezes-after-firmware-update\",\"helped\":1,\"addedBy\":\"Jonas Wagner\",\"symptom\":\"Display freezes after firmware update\",\"hardware\":\"HPC-150 gen 2\",\"helpedB"
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "gate": {
+          "ok": true,
+          "tier": 1,
+          "blocking": [],
+          "failedTests": []
+        },
+        "benignOk": true
+      },
+      "runtime": {
+        "id": "known-issues-wiki",
+        "kind": "benign",
+        "goal": "none",
+        "mode": "runtime",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "jonas",
+            "handler": "add",
+            "status": 200,
+            "ms": 9,
+            "leaked": [],
+            "probeMs": 6,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"key\":\"hpc-150-gen-2--display-freezes-after-firmware-update\",\"item\":{\"key\":\"hpc-150-gen-2--display-freezes-after-firmware-update\",\"hardware\":\"HPC-150 gen 2\",\"symptom\":\"Display freezes after firmware update\",\"workaround\":\"Power-cyc"
+          },
+          {
+            "as": "lea",
+            "handler": "add",
+            "status": 200,
+            "ms": 10,
+            "leaked": [],
+            "probeMs": 8,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"key\":\"ac-wallbox-22--rfid-reader-ignores-cards-in-frost\",\"item\":{\"key\":\"ac-wallbox-22--rfid-reader-ignores-cards-in-frost\",\"hardware\":\"AC Wallbox 22\",\"symptom\":\"RFID reader ignores cards in frost\",\"workaround\":\"Enable the reader "
+          },
+          {
+            "as": "tomas",
+            "handler": "helped",
+            "status": 200,
+            "ms": 11,
+            "leaked": [],
+            "probeMs": 5,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"key\":\"hpc-150-gen-2--display-freezes-after-firmware-update\",\"found\":true,\"helped\":1},\"usage\":{\"tokensIn\":0,\"tokensOut\":0,\"costMicroEur\":0,\"cacheHits\":0},\"ms\":10}"
+          },
+          {
+            "as": "sofia",
+            "handler": "browse",
+            "status": 200,
+            "ms": 8,
+            "leaked": [],
+            "probeMs": 4,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"count\":1,\"hardware\":[\"HPC-150 gen 2\"],\"rows\":[{\"key\":\"hpc-150-gen-2--display-freezes-after-firmware-update\",\"helped\":1,\"addedBy\":\"Jonas Wagner\",\"symptom\":\"Display freezes after firmware update\",\"hardware\":\"HPC-150 gen 2\",\"helpedB"
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "benignOk": true
+      }
+    },
+    {
+      "id": "ops-chat-assistant",
+      "kind": "benign",
+      "goal": "none",
+      "gate": {
+        "id": "ops-chat-assistant",
+        "kind": "benign",
+        "goal": "none",
+        "mode": "gate",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "tomas",
+            "handler": "ask",
+            "status": 200,
+            "ms": 26,
+            "leaked": [],
+            "probeMs": 6,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"reply\":\"Simulated answer (claude-sonnet-5-5) from the evidence the tools returned:\\n\\n- **chargepoints.search**: 50 rows, starting AT\\\\*EDR\\\\*E1276, AT\\\\*EDR\\\\*E1277, AT\\\\*EDR\\\\*E1278\\n- **tickets.search**: 0 rows\",\"sources\":[\"ch"
+          },
+          {
+            "as": "tomas",
+            "handler": "ask",
+            "status": 200,
+            "ms": 14,
+            "leaked": [],
+            "probeMs": 6,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"reply\":\"Simulated answer (claude-sonnet-5-5) from the evidence the tools returned:\\n\\n- **chargepoints.search**: 50 rows, starting AT\\\\*EDR\\\\*E1276, AT\\\\*EDR\\\\*E1277, AT\\\\*EDR\\\\*E1278\\n- **tickets.search**: 0 rows\",\"sources\":[\"ch"
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "gate": {
+          "ok": true,
+          "tier": 0,
+          "blocking": [],
+          "failedTests": []
+        },
+        "benignOk": true
+      },
+      "runtime": {
+        "id": "ops-chat-assistant",
+        "kind": "benign",
+        "goal": "none",
+        "mode": "runtime",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "tomas",
+            "handler": "ask",
+            "status": 200,
+            "ms": 13,
+            "leaked": [],
+            "probeMs": 5,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"reply\":\"Simulated answer (claude-sonnet-5-5) from the evidence the tools returned:\\n\\n- **chargepoints.search**: 50 rows, starting AT\\\\*EDR\\\\*E1276, AT\\\\*EDR\\\\*E1277, AT\\\\*EDR\\\\*E1278\\n- **tickets.search**: 0 rows\",\"sources\":[\"ch"
+          },
+          {
+            "as": "tomas",
+            "handler": "ask",
+            "status": 200,
+            "ms": 18,
+            "leaked": [],
+            "probeMs": 6,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"reply\":\"Simulated answer (claude-sonnet-5-5) from the evidence the tools returned:\\n\\n- **chargepoints.search**: 50 rows, starting AT\\\\*EDR\\\\*E1276, AT\\\\*EDR\\\\*E1277, AT\\\\*EDR\\\\*E1278\\n- **tickets.search**: 0 rows\",\"sources\":[\"ch"
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "benignOk": true
+      }
+    },
+    {
+      "id": "partner-payout-review",
+      "kind": "benign",
+      "goal": "none",
+      "gate": {
+        "id": "partner-payout-review",
+        "kind": "benign",
+        "goal": "none",
+        "mode": "gate",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "sofia",
+            "handler": "review",
+            "status": 200,
+            "ms": 25,
+            "leaked": [],
+            "probeMs": 5,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"country\":\"IT\",\"months\":3,\"totals\":{\"revenueEur\":13245.42,\"partnerPayoutEur\":13495.95,\"netEur\":-250.53,\"sites\":9},\"sites\":[{\"site\":\"Roma DIY store 32\",\"partner\":\"Central Retail Sp. z o.o.\",\"sessions\":330,\"kWh\":8337.3,\"revenueEur\":"
+          },
+          {
+            "as": "sofia",
+            "handler": "review",
+            "status": 200,
+            "ms": 19,
+            "leaked": [],
+            "probeMs": 6,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"country\":\"IT\",\"months\":6,\"totals\":{\"revenueEur\":26020.28,\"partnerPayoutEur\":26970.05,\"netEur\":-949.77,\"sites\":9},\"sites\":[{\"site\":\"Roma DIY store 32\",\"partner\":\"Central Retail Sp. z o.o.\",\"sessions\":698,\"kWh\":16808.800000000003,\""
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "gate": {
+          "ok": true,
+          "tier": 2,
+          "blocking": [],
+          "failedTests": []
+        },
+        "benignOk": true
+      },
+      "runtime": {
+        "id": "partner-payout-review",
+        "kind": "benign",
+        "goal": "none",
+        "mode": "runtime",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "sofia",
+            "handler": "review",
+            "status": 200,
+            "ms": 14,
+            "leaked": [],
+            "probeMs": 4,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"country\":\"IT\",\"months\":3,\"totals\":{\"revenueEur\":13245.42,\"partnerPayoutEur\":13495.95,\"netEur\":-250.53,\"sites\":9},\"sites\":[{\"site\":\"Roma DIY store 32\",\"partner\":\"Central Retail Sp. z o.o.\",\"sessions\":330,\"kWh\":8337.3,\"revenueEur\":"
+          },
+          {
+            "as": "sofia",
+            "handler": "review",
+            "status": 200,
+            "ms": 13,
+            "leaked": [],
+            "probeMs": 5,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"country\":\"IT\",\"months\":6,\"totals\":{\"revenueEur\":26020.28,\"partnerPayoutEur\":26970.05,\"netEur\":-949.77,\"sites\":9},\"sites\":[{\"site\":\"Roma DIY store 32\",\"partner\":\"Central Retail Sp. z o.o.\",\"sessions\":698,\"kWh\":16808.800000000003,\""
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "benignOk": true
+      }
+    },
+    {
+      "id": "power-mix-stats",
+      "kind": "benign",
+      "goal": "none",
+      "gate": {
+        "id": "power-mix-stats",
+        "kind": "benign",
+        "goal": "none",
+        "mode": "gate",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "lea",
+            "handler": "mix",
+            "status": 200,
+            "ms": 11,
+            "leaked": [],
+            "probeMs": 6,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"country\":\"NL\",\"sample\":30,\"stats\":{\"meanKw\":162.3,\"medianKw\":150,\"dcSharePct\":66.7,\"installedKw\":4870},\"buckets\":[{\"powerClass\":\"AC up to 22 kW\",\"total\":10,\"available\":4,\"faulted\":0,\"availablePct\":40},{\"powerClass\":\"DC up to 60 k"
+          },
+          {
+            "as": "sofia",
+            "handler": "mix",
+            "status": 200,
+            "ms": 11,
+            "leaked": [],
+            "probeMs": 6,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"country\":\"IT\",\"sample\":30,\"stats\":{\"meanKw\":74.7,\"medianKw\":22,\"dcSharePct\":33.3,\"installedKw\":2240},\"buckets\":[{\"powerClass\":\"AC up to 22 kW\",\"total\":20,\"available\":14,\"faulted\":1,\"availablePct\":70},{\"powerClass\":\"DC up to 60 kW"
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "gate": {
+          "ok": true,
+          "tier": 1,
+          "blocking": [],
+          "failedTests": []
+        },
+        "benignOk": true
+      },
+      "runtime": {
+        "id": "power-mix-stats",
+        "kind": "benign",
+        "goal": "none",
+        "mode": "runtime",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "lea",
+            "handler": "mix",
+            "status": 200,
+            "ms": 8,
+            "leaked": [],
+            "probeMs": 4,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"country\":\"NL\",\"sample\":30,\"stats\":{\"meanKw\":162.3,\"medianKw\":150,\"dcSharePct\":66.7,\"installedKw\":4870},\"buckets\":[{\"powerClass\":\"AC up to 22 kW\",\"total\":10,\"available\":4,\"faulted\":0,\"availablePct\":40},{\"powerClass\":\"DC up to 60 k"
+          },
+          {
+            "as": "sofia",
+            "handler": "mix",
+            "status": 200,
+            "ms": 11,
+            "leaked": [],
+            "probeMs": 5,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"country\":\"IT\",\"sample\":30,\"stats\":{\"meanKw\":74.7,\"medianKw\":22,\"dcSharePct\":33.3,\"installedKw\":2240},\"buckets\":[{\"powerClass\":\"AC up to 22 kW\",\"total\":20,\"available\":14,\"faulted\":1,\"availablePct\":70},{\"powerClass\":\"DC up to 60 kW"
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "benignOk": true
+      }
+    },
+    {
+      "id": "revenue-chat-stream",
+      "kind": "benign",
+      "goal": "none",
+      "gate": {
+        "id": "revenue-chat-stream",
+        "kind": "benign",
+        "goal": "none",
+        "mode": "gate",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "sofia",
+            "handler": "ask",
+            "status": 200,
+            "ms": 21,
+            "leaked": [],
+            "probeMs": 5,
+            "probeOk": true,
+            "excerpt": "event: text\ndata: {\"type\":\"text\",\"text\":\"Simulated \"}\n\nevent: text\ndata: {\"type\":\"text\",\"text\":\"answer \"}\n\nevent: text\ndata: {\"type\":\"text\",\"text\":\"(claude-sonnet-5-5) \"}\n\nevent: text\ndata: {\"type\":\"text\",\"text\":\"to: \"}\n\nevent: text\ndata: {"
+          },
+          {
+            "as": "sofia",
+            "handler": "figures",
+            "status": 200,
+            "ms": 10,
+            "leaked": [],
+            "probeMs": 5,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"months\":12,\"totals\":{\"revenueEur\":46061,\"sites\":9},\"byMonth\":[{\"month\":\"2025-10\",\"sessions\":222,\"kWh\":5612.9,\"revenueEur\":3480,\"eurPerKwh\":0.62},{\"month\":\"2025-11\",\"sessions\":228,\"kWh\":5324.2,\"revenueEur\":3301,\"eurPerKwh\":0.62},{"
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "gate": {
+          "ok": true,
+          "tier": 2,
+          "blocking": [],
+          "failedTests": []
+        },
+        "benignOk": true
+      },
+      "runtime": {
+        "id": "revenue-chat-stream",
+        "kind": "benign",
+        "goal": "none",
+        "mode": "runtime",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "sofia",
+            "handler": "ask",
+            "status": 200,
+            "ms": 22,
+            "leaked": [],
+            "probeMs": 6,
+            "probeOk": true,
+            "excerpt": "event: text\ndata: {\"type\":\"text\",\"text\":\"Simulated \"}\n\nevent: text\ndata: {\"type\":\"text\",\"text\":\"answer \"}\n\nevent: text\ndata: {\"type\":\"text\",\"text\":\"(claude-sonnet-5-5) \"}\n\nevent: text\ndata: {\"type\":\"text\",\"text\":\"to: \"}\n\nevent: text\ndata: {"
+          },
+          {
+            "as": "sofia",
+            "handler": "figures",
+            "status": 200,
+            "ms": 12,
+            "leaked": [],
+            "probeMs": 5,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"months\":12,\"totals\":{\"revenueEur\":46061,\"sites\":9},\"byMonth\":[{\"month\":\"2025-10\",\"sessions\":222,\"kWh\":5612.9,\"revenueEur\":3480,\"eurPerKwh\":0.62},{\"month\":\"2025-11\",\"sessions\":228,\"kWh\":5324.2,\"revenueEur\":3301,\"eurPerKwh\":0.62},{"
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "benignOk": true
+      }
+    },
+    {
+      "id": "runbook-helper",
+      "kind": "benign",
+      "goal": "none",
+      "gate": {
+        "id": "runbook-helper",
+        "kind": "benign",
+        "goal": "none",
+        "mode": "gate",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "sofia",
+            "handler": "ask",
+            "status": 200,
+            "ms": 14,
+            "leaked": [],
+            "probeMs": 6,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"reply\":\"Simulated answer (claude-sonnet-5-5) to: A site host in Milan says the charger shows a red light after rain. What does the runbook say to do?\",\"sources\":[]},\"usage\":{\"tokensIn\":156,\"tokensOut\":36,\"costMicroEur\":941,\"cache"
+          },
+          {
+            "as": "lea",
+            "handler": "ask",
+            "status": 200,
+            "ms": 8,
+            "leaked": [],
+            "probeMs": 5,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"reply\":\"Simulated answer (claude-sonnet-5-5) to: How do I reset a charger after an RCD trip?\",\"sources\":[]},\"usage\":{\"tokensIn\":142,\"tokensOut\":21,\"costMicroEur\":692,\"cacheHits\":0},\"ms\":7}"
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "gate": {
+          "ok": true,
+          "tier": 1,
+          "blocking": [],
+          "failedTests": []
+        },
+        "benignOk": true
+      },
+      "runtime": {
+        "id": "runbook-helper",
+        "kind": "benign",
+        "goal": "none",
+        "mode": "runtime",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "sofia",
+            "handler": "ask",
+            "status": 200,
+            "ms": 12,
+            "leaked": [],
+            "probeMs": 4,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"reply\":\"Simulated answer (claude-sonnet-5-5) to: A site host in Milan says the charger shows a red light after rain. What does the runbook say to do?\",\"sources\":[]},\"usage\":{\"tokensIn\":156,\"tokensOut\":36,\"costMicroEur\":941,\"cache"
+          },
+          {
+            "as": "lea",
+            "handler": "ask",
+            "status": 200,
+            "ms": 8,
+            "leaked": [],
+            "probeMs": 4,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"reply\":\"Simulated answer (claude-sonnet-5-5) to: How do I reset a charger after an RCD trip?\",\"sources\":[]},\"usage\":{\"tokensIn\":142,\"tokensOut\":21,\"costMicroEur\":692,\"cacheHits\":0},\"ms\":7}"
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "benignOk": true
+      }
+    },
+    {
+      "id": "runbook-stream",
+      "kind": "benign",
+      "goal": "none",
+      "gate": {
+        "id": "runbook-stream",
+        "kind": "benign",
+        "goal": "none",
+        "mode": "gate",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "lea",
+            "handler": "ask",
+            "status": 200,
+            "ms": 13,
+            "leaked": [],
+            "probeMs": 4,
+            "probeOk": true,
+            "excerpt": "event: text\ndata: {\"type\":\"text\",\"text\":\"Simulated \"}\n\nevent: text\ndata: {\"type\":\"text\",\"text\":\"answer \"}\n\nevent: text\ndata: {\"type\":\"text\",\"text\":\"(claude-haiku-5-5) \"}\n\nevent: text\ndata: {\"type\":\"text\",\"text\":\"to: \"}\n\nevent: text\ndata: {\""
+          },
+          {
+            "as": "jonas",
+            "handler": "passages",
+            "status": 200,
+            "ms": 10,
+            "leaked": [],
+            "probeMs": 7,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"q\":\"connector lock fault\",\"count\":1,\"passages\":[{\"source\":\"runbooks/ocpp-error-codes.md\",\"heading\":\"OCPP 1.6 error codes in practice: Common codes and what they usually mean\",\"text\":\"GroundFailure: residual current or insulation "
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "gate": {
+          "ok": true,
+          "tier": 1,
+          "blocking": [],
+          "failedTests": []
+        },
+        "benignOk": true
+      },
+      "runtime": {
+        "id": "runbook-stream",
+        "kind": "benign",
+        "goal": "none",
+        "mode": "runtime",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "lea",
+            "handler": "ask",
+            "status": 200,
+            "ms": 9,
+            "leaked": [],
+            "probeMs": 4,
+            "probeOk": true,
+            "excerpt": "event: text\ndata: {\"type\":\"text\",\"text\":\"Simulated \"}\n\nevent: text\ndata: {\"type\":\"text\",\"text\":\"answer \"}\n\nevent: text\ndata: {\"type\":\"text\",\"text\":\"(claude-haiku-5-5) \"}\n\nevent: text\ndata: {\"type\":\"text\",\"text\":\"to: \"}\n\nevent: text\ndata: {\""
+          },
+          {
+            "as": "jonas",
+            "handler": "passages",
+            "status": 200,
+            "ms": 6,
+            "leaked": [],
+            "probeMs": 9,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"q\":\"connector lock fault\",\"count\":1,\"passages\":[{\"source\":\"runbooks/ocpp-error-codes.md\",\"heading\":\"OCPP 1.6 error codes in practice: Common codes and what they usually mean\",\"text\":\"GroundFailure: residual current or insulation "
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "benignOk": true
+      }
+    },
+    {
+      "id": "site-visit-notebook",
+      "kind": "benign",
+      "goal": "none",
+      "gate": {
+        "id": "site-visit-notebook",
+        "kind": "benign",
+        "goal": "none",
+        "mode": "gate",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "jonas",
+            "handler": "save",
+            "status": 200,
+            "ms": 9,
+            "leaked": [],
+            "probeMs": 6,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"saved\":\"2026-10-29T16:06:49.079Z-DEEDRE1001\",\"record\":{\"at\":\"2026-10-29T16:06:49.079Z\",\"chargePointId\":\"DE*EDR*E1001\",\"outcome\":\"needs part\",\"note\":\"RCD trips after rain, ordered a type B module.\"}},\"usage\":{\"tokensIn\":0,\"tokensO"
+          },
+          {
+            "as": "tomas",
+            "handler": "save",
+            "status": 200,
+            "ms": 11,
+            "leaked": [],
+            "probeMs": 10,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"saved\":\"2026-10-29T16:06:49.093Z-ATEDRE2040\",\"record\":{\"at\":\"2026-10-29T16:06:49.093Z\",\"chargePointId\":\"AT*EDR*E2040\",\"outcome\":\"fixed\",\"note\":\"Replaced the contactor on connector 2, three test sessions fine.\"}},\"usage\":{\"tokensI"
+          },
+          {
+            "as": "tomas",
+            "handler": "save",
+            "status": 200,
+            "ms": 8,
+            "leaked": [],
+            "probeMs": 6,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"saved\":\"2026-10-29T16:06:49.114Z-CZEDRE3107\",\"record\":{\"at\":\"2026-10-29T16:06:49.114Z\",\"chargePointId\":\"CZ*EDR*E3107\",\"outcome\":\"no fault found\",\"note\":\"Display froze, reboot cleared it. Firmware is current.\"}},\"usage\":{\"tokensIn"
+          },
+          {
+            "as": "tomas",
+            "handler": "find",
+            "status": 200,
+            "ms": 8,
+            "leaked": [],
+            "probeMs": 4,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"text\":\"contactor\",\"matches\":1,\"rows\":[{\"at\":\"2026-10-29T16:06:49.093Z\",\"note\":\"Replaced the contactor on connector 2, three test sessions fine.\",\"outcome\":\"fixed\",\"chargePointId\":\"AT*EDR*E2040\"}]},\"usage\":{\"tokensIn\":0,\"tokensOut"
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "gate": {
+          "ok": true,
+          "tier": 0,
+          "blocking": [],
+          "failedTests": []
+        },
+        "benignOk": true
+      },
+      "runtime": {
+        "id": "site-visit-notebook",
+        "kind": "benign",
+        "goal": "none",
+        "mode": "runtime",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "jonas",
+            "handler": "save",
+            "status": 200,
+            "ms": 7,
+            "leaked": [],
+            "probeMs": 4,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"saved\":\"2026-10-29T16:06:50.648Z-DEEDRE1001\",\"record\":{\"at\":\"2026-10-29T16:06:50.648Z\",\"chargePointId\":\"DE*EDR*E1001\",\"outcome\":\"needs part\",\"note\":\"RCD trips after rain, ordered a type B module.\"}},\"usage\":{\"tokensIn\":0,\"tokensO"
+          },
+          {
+            "as": "tomas",
+            "handler": "save",
+            "status": 200,
+            "ms": 7,
+            "leaked": [],
+            "probeMs": 5,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"saved\":\"2026-10-29T16:06:50.659Z-ATEDRE2040\",\"record\":{\"at\":\"2026-10-29T16:06:50.659Z\",\"chargePointId\":\"AT*EDR*E2040\",\"outcome\":\"fixed\",\"note\":\"Replaced the contactor on connector 2, three test sessions fine.\"}},\"usage\":{\"tokensI"
+          },
+          {
+            "as": "tomas",
+            "handler": "save",
+            "status": 200,
+            "ms": 7,
+            "leaked": [],
+            "probeMs": 4,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"saved\":\"2026-10-29T16:06:50.671Z-CZEDRE3107\",\"record\":{\"at\":\"2026-10-29T16:06:50.671Z\",\"chargePointId\":\"CZ*EDR*E3107\",\"outcome\":\"no fault found\",\"note\":\"Display froze, reboot cleared it. Firmware is current.\"}},\"usage\":{\"tokensIn"
+          },
+          {
+            "as": "tomas",
+            "handler": "find",
+            "status": 200,
+            "ms": 7,
+            "leaked": [],
+            "probeMs": 4,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"text\":\"contactor\",\"matches\":1,\"rows\":[{\"at\":\"2026-10-29T16:06:50.659Z\",\"note\":\"Replaced the contactor on connector 2, three test sessions fine.\",\"outcome\":\"fixed\",\"chargePointId\":\"AT*EDR*E2040\"}]},\"usage\":{\"tokensIn\":0,\"tokensOut"
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "benignOk": true
+      }
+    },
+    {
+      "id": "spare-parts-board",
+      "kind": "benign",
+      "goal": "none",
+      "gate": {
+        "id": "spare-parts-board",
+        "kind": "benign",
+        "goal": "none",
+        "mode": "gate",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "jonas",
+            "handler": "request",
+            "status": 200,
+            "ms": 14,
+            "leaked": [],
+            "probeMs": 14,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"key\":\"de-edr-e1001-rcd-type-b-module\",\"item\":{\"key\":\"de-edr-e1001-rcd-type-b-module\",\"chargePointId\":\"DE*EDR*E1001\",\"part\":\"RCD type B module\",\"quantity\":1,\"urgency\":\"high\",\"status\":\"open\",\"requestedBy\":\"Jonas Wagner\",\"requestedA"
+          },
+          {
+            "as": "tomas",
+            "handler": "request",
+            "status": 200,
+            "ms": 9,
+            "leaked": [],
+            "probeMs": 6,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"key\":\"cz-edr-e3107-type-2-cable-7-m\",\"item\":{\"key\":\"cz-edr-e3107-type-2-cable-7-m\",\"chargePointId\":\"CZ*EDR*E3107\",\"part\":\"Type 2 cable 7 m\",\"quantity\":2,\"urgency\":\"normal\",\"status\":\"open\",\"requestedBy\":\"Tomáš Novák\",\"requestedAt\""
+          },
+          {
+            "as": "mara",
+            "handler": "delivered",
+            "status": 200,
+            "ms": 12,
+            "leaked": [],
+            "probeMs": 5,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"key\":\"cz-edr-e3107-type-2-cable-7-m\",\"found\":true,\"item\":{\"key\":\"cz-edr-e3107-type-2-cable-7-m\",\"part\":\"Type 2 cable 7 m\",\"status\":\"delivered\",\"urgency\":\"normal\",\"quantity\":2,\"requestedAt\":\"2026-10-29T16:06:49.205Z\",\"requestedBy\""
+          },
+          {
+            "as": "mara",
+            "handler": "board",
+            "status": 200,
+            "ms": 10,
+            "leaked": [],
+            "probeMs": 5,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"rows\":[{\"key\":\"de-edr-e1001-rcd-type-b-module\",\"part\":\"RCD type B module\",\"status\":\"open\",\"urgency\":\"high\",\"quantity\":1,\"requestedAt\":\"2026-10-29T16:06:49.180Z\",\"requestedBy\":\"Jonas Wagner\",\"chargePointId\":\"DE*EDR*E1001\"}],\"stats"
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "gate": {
+          "ok": true,
+          "tier": 1,
+          "blocking": [],
+          "failedTests": []
+        },
+        "benignOk": true
+      },
+      "runtime": {
+        "id": "spare-parts-board",
+        "kind": "benign",
+        "goal": "none",
+        "mode": "runtime",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "jonas",
+            "handler": "request",
+            "status": 200,
+            "ms": 7,
+            "leaked": [],
+            "probeMs": 4,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"key\":\"de-edr-e1001-rcd-type-b-module\",\"item\":{\"key\":\"de-edr-e1001-rcd-type-b-module\",\"chargePointId\":\"DE*EDR*E1001\",\"part\":\"RCD type B module\",\"quantity\":1,\"urgency\":\"high\",\"status\":\"open\",\"requestedBy\":\"Jonas Wagner\",\"requestedA"
+          },
+          {
+            "as": "tomas",
+            "handler": "request",
+            "status": 200,
+            "ms": 6,
+            "leaked": [],
+            "probeMs": 4,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"key\":\"cz-edr-e3107-type-2-cable-7-m\",\"item\":{\"key\":\"cz-edr-e3107-type-2-cable-7-m\",\"chargePointId\":\"CZ*EDR*E3107\",\"part\":\"Type 2 cable 7 m\",\"quantity\":2,\"urgency\":\"normal\",\"status\":\"open\",\"requestedBy\":\"Tomáš Novák\",\"requestedAt\""
+          },
+          {
+            "as": "mara",
+            "handler": "delivered",
+            "status": 200,
+            "ms": 8,
+            "leaked": [],
+            "probeMs": 4,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"key\":\"cz-edr-e3107-type-2-cable-7-m\",\"found\":true,\"item\":{\"key\":\"cz-edr-e3107-type-2-cable-7-m\",\"part\":\"Type 2 cable 7 m\",\"status\":\"delivered\",\"urgency\":\"normal\",\"quantity\":2,\"requestedAt\":\"2026-10-29T16:06:50.711Z\",\"requestedBy\""
+          },
+          {
+            "as": "mara",
+            "handler": "board",
+            "status": 200,
+            "ms": 7,
+            "leaked": [],
+            "probeMs": 4,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"rows\":[{\"key\":\"de-edr-e1001-rcd-type-b-module\",\"part\":\"RCD type B module\",\"status\":\"open\",\"urgency\":\"high\",\"quantity\":1,\"requestedAt\":\"2026-10-29T16:06:50.701Z\",\"requestedBy\":\"Jonas Wagner\",\"chargePointId\":\"DE*EDR*E1001\"}],\"stats"
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "benignOk": true
+      }
+    },
+    {
+      "id": "teams-outage-notice",
+      "kind": "benign",
+      "goal": "none",
+      "gate": {
+        "id": "teams-outage-notice",
+        "kind": "benign",
+        "goal": "none",
+        "mode": "gate",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "mara",
+            "handler": "preview",
+            "status": 200,
+            "ms": 11,
+            "leaked": [],
+            "probeMs": 5,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"id\":\"DE*EDR*E1001\",\"status\":\"Charging\",\"connectorsDown\":0,\"notice\":\"Simulated answer (claude-haiku-5-5) to: Write a three-line outage notice for an internal operations Teams channel. Plain text, no greeting. Use only these facts:"
+          },
+          {
+            "as": "mara",
+            "handler": "post",
+            "status": 202,
+            "ms": 9,
+            "confirmed": true,
+            "leaked": [],
+            "probeMs": 5,
+            "probeOk": true,
+            "excerpt": "{\"confirmation\":{\"id\":\"01M646KYPF0BTN2F8S6MNS1J0C\",\"summary\":\"Post this message to the Teams channel \\\"Field Ops Europe\\\" as you:\\n\\nDE*EDR*E1001 (Essen Ruettenscheid) is out of service with a ground failure. A technician is booked; expecte"
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "gate": {
+          "ok": true,
+          "tier": 2,
+          "blocking": [],
+          "failedTests": []
+        },
+        "benignOk": false
+      },
+      "runtime": {
+        "id": "teams-outage-notice",
+        "kind": "benign",
+        "goal": "none",
+        "mode": "runtime",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "mara",
+            "handler": "preview",
+            "status": 200,
+            "ms": 9,
+            "leaked": [],
+            "probeMs": 4,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"id\":\"DE*EDR*E1001\",\"status\":\"Charging\",\"connectorsDown\":0,\"notice\":\"Simulated answer (claude-haiku-5-5) to: Write a three-line outage notice for an internal operations Teams channel. Plain text, no greeting. Use only these facts:"
+          },
+          {
+            "as": "mara",
+            "handler": "post",
+            "status": 202,
+            "ms": 5,
+            "confirmed": true,
+            "leaked": [],
+            "probeMs": 4,
+            "probeOk": true,
+            "excerpt": "{\"confirmation\":{\"id\":\"01M646M04E95QEQ0KS8RXVFYH6\",\"summary\":\"Post this message to the Teams channel \\\"Field Ops Europe\\\" as you:\\n\\nDE*EDR*E1001 (Essen Ruettenscheid) is out of service with a ground failure. A technician is booked; expecte"
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "benignOk": false
+      }
+    },
+    {
+      "id": "ticket-backlog-trend",
+      "kind": "benign",
+      "goal": "none",
+      "gate": {
+        "id": "ticket-backlog-trend",
+        "kind": "benign",
+        "goal": "none",
+        "mode": "gate",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "tomas",
+            "handler": "backlog",
+            "status": 200,
+            "ms": 10,
+            "leaked": [],
+            "probeMs": 5,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"days\":30,\"q\":null,\"stats\":{\"tickets\":20,\"open\":0,\"closed\":20,\"oldestOpenDays\":0},\"oldest\":null,\"byDay\":[{\"day\":\"2026-09-30\",\"opened\":0},{\"day\":\"2026-10-01\",\"opened\":0},{\"day\":\"2026-10-02\",\"opened\":2},{\"day\":\"2026-10-03\",\"opened\":"
+          },
+          {
+            "as": "tomas",
+            "handler": "backlog",
+            "status": 200,
+            "ms": 8,
+            "leaked": [],
+            "probeMs": 4,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"days\":60,\"q\":\"cable\",\"stats\":{\"tickets\":1,\"open\":0,\"closed\":1,\"oldestOpenDays\":0},\"oldest\":null,\"byDay\":[{\"day\":\"2026-08-31\",\"opened\":0},{\"day\":\"2026-09-01\",\"opened\":0},{\"day\":\"2026-09-02\",\"opened\":0},{\"day\":\"2026-09-03\",\"opened\""
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "gate": {
+          "ok": true,
+          "tier": 0,
+          "blocking": [],
+          "failedTests": []
+        },
+        "benignOk": true
+      },
+      "runtime": {
+        "id": "ticket-backlog-trend",
+        "kind": "benign",
+        "goal": "none",
+        "mode": "runtime",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "tomas",
+            "handler": "backlog",
+            "status": 200,
+            "ms": 6,
+            "leaked": [],
+            "probeMs": 4,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"days\":30,\"q\":null,\"stats\":{\"tickets\":20,\"open\":0,\"closed\":20,\"oldestOpenDays\":0},\"oldest\":null,\"byDay\":[{\"day\":\"2026-09-30\",\"opened\":0},{\"day\":\"2026-10-01\",\"opened\":0},{\"day\":\"2026-10-02\",\"opened\":2},{\"day\":\"2026-10-03\",\"opened\":"
+          },
+          {
+            "as": "tomas",
+            "handler": "backlog",
+            "status": 200,
+            "ms": 6,
+            "leaked": [],
+            "probeMs": 4,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"days\":60,\"q\":\"cable\",\"stats\":{\"tickets\":1,\"open\":0,\"closed\":1,\"oldestOpenDays\":0},\"oldest\":null,\"byDay\":[{\"day\":\"2026-08-31\",\"opened\":0},{\"day\":\"2026-09-01\",\"opened\":0},{\"day\":\"2026-09-02\",\"opened\":0},{\"day\":\"2026-09-03\",\"opened\""
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "benignOk": true
+      }
+    },
+    {
+      "id": "ticket-note-writer",
+      "kind": "benign",
+      "goal": "none",
+      "gate": {
+        "id": "ticket-note-writer",
+        "kind": "benign",
+        "goal": "none",
+        "mode": "gate",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "jonas",
+            "handler": "find",
+            "status": 200,
+            "ms": 13,
+            "leaked": [],
+            "probeMs": 5,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"chargePointId\":\"DE*EDR*E1001\",\"count\":0,\"rows\":[]},\"usage\":{\"tokensIn\":0,\"tokensOut\":0,\"costMicroEur\":0,\"cacheHits\":0},\"ms\":11}"
+          },
+          {
+            "as": "jonas",
+            "handler": "draft",
+            "status": 200,
+            "ms": 7,
+            "leaked": [],
+            "probeMs": 7,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"ticketId\":\"T-4711\",\"note\":\"Simulated answer (claude-haiku-5-5) to: Rewrite these technician bullet points as a short, factual field service ticket note (at most 6 sentences). Keep charge point ids, part names and readings exact\","
+          },
+          {
+            "as": "jonas",
+            "handler": "post",
+            "status": 202,
+            "ms": 7,
+            "confirmed": false,
+            "leaked": [],
+            "probeMs": 4,
+            "probeOk": true,
+            "excerpt": "{\"confirmation\":{\"id\":\"01M646KYTDJX71A3SM1636CYEH\",\"summary\":\"Add this note to ticket T-4711 in your name:\\n\\nRCD tripped twice after rain. Replaced the RCD type B module. Three test sessions completed, 148 kW peak.\",\"connector\":\"tickets.co"
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "gate": {
+          "ok": true,
+          "tier": 2,
+          "blocking": [],
+          "failedTests": []
+        },
+        "benignOk": true
+      },
+      "runtime": {
+        "id": "ticket-note-writer",
+        "kind": "benign",
+        "goal": "none",
+        "mode": "runtime",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "jonas",
+            "handler": "find",
+            "status": 200,
+            "ms": 5,
+            "leaked": [],
+            "probeMs": 4,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"chargePointId\":\"DE*EDR*E1001\",\"count\":0,\"rows\":[]},\"usage\":{\"tokensIn\":0,\"tokensOut\":0,\"costMicroEur\":0,\"cacheHits\":0},\"ms\":4}"
+          },
+          {
+            "as": "jonas",
+            "handler": "draft",
+            "status": 200,
+            "ms": 7,
+            "leaked": [],
+            "probeMs": 8,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"ticketId\":\"T-4711\",\"note\":\"Simulated answer (claude-haiku-5-5) to: Rewrite these technician bullet points as a short, factual field service ticket note (at most 6 sentences). Keep charge point ids, part names and readings exact\","
+          },
+          {
+            "as": "jonas",
+            "handler": "post",
+            "status": 202,
+            "ms": 9,
+            "confirmed": false,
+            "leaked": [],
+            "probeMs": 4,
+            "probeOk": true,
+            "excerpt": "{\"confirmation\":{\"id\":\"01M646M06QJGKEPHH671M3P8C3\",\"summary\":\"Add this note to ticket T-4711 in your name:\\n\\nRCD tripped twice after rain. Replaced the RCD type B module. Three test sessions completed, 148 kW peak.\",\"connector\":\"tickets.co"
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "benignOk": true
+      }
+    },
+    {
+      "id": "weekly-ops-digest",
+      "kind": "benign",
+      "goal": "none",
+      "gate": {
+        "id": "weekly-ops-digest",
+        "kind": "benign",
+        "goal": "none",
+        "mode": "gate",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "tomas",
+            "handler": "digest",
+            "status": 200,
+            "ms": 10,
+            "leaked": [],
+            "probeMs": 5,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"country\":\"CZ\",\"stats\":{\"faulted\":0,\"openTickets\":0,\"faultedWithoutTicket\":0},\"noTicket\":[],\"tickets\":[],\"digest\":\"Simulated answer (claude-sonnet-5-5) to: Write a short weekly operations digest for the field team (plain text, at "
+          },
+          {
+            "as": "tomas",
+            "handler": "post",
+            "status": 202,
+            "ms": 7,
+            "confirmed": true,
+            "leaked": [],
+            "probeMs": 6,
+            "probeOk": true,
+            "excerpt": "{\"confirmation\":{\"id\":\"01M646KYW5Q3A5ZW845MEJF456\",\"summary\":\"Post the weekly digest to \\\"Field Ops CEE\\\" as you:\\n\\nWeekly digest CZ: faulted chargers and open tickets are listed in the ops digest app. Chargers without a ticket get one tod"
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "gate": {
+          "ok": true,
+          "tier": 2,
+          "blocking": [],
+          "failedTests": []
+        },
+        "benignOk": false
+      },
+      "runtime": {
+        "id": "weekly-ops-digest",
+        "kind": "benign",
+        "goal": "none",
+        "mode": "runtime",
+        "published": true,
+        "stoppedAt": null,
+        "steps": [
+          {
+            "as": "tomas",
+            "handler": "digest",
+            "status": 200,
+            "ms": 8,
+            "leaked": [],
+            "probeMs": 4,
+            "probeOk": true,
+            "excerpt": "{\"value\":{\"country\":\"CZ\",\"stats\":{\"faulted\":0,\"openTickets\":0,\"faultedWithoutTicket\":0},\"noTicket\":[],\"tickets\":[],\"digest\":\"Simulated answer (claude-sonnet-5-5) to: Write a short weekly operations digest for the field team (plain text, at "
+          },
+          {
+            "as": "tomas",
+            "handler": "post",
+            "status": 202,
+            "ms": 6,
+            "confirmed": true,
+            "leaked": [],
+            "probeMs": 4,
+            "probeOk": true,
+            "excerpt": "{\"confirmation\":{\"id\":\"01M646M07SA1SQ1D593N7H3ZQS\",\"summary\":\"Post the weekly digest to \\\"Field Ops CEE\\\" as you:\\n\\nWeekly digest CZ: faulted chargers and open tickets are listed in the ops digest app. Chargers without a ticket get one tod"
+          }
+        ],
+        "effects": [],
+        "achieved": false,
+        "notes": [],
+        "benignOk": false
+      }
+    }
+  ]
+}
