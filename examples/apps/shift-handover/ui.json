@@ -1,0 +1,29 @@
+{
+  "pages": [
+    {
+      "id": "write",
+      "title": "Handover",
+      "blocks": [
+        {
+          "type": "form",
+          "handler": "tidy",
+          "fields": [{ "name": "notes", "label": "What the next shift needs to know", "kind": "textarea", "required": true }],
+          "submitLabel": "Make checklist",
+          "result": [{ "type": "markdown", "path": "checklist" }]
+        },
+        {
+          "type": "view",
+          "handler": "recent",
+          "title": "Your last handovers",
+          "result": [
+            {
+              "type": "table",
+              "path": "rows",
+              "columns": [{ "key": "at", "label": "Written", "format": "datetime" }, { "key": "checklist", "label": "Checklist" }]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

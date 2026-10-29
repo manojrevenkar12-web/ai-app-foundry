@@ -1,0 +1,8 @@
+[
+  {
+    "name": "totals the figures it was given",
+    "handler": "brief",
+    "input": { "country": "DE", "months": 1 },
+    "expect": { "contains": ["\"revenueEur\":58874", "\"sites\":1"] }
+  }
+]

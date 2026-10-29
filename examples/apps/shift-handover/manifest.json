@@ -1,0 +1,18 @@
+{
+  "id": "shift-handover",
+  "name": "Shift handover notes",
+  "description": "Write the end-of-shift handover in your own words; the app tidies it into a checklist and keeps your last notes.",
+  "audience": { "kind": "groups", "groups": ["EDRI-Ops"] },
+  "handlers": [
+    {
+      "name": "tidy",
+      "description": "Turn free text into a handover checklist and keep it",
+      "input": { "type": "object", "properties": { "notes": { "type": "string", "maxLength": 4000 } }, "required": ["notes"] }
+    },
+    { "name": "recent", "description": "Your last handovers", "input": { "type": "object", "properties": {} } }
+  ],
+  "models": [{ "alias": "fast", "maxTokensPerCall": 600 }],
+  "connectors": [],
+  "collections": [{ "name": "handovers", "scope": "private", "classification": "internal", "retentionDays": 30 }],
+  "budget": { "eurPerDay": 2, "tokensPerUserPerDay": 30000 }
+}

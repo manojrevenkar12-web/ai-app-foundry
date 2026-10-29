@@ -1,0 +1,50 @@
+{
+  "id": "fault-triage",
+  "name": "Fault triage assistant",
+  "description": "Ask why a charge point is faulted. The assistant reads its status, recent OCPP errors, the fault model's diagnosis and the runbooks, and can add a note to the field ticket after you confirm.",
+  "audience": { "kind": "groups", "groups": ["EDRI-Ops"] },
+  "handlers": [
+    {
+      "name": "ask",
+      "description": "Answer a question about a charge point",
+      "input": {
+        "type": "object",
+        "properties": {
+          "message": { "type": "string", "maxLength": 2000 },
+          "history": {
+            "type": "array",
+            "maxItems": 20,
+            "items": {
+              "type": "object",
+              "properties": {
+                "role": { "type": "string", "enum": ["user", "assistant"] },
+                "content": { "type": "string", "maxLength": 4000 }
+              }
+            }
+          }
+        },
+        "required": ["message"]
+      }
+    },
+    {
+      "name": "addTicketNote",
+      "description": "Add the diagnosis to the open ticket, after the viewer confirms",
+      "input": {
+        "type": "object",
+        "properties": { "ticketId": { "type": "string", "maxLength": 20 }, "note": { "type": "string", "maxLength": 2000 } },
+        "required": ["ticketId", "note"]
+      }
+    }
+  ],
+  "models": [{ "alias": "smart", "maxTokensPerCall": 1200 }],
+  "connectors": [
+    { "id": "chargepoints.status" },
+    { "id": "chargepoints.events" },
+    { "id": "faults.diagnose" },
+    { "id": "docs.search" },
+    { "id": "tickets.search" },
+    { "id": "tickets.comment" }
+  ],
+  "collections": [],
+  "budget": { "eurPerDay": 25, "tokensPerUserPerDay": 200000 }
+}

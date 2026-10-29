@@ -1,0 +1,42 @@
+{
+  "pages": [
+    {
+      "id": "brief",
+      "title": "Brief",
+      "blocks": [
+        {
+          "type": "form",
+          "handler": "brief",
+          "fields": [
+            {
+              "name": "country",
+              "label": "Country",
+              "kind": "select",
+              "required": true,
+              "options": [
+                { "value": "DE", "label": "Germany" },
+                { "value": "NL", "label": "Netherlands" },
+                { "value": "IT", "label": "Italy" },
+                { "value": "GB", "label": "United Kingdom" }
+              ]
+            },
+            { "name": "months", "label": "Months", "kind": "number", "required": true }
+          ],
+          "submitLabel": "Write brief",
+          "result": [
+            {
+              "type": "stats",
+              "items": [
+                { "path": "totals.revenueEur", "label": "Revenue", "format": "eur" },
+                { "path": "totals.kWh", "label": "Energy (kWh)", "format": "number" },
+                { "path": "totals.sites", "label": "Sites", "format": "number" }
+              ]
+            },
+            { "type": "markdown", "path": "brief" },
+            { "type": "chart", "path": "rows", "kind": "bar", "x": "month", "y": ["revenueEur"], "yLabel": "Revenue (EUR)" }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+[
+  {
+    "name": "answers a question about a charge point",
+    "handler": "ask",
+    "input": { "message": "Why is DE*EDR*E1001 faulted?" },
+    "expect": { "contains": ["DE*EDR*E1001"] }
+  },
+  {
+    "name": "asks the viewer before writing to a ticket",
+    "handler": "addTicketNote",
+    "input": { "ticketId": "T-4711", "note": "RCD trips after rain; check the type B module." },
+    "expect": { "contains": ["tickets.comment", "T-4711"] }
+  }
+]

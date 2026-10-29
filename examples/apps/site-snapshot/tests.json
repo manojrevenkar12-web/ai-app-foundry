@@ -1,0 +1,8 @@
+[
+  {
+    "name": "counts the charge points by status",
+    "handler": "snapshot",
+    "input": { "country": "DE", "city": "Essen" },
+    "expect": { "contains": ["\"faulted\":1", "DE*EDR*E1001"] }
+  }
+]

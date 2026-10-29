@@ -1,0 +1,24 @@
+{
+  "id": "site-snapshot",
+  "name": "Site snapshot",
+  "description": "Which charge points in a city are available, charging or faulted right now, with a one-paragraph summary.",
+  "audience": { "kind": "company" },
+  "handlers": [
+    {
+      "name": "snapshot",
+      "description": "Status of the charge points in a city",
+      "input": {
+        "type": "object",
+        "properties": {
+          "country": { "type": "string", "enum": ["AT", "CZ", "DK", "DE", "HU", "IT", "NL", "PL", "RO", "SE", "GB"] },
+          "city": { "type": "string", "maxLength": 60 }
+        },
+        "required": ["country", "city"]
+      }
+    }
+  ],
+  "models": [{ "alias": "fast", "maxTokensPerCall": 300 }],
+  "connectors": [{ "id": "chargepoints.search" }],
+  "collections": [],
+  "budget": { "eurPerDay": 5, "tokensPerUserPerDay": 50000 }
+}

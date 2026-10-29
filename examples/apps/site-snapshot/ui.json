@@ -1,0 +1,60 @@
+{
+  "pages": [
+    {
+      "id": "snapshot",
+      "title": "Snapshot",
+      "blocks": [
+        {
+          "type": "form",
+          "handler": "snapshot",
+          "fields": [
+            {
+              "name": "country",
+              "label": "Country",
+              "kind": "select",
+              "required": true,
+              "options": [
+                { "value": "DE", "label": "Germany" },
+                { "value": "NL", "label": "Netherlands" },
+                { "value": "IT", "label": "Italy" },
+                { "value": "PL", "label": "Poland" },
+                { "value": "SE", "label": "Sweden" },
+                { "value": "GB", "label": "United Kingdom" },
+                { "value": "AT", "label": "Austria" },
+                { "value": "DK", "label": "Denmark" },
+                { "value": "CZ", "label": "Czech Republic" },
+                { "value": "HU", "label": "Hungary" },
+                { "value": "RO", "label": "Romania" }
+              ]
+            },
+            { "name": "city", "label": "City", "kind": "text", "required": true }
+          ],
+          "submitLabel": "Show charge points",
+          "result": [
+            {
+              "type": "stats",
+              "items": [
+                { "path": "stats.total", "label": "Charge points", "format": "number" },
+                { "path": "stats.available", "label": "Available", "format": "number" },
+                { "path": "stats.charging", "label": "Charging", "format": "number" },
+                { "path": "stats.faulted", "label": "Faulted", "format": "number" }
+              ]
+            },
+            { "type": "markdown", "path": "summary" },
+            {
+              "type": "table",
+              "path": "rows",
+              "columns": [
+                { "key": "id", "label": "Charge point" },
+                { "key": "site", "label": "Site" },
+                { "key": "powerKw", "label": "kW", "format": "number" },
+                { "key": "status", "label": "Status", "format": "status" },
+                { "key": "lastSeen", "label": "Last seen", "format": "datetime" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

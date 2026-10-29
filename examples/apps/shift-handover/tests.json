@@ -1,0 +1,9 @@
+[
+  {
+    "name": "makes a checklist and keeps it",
+    "handler": "tidy",
+    "input": { "notes": "DE*EDR*E1001 tripped twice, ticket T-4711 open" },
+    "expect": { "contains": ["checklist", "saved"] }
+  },
+  { "name": "lists nothing for a new viewer", "handler": "recent", "input": {}, "expect": { "contains": ["rows"] } }
+]

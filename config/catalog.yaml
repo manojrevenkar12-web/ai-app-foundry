@@ -1,0 +1,187 @@
+# What the platform offers apps. Connectors run with the viewer's identity: a viewer receives only
+# what their Entra groups allow, whatever the app asks for. Group names stand for Entra group
+# object ids, mapped in config/identity.yaml.
+
+models:
+  - alias: fast
+    provider: sim # anthropic / azure-openai in production, chosen per environment
+    model: claude-haiku-5-5
+    eurPerMillionIn: 0.9
+    eurPerMillionOut: 4.5
+  - alias: smart
+    provider: sim
+    model: claude-sonnet-5-5
+    eurPerMillionIn: 2.8
+    eurPerMillionOut: 14
+  - alias: embed
+    provider: sim
+    model: text-embedding-3-large
+    eurPerMillionIn: 0.12
+    eurPerMillionOut: 0
+
+connectors:
+  - id: chargepoints.search
+    title: Find charge points
+    description: Charge points by country, city or status, with their site and power.
+    access: read
+    classification: internal
+    allowedGroups: [EDRI-All]
+    args:
+      { country: "ISO code, optional", city: "optional", status: "Available | Charging | Faulted | Unavailable, optional", limit: "1..100" }
+    returns: "{ rows: [{ id, site, city, country, powerKw, status, lastSeen }] }"
+    example:
+      {
+        rows:
+          [
+            {
+              id: "DE*EDR*E1001",
+              site: "Essen Rüttenscheid",
+              city: "Essen",
+              country: "DE",
+              powerKw: 150,
+              status: "Faulted",
+              lastSeen: "2026-10-29T11:58:00Z",
+            },
+          ],
+      }
+
+  - id: chargepoints.status
+    title: Charge point status
+    description: Current state of one charge point's connectors and its last status notifications.
+    access: read
+    classification: internal
+    allowedGroups: [EDRI-All]
+    args: { id: "charge point id, e.g. DE*EDR*E1001" }
+    returns: "{ id, status, connectors: [{ id, status, errorCode }], lastNotifications: [...] }"
+    example:
+      {
+        id: "DE*EDR*E1001",
+        status: "Faulted",
+        connectors: [{ id: 1, status: "Faulted", errorCode: "GroundFailure" }],
+        lastNotifications: [],
+      }
+
+  - id: chargepoints.events
+    title: Charge point fault history
+    description: OCPP error notifications for one charge point over the last days.
+    access: read
+    classification: internal
+    allowedGroups: [EDRI-Ops]
+    args: { id: "charge point id", days: "1..30" }
+    returns: "{ events: [{ at, connector, status, errorCode, vendorErrorCode }] }"
+    example:
+      { events: [{ at: "2026-10-29T09:14:00Z", connector: 1, status: "Faulted", errorCode: "GroundFailure", vendorErrorCode: "E-217" }] }
+
+  - id: faults.diagnose
+    title: Diagnose a fault
+    description: The fault model (trained by the data science team) ranks likely causes from a charge point's recent events.
+    access: read
+    classification: internal
+    allowedGroups: [EDRI-Ops]
+    args: { id: "charge point id" }
+    returns: "{ id, causes: [{ cause, probability }], evidence: [...], modelVersion }"
+    example:
+      {
+        id: "DE*EDR*E1001",
+        causes: [{ cause: "rcd_trip", probability: 0.71 }, { cause: "cable_damage", probability: 0.18 }],
+        evidence: ["GroundFailure x4 in 24h"],
+        modelVersion: "fault-gbm-2026.10",
+      }
+
+  - id: tickets.search
+    title: Field service tickets
+    description: Open and recent field service tickets, by charge point or text.
+    access: read
+    classification: internal
+    allowedGroups: [EDRI-Ops]
+    args: { chargePointId: "optional", q: "optional text", status: "open | closed | any" }
+    returns: "{ rows: [{ id, chargePointId, title, status, opened, technician }] }"
+    example:
+      {
+        rows:
+          [
+            {
+              id: "T-4711",
+              chargePointId: "DE*EDR*E1001",
+              title: "RCD trips after rain",
+              status: "open",
+              opened: "2026-10-28",
+              technician: "N. Wagner",
+            },
+          ],
+      }
+
+  - id: tickets.comment
+    title: Comment on a ticket
+    description: Adds a comment to a field service ticket, in the viewer's name.
+    access: write
+    classification: internal
+    allowedGroups: [EDRI-Ops]
+    args: { ticketId: "T-...", text: "1..2000 characters" }
+    returns: "{ ticketId, commentId }"
+    example: { ticketId: "T-4711", commentId: "C-1" }
+
+  - id: docs.search
+    title: Search runbooks
+    description: Searches EDRI's internal runbooks and hardware manuals; returns passages with their source.
+    access: read
+    classification: internal
+    allowedGroups: [EDRI-All]
+    args: { q: "question or keywords", limit: "1..10" }
+    returns: "{ passages: [{ source, heading, text, score }] }"
+    example:
+      {
+        passages:
+          [
+            {
+              source: "runbooks/rcd-trips.md",
+              heading: "Residual current trips",
+              text: "Check the RCD type B module before replacing the cable.",
+              score: 0.82,
+            },
+          ],
+      }
+
+  - id: sessions.revenue
+    title: Charging revenue
+    description: Energy delivered and revenue by site and month.
+    access: read
+    classification: confidential
+    allowedGroups: [EDRI-Commercial]
+    args: { country: "optional", site: "optional", months: "1..24" }
+    returns: "{ rows: [{ month, site, country, sessions, kWh, revenueEur }] }"
+    example: { rows: [{ month: "2026-09", site: "Essen Rüttenscheid", country: "DE", sessions: 4120, kWh: 98123, revenueEur: 58874.0 }] }
+
+  - id: partners.contracts
+    title: Location partner contracts
+    description: Terms of the contracts with location partners (rent, revenue share, term).
+    access: read
+    classification: confidential
+    allowedGroups: [EDRI-Legal, EDRI-Commercial]
+    args: { partner: "optional", site: "optional" }
+    returns: "{ rows: [{ partner, site, startDate, endDate, revenueSharePct, rentEurMonth }] }"
+    example:
+      {
+        rows:
+          [
+            {
+              partner: "Ruhr Retail GmbH",
+              site: "Essen Rüttenscheid",
+              startDate: "2024-03-01",
+              endDate: "2034-02-28",
+              revenueSharePct: 8,
+              rentEurMonth: 0,
+            },
+          ],
+      }
+
+  - id: teams.post
+    title: Post to a Teams channel
+    description: Posts a message to a Microsoft Teams channel the viewer belongs to.
+    access: write
+    classification: internal
+    allowedGroups: [EDRI-All]
+    external: true
+    args: { channel: "channel name", text: "1..4000 characters" }
+    returns: "{ messageId }"
+    example: { messageId: "M-1" }

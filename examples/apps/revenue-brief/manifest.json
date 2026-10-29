@@ -1,0 +1,24 @@
+{
+  "id": "revenue-brief",
+  "name": "Monthly revenue brief",
+  "description": "A short brief on energy delivered and revenue by site for the last months, for the commercial team.",
+  "audience": { "kind": "groups", "groups": ["EDRI-Commercial"] },
+  "handlers": [
+    {
+      "name": "brief",
+      "description": "Revenue and energy by site, with a written brief",
+      "input": {
+        "type": "object",
+        "properties": {
+          "country": { "type": "string", "enum": ["AT", "CZ", "DK", "DE", "HU", "IT", "NL", "PL", "RO", "SE", "GB"] },
+          "months": { "type": "number", "minimum": 1, "maximum": 12 }
+        },
+        "required": ["country", "months"]
+      }
+    }
+  ],
+  "models": [{ "alias": "smart", "maxTokensPerCall": 800 }],
+  "connectors": [{ "id": "sessions.revenue" }],
+  "collections": [],
+  "budget": { "eurPerDay": 10, "tokensPerUserPerDay": 100000 }
+}

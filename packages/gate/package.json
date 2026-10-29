@@ -1,0 +1,33 @@
+{
+  "name": "@foundry/gate",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "The publish gate: checks an app bundle against its manifest and the platform's rules, runs its tests, assigns a risk tier",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@foundry/contract": "workspace:*",
+    "@foundry/sandbox": "workspace:*",
+    "acorn": "8.19.0",
+    "acorn-walk": "8.3.5",
+    "zod": "4.6.7",
+    "yaml": "2.9.1"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.5",
+    "vitest": "5.0.5"
+  }
+}

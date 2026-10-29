@@ -1,0 +1,28 @@
+{
+  "pages": [
+    {
+      "id": "triage",
+      "title": "Triage",
+      "blocks": [
+        {
+          "type": "chat",
+          "handler": "ask",
+          "intro": "Name a charge point (for example **DE\\*EDR\\*E1001**) and ask what is wrong. Answers cite the events and runbooks they used.",
+          "placeholder": "Why does DE*EDR*E1001 keep tripping?",
+          "suggestions": ["Why is DE*EDR*E1001 faulted?", "What should the technician check first at DE*EDR*E1001?"]
+        },
+        {
+          "type": "form",
+          "handler": "addTicketNote",
+          "title": "Add the diagnosis to a ticket",
+          "fields": [
+            { "name": "ticketId", "label": "Ticket", "kind": "text", "required": true },
+            { "name": "note", "label": "Note", "kind": "textarea", "required": true }
+          ],
+          "submitLabel": "Add note",
+          "result": [{ "type": "markdown", "path": "summary" }]
+        }
+      ]
+    }
+  ]
+}

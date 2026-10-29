@@ -1,0 +1,30 @@
+{
+  "name": "@foundry/sandbox",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Runs app handlers in QuickJS compiled to WebAssembly, with only declared capabilities",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@foundry/contract": "workspace:*",
+    "@jitl/quickjs-wasmfile-release-sync": "0.32.0",
+    "quickjs-emscripten-core": "0.32.0"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.5",
+    "vitest": "5.0.5"
+  }
+}
